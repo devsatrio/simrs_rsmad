@@ -56,3 +56,22 @@ class Asuransi(models.Model):
           verbose_name_plural = "Asuransi"
     def __str__(self):
             return self.name   
+
+class Poliklinik(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      name=models.CharField(max_length=50)
+      class Meta:
+            verbose_name="Poliklinik"
+            verbose_name_plural = "Poliklinik"
+      def __str__(self):
+            return self.name
+
+class Bangsal(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      name=models.CharField(max_length=50)
+      status=models.BooleanField()
+      class Meta:
+            verbose_name="Bangsal"
+            verbose_name_plural = "Bangsal"
+      def __str__(self):
+            return self.name
