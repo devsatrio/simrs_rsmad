@@ -16,7 +16,7 @@ class negara(models.Model):
 
 class propinsi(models.Model):
     name=models.CharField(max_length=80)
-    negara = models.ForeignKey(negara,on_delete=models.DO_NOTHING,null=True)
+    negara = models.ForeignKey(negara,on_delete=models.RESTRICT,null=True)
     class Meta:
         verbose_name="Propinsi"
         verbose_name_plural="Propinsi"
@@ -26,7 +26,7 @@ class propinsi(models.Model):
 
 class kota(models.Model):
     name=models.CharField(max_length=80)
-    propinsi = models.ForeignKey(propinsi,on_delete=models.DO_NOTHING,null=True)
+    propinsi = models.ForeignKey(propinsi,on_delete=models.RESTRICT,null=True)
     class Meta:
         verbose_name="Kota"
         verbose_name_plural="Kota"
@@ -36,7 +36,7 @@ class kota(models.Model):
     
 class kecamatan(models.Model):
     name=models.CharField(max_length=80)
-    kota = models.ForeignKey(kota,on_delete=models.DO_NOTHING,null=True)
+    kota = models.ForeignKey(kota,on_delete=models.RESTRICT,null=True)
     class Meta:
         verbose_name="Kecamatan"
         verbose_name_plural="Kecamatan"
@@ -46,7 +46,7 @@ class kecamatan(models.Model):
 
 class kelurahan(models.Model):
     name=models.CharField(max_length=80)
-    kecamatan = models.ForeignKey(kecamatan,on_delete=models.DO_NOTHING,null=True)
+    kecamatan = models.ForeignKey(kecamatan,on_delete=models.RESTRICT,null=True)
     class Meta:
         verbose_name="Kelurahan"
         verbose_name_plural="Kelurahan"

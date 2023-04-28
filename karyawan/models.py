@@ -14,12 +14,12 @@ class StatusKaryawan(models.Model):
 class Karyawan(models.Model):
     nama=models.CharField(max_length=30)
     nama_lengkap=models.CharField(max_length=200)
-    user = models.OneToOneField(User,on_delete=models.DO_NOTHING,null=True,)
-    status_karyawan = models.ForeignKey(StatusKaryawan,on_delete=models.DO_NOTHING,null=True)
-    agama = models.ForeignKey(Agama,on_delete=models.DO_NOTHING,null=True)
-    jenis_kelamin = models.ForeignKey(JenisKelamin,on_delete=models.DO_NOTHING,null=True)
-    golongan_darah = models.ForeignKey(GolonganDarah,on_delete=models.DO_NOTHING,null=True)
-    status_nikah = models.ForeignKey(StatusNikah,on_delete=models.DO_NOTHING,null=True)
+    user = models.OneToOneField(User,on_delete=models.RESTRICT,null=True,blank=True)
+    status_karyawan = models.ForeignKey(StatusKaryawan,on_delete=models.RESTRICT,null=True)
+    agama = models.ForeignKey(Agama,on_delete=models.RESTRICT,null=True,blank=True)
+    jenis_kelamin = models.ForeignKey(JenisKelamin,on_delete=models.RESTRICT,null=True)
+    golongan_darah = models.ForeignKey(GolonganDarah,on_delete=models.RESTRICT,null=True)
+    status_nikah = models.ForeignKey(StatusNikah,on_delete=models.RESTRICT,null=True)
     class Meta:
           verbose_name="Karyawan"
           verbose_name_plural = "Karyawan"

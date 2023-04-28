@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'masterData',
     'masterWilayah',
     'pasien',
+    'frontOffice',
 ]
 
 MIDDLEWARE = [
@@ -131,7 +133,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR,"static"),
+]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -148,7 +152,7 @@ JAZZMIN_SETTINGS = {
     "site_brand": "SIMRS",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    "site_logo": "books/img/logo.png",
+    "site_logo": "static_img/logo_small.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
     "login_logo": None,
@@ -166,7 +170,7 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "Welcome to the SIMRS RSMAD",
 
     # Copyright on the footer
-    "copyright": "Acme Library Ltd",
+    "copyright": "EDP RSMAD",
 
     # List of model admins to search from the search bar, search bar omitted if excluded
     # If you want to use a single search field you dont need to use a list, you can use a simple string 
@@ -190,9 +194,10 @@ JAZZMIN_SETTINGS = {
 
         # # model admin to link to (Permissions checked against model)
         {"model": "pasien.pasien"},
+        #{"model": "frontOffice.registrasiPasien"},
 
         # # App with dropdown menu to all its models pages (Permissions checked against models)
-        # {"app": "books"},
+        {"app": "frontOffice"},
     ],
 
     #############
@@ -222,7 +227,18 @@ JAZZMIN_SETTINGS = {
     "hide_models": [],
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
-    "order_with_respect_to": ["pasien","karyawan","masterWilayah", "masterWilayah.negara", "masterWilayah.propinsi", "masterWilayah.kota","masterWilayah.kecamatan","masterWilayah.kelurahan","auth"],
+    "order_with_respect_to": [
+        "frontOffice",
+        "pasien",
+        "karyawan",
+        "masterWilayah", 
+        "masterWilayah.negara", 
+        "masterWilayah.propinsi", 
+        "masterWilayah.kota",
+        "masterWilayah.kecamatan",
+        "masterWilayah.kelurahan",
+        "auth",
+        ],
 
     # Custom links to append to app groups, keyed on app name
     "custom_links": {
@@ -244,6 +260,7 @@ JAZZMIN_SETTINGS = {
         "karyawan.Karyawan": "fas fa-child",
         "masterWilayah.negara": "fas fa-flag-usa",
         "pasien.pasien": "fas fa-wheelchair",
+        "frontOffice.registrasiPasien": "fas fa-user-plus",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",
@@ -278,4 +295,9 @@ JAZZMIN_SETTINGS = {
     "changeform_format": "horizontal_tabs",
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+}
+
+JAZZMIN_UI_TWEAKS = {
+    "navbar_fixed": True,
+    "actions_sticky_top": True
 }
