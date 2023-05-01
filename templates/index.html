@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>simrs RSMAD</title>
+  
+  <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome-free/css/all.min.css'%}">
+  <link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css'%}">
+</head>
+<body class="hold-transition lockscreen">
+<div class="lockscreen-wrapper">
+  <div class="lockscreen-logo">
+    <a href="#"><b>simrs</b> RSMAD</a>
+  </div>
+  <div class="lockscreen-name">Welcome</div>
+  <div class="help-block text-center">
+    Click link below to login
+  </div>
+  <div class="text-center">
+    <a href="{%url 'login' %}">Login</a>
+  </div>
+</div>
+<!-- /.center -->
+
+<!-- jQuery -->
+<script src="{% static 'assets/plugins/jquery/jquery.min.js'%}"></script>
+<script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+</body>
+</html>

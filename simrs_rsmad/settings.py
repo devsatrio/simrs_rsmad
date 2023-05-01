@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'masterData',
     'masterWilayah',
     'pasien',
-    'frontOffice',
+    'frontoffice',
 ]
 
 MIDDLEWARE = [
@@ -61,7 +61,7 @@ ROOT_URLCONF = 'simrs_rsmad.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -194,10 +194,10 @@ JAZZMIN_SETTINGS = {
 
         # # model admin to link to (Permissions checked against model)
         {"model": "pasien.pasien"},
-        #{"model": "frontOffice.registrasiPasien"},
+        {"model": "frontoffice.registrasi"},
 
         # # App with dropdown menu to all its models pages (Permissions checked against models)
-        {"app": "frontOffice"},
+        # {"app": "frontoffice"},
     ],
 
     #############
@@ -228,9 +228,10 @@ JAZZMIN_SETTINGS = {
 
     # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
     "order_with_respect_to": [
-        "frontOffice",
+        "frontoffice",
         "pasien",
         "karyawan",
+        "masterData",
         "masterWilayah", 
         "masterWilayah.negara", 
         "masterWilayah.propinsi", 
@@ -260,7 +261,7 @@ JAZZMIN_SETTINGS = {
         "karyawan.Karyawan": "fas fa-child",
         "masterWilayah.negara": "fas fa-flag-usa",
         "pasien.pasien": "fas fa-wheelchair",
-        "frontOffice.registrasiPasien": "fas fa-user-plus",
+        "frontoffice.registrasiPasien": "fas fa-user-plus",
     },
     # Icons that are used when one is not manually specified
     "default_icon_parents": "fas fa-chevron-circle-right",

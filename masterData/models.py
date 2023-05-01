@@ -75,3 +75,24 @@ class Bangsal(models.Model):
             verbose_name_plural = "Bangsal"
       def __str__(self):
             return self.name
+
+class kategori_perawatan(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      name=models.CharField(max_length=50)
+      class Meta:
+            verbose_name="Kategori Perawatan"
+            verbose_name_plural = "Kategori Perawatan"
+      def __str__(self):
+            return self.name
+
+
+class perawatan_rawat_jalan(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      nama_perawatan=models.CharField(max_length=50)
+      kategori = models.ForeignKey(kategori_perawatan,on_delete=models.RESTRICT,null=True,blank=True)
+      status=models.BooleanField()
+      class Meta:
+            verbose_name="Perawatan Rawat Jalan"
+            verbose_name_plural = "Perawatan Rawat Jalan"
+      def __str__(self):
+            return self.nama_perawatan

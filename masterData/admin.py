@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Agama,GolonganDarah,JenisKelamin,StatusNikah,JenisPekerjaan, StrataPendidikan, Asuransi, Poliklinik,Bangsal
+from .models import perawatan_rawat_jalan,Agama,GolonganDarah,JenisKelamin,StatusNikah,JenisPekerjaan, StrataPendidikan, Asuransi, Poliklinik,Bangsal,kategori_perawatan
 
 # Register your models here.
 
@@ -10,6 +10,8 @@ admin.site.register(StatusNikah)
 admin.site.register(JenisPekerjaan)
 admin.site.register(StrataPendidikan)
 admin.site.register(Asuransi)
+admin.site.register(kategori_perawatan)
+admin.site.register(perawatan_rawat_jalan)
 
 class PoliklinikAdmin(admin.ModelAdmin):
     list_display = ["kode","name"]
