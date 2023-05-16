@@ -17,12 +17,16 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 from django.views.generic.base import RedirectView
+from crudbuilder import urls
 from . import views
 
 urlpatterns = [
     # path('', RedirectView.as_view(url=reverse_lazy('admin:index'))),
     path('',views.index,name='index'),
     path('login',views.login,name='login'),
+    path('logout',views.logout,name='logout'),
+    path('dashboard',views.dashboard,name='dashboard'),
     path('admin/', admin.site.urls),
-    path('pasien/', include('pasien.urls'))
+    path('pasien/', include('pasien.urls')),
+    path('crud/',  include('crudbuilder.urls')),
 ]

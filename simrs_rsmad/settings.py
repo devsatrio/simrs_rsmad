@@ -26,7 +26,11 @@ SECRET_KEY = 'django-insecure-o8(owg#%@)ux0^no+)fv0inj*r+-m1beb+c0li3+h@1^3pykbo
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+  'localhost',
+  '127.0.0.1',
+  '111.222.333.444',
+  'mywebsite.example']
 
 
 # Application definition
@@ -44,6 +48,8 @@ INSTALLED_APPS = [
     'masterWilayah',
     'pasien',
     'frontoffice',
+    'django_tables2',
+    'crudbuilder',
 ]
 
 MIDDLEWARE = [
