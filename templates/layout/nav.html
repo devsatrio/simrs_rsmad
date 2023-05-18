@@ -6,7 +6,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="index3.html" class="nav-link">Home</a>
+            <a href="/dashboard" class="nav-link">Home</a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
@@ -139,12 +139,8 @@
                 <a href="{% url 'logout' %}" class="dropdown-item">
                     <i class="fas fa-power-off"></i> Log out
                 </a>
-                
-                
                 <div class="dropdown-divider"></div>
-                
-                    <a href="/admin/auth/user/1/change/" class="dropdown-item dropdown-footer">See Profile</a>
-                
+                <a href="/admin/auth/user/1/change/" class="dropdown-item dropdown-footer">See Profile</a>
             </div>
         </li>
         {% endif %}
@@ -173,59 +169,103 @@
             </div>
         </div>
         {% endif %}
-
-        <!-- SidebarSearch Form -->
-        <div class="form-inline">
-            <div class="input-group" data-widget="sidebar-search">
-                <input class="form-control form-control-sidebar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-sidebar">
-                        <i class="fas fa-search fa-fw"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- Sidebar Menu -->
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                <!-- Add icons to the links using the .nav-icon class
-       with font-awesome or any other icon font library -->
-                <li class="nav-item menu-open">
-                    <a href="#" class="nav-link active">
-                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-database"></i>
                         <p>
-                            Starter Pages
+                            Master Data
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="/crud/masterData/master-data-agama" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Active Page</p>
+                                <p>Agama</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="/crud/masterData/master-data-jenis-kelamin" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Inactive Page</p>
+                                <p>Jenis Kelamin</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/crud/masterData/master-data-golongan-darah" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Golongan Darah</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/crud/masterData/master-data-status-nikah" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Status Nikah</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/crud/masterData/master-data-strata-pendidikan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Strata Pendidikan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/crud/masterData/master-data-jenis-pekerjaan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jenis Pekerjaan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/crud/masterData/master-data-asuransi" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Asuransi</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/crud/masterData/master-data-poliklinik" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Poliklinik</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/crud/masterData/master-data-bangsal" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Bangsal</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/crud/masterData/master-data-kategori-perawatan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kategori Perawatan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/crud/masterData/master-data-perawatan-rawat-jalan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Perawatan Rawat Jalan</p>
                             </a>
                         </li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
+                        <i class="nav-icon fas fa-users"></i>
                         <p>
-                            Simple Link
-                            <span class="right badge badge-danger">New</span>
+                            Karyawan
+                            <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="/crud/karyawan/status-karyawan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Status Karyawan</p>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
-        </nav>
-        <!-- /.sidebar-menu -->
+        </nav>s
     </div>
-    <!-- /.sidebar -->
 </aside>
