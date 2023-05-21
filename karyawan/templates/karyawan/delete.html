@@ -14,9 +14,15 @@
                         <hr class="my-4">
                         <p>Data tidak dapat dipulihkan kembali setelah di hapus</p>
                         <p class="lead">
-                          <a class="btn btn-danger" href="{% url 'karyawan:show' karyawan.id %}" role="button">Back</a>
+                            
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <a class="btn btn-danger" href="{% url 'karyawan:show' karyawan.id %}"
+                                role="button">Back</a>
+                                <button class="btn btn-success" type="submit">Delete</button>
+                        </form>
                         </p>
-                      </div>
+                    </div>
                 </div>
             </div>
         </div>

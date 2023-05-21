@@ -22,10 +22,11 @@
                         <div class="card-body">
                             <a href="{% url 'karyawan:index' %}" class="btn btn-sm btn-danger">Back</a>
                             <a href="{% url 'karyawan:destroy' karyawan.id %}" class="btn btn-sm btn-warning">Delete</a>
+                            <a href="{% url 'karyawan:edit' karyawan.id %}" class="btn btn-sm btn-success">Edit</a>
                             <table class="table table-bordered mt-3">
                                 <tbody>
                                     <tr>
-                                        <td>Id</td>
+                                        <td width="20%">Id</td>
                                         <td>{{karyawan.id}}</td>
                                     </tr>
                                     <tr>

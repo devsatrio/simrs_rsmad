@@ -24,12 +24,12 @@
 				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-header">
-							<h5 class="m-0">Add Data</h5>
+                            <h3 class="card-title">Add Data</h3>
 							<div class="card-tools">
 								<a class="btn btn-danger btn-sm"
 									href="{% url app_label|add:'-'|add:custom_postfix_url|add:'-list' %}">Back</a>
 							</div>
-						</div>
+                        </div>
 						<div class="card-body">
 							{% include "crudbuilder/widgets/form.html" %}
 						</div>
