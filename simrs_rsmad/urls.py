@@ -29,4 +29,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('pasien/', include('pasien.urls')),
     path('crud/',  include('crudbuilder.urls')),
+    path('karyawan/',include('karyawan.urls')),
 ]

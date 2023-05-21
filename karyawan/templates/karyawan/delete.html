@@ -1,0 +1,25 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="jumbotron mt-3">
+                        <h1 class="display-4">Hapus Data Karyawan ?</h1>
+                        <p class="lead">
+                            Hapus data karyawan <b>{{karyawan.nama_lengkap}}</b>
+                        </p>
+                        <hr class="my-4">
+                        <p>Data tidak dapat dipulihkan kembali setelah di hapus</p>
+                        <p class="lead">
+                          <a class="btn btn-danger" href="{% url 'karyawan:show' karyawan.id %}" role="button">Back</a>
+                        </p>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

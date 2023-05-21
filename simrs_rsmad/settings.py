@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'frontoffice',
     'django_tables2',
     'crudbuilder',
+    'django_filters',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -307,4 +309,13 @@ JAZZMIN_SETTINGS = {
 JAZZMIN_UI_TWEAKS = {
     "navbar_fixed": True,
     "actions_sticky_top": True
+}
+
+DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4-responsive.html"
+BOOTSTRAP4 = {
+     # Class to indicate error (better to set this in your Django form)
+    'error_css_class': 'is-invalid',
+
+    # Class to indicate success, meaning the field has valid input (better to set this in your Django form)
+    'success_css_class': 'is-valid',
 }
