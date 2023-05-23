@@ -1,6 +1,22 @@
 from crudbuilder.abstract import BaseCrudBuilder
-from .models import Agama,JenisKelamin,GolonganDarah,StatusNikah,StrataPendidikan,JenisPekerjaan,Asuransi,Poliklinik,Bangsal,kategori_perawatan,perawatan_rawat_jalan
+from .models import Agama,JenisKelamin,GolonganDarah,StatusNikah,StrataPendidikan,JenisPekerjaan,Asuransi,Poliklinik,Bangsal,kategori_perawatan,perawatan_rawat_jalan,Unit
 
+class UnitCrud(BaseCrudBuilder):
+    model = Unit
+    tables2_css_class = "table table-bordered table-condensed"
+    login_required = True
+    permission_required = True
+    search_fields = ['kode','name']
+    tables2_fields = ('kode','name')
+    custom_postfix_url = 'master-data-unit'
+    permissions = {
+        'list'  : 'masterData.view_unit',
+        'create': 'masterData.add_unit',
+        'detail': 'masterData.view_unit',
+        'update': 'masterData.change_unit',
+        'delete': 'masterData.delete_unit',
+    }
+    
 class AgamaCrud(BaseCrudBuilder):
     model = Agama
     tables2_css_class = "table table-bordered table-condensed"

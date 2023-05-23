@@ -172,6 +172,13 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
+                    <a href="{%url 'dashboard' %}" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                {% if 'masterData' in perms %}
+                <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
@@ -228,12 +235,26 @@
                                 <p>Poliklinik</p>
                             </a>
                         </li>
+
+                        {% if perms.masterData.view_bangsal %}
                         <li class="nav-item">
                             <a href="/crud/masterData/master-data-bangsal" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Bangsal</p>
                             </a>
                         </li>
+                        {% endif %}
+
+
+                        {% if perms.masterData.view_unit %}
+                        <li class="nav-item">
+                            <a href="/crud/masterData/master-data-unit" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Unit</p>
+                            </a>
+                        </li>
+                        {% endif %}
+                        
                         <li class="nav-item">
                             <a href="/crud/masterData/master-data-kategori-perawatan" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
@@ -248,6 +269,7 @@
                         </li>
                     </ul>
                 </li>
+                {% endif %}
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
@@ -258,9 +280,27 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
+                            <a href="/crud/karyawan/golongan-karyawan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Golongan Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/crud/karyawan/jabatan-karyawan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jabatan Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="/crud/karyawan/status-karyawan" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Status Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="/crud/karyawan/kategori-berkas-karyawan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kategori Berkas</p>
                             </a>
                         </li>
                         <li class="nav-item">

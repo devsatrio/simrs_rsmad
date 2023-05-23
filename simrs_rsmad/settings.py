@@ -265,6 +265,10 @@ JAZZMIN_SETTINGS = {
         "auth": "fas fa-users-cog",
         "auth.user": "fas fa-user",
         "auth.Group": "fas fa-users",
+        "karyawan.GolonganKaryawan": "fas fa-ticket-alt",
+        "karyawan.JabatanKaryawan": "fas fa-vest",
+        "karyawan.KategoriBerkasKaryawan": "fas fa-stream",
+        "karyawan.BerkasKaryawan": "fas fa-suitcase",
         "karyawan.StatusKaryawan": "fas fa-tags",
         "karyawan.Karyawan": "fas fa-child",
         "masterWilayah.negara": "fas fa-flag-usa",
@@ -319,3 +323,7 @@ BOOTSTRAP4 = {
     # Class to indicate success, meaning the field has valid input (better to set this in your Django form)
     'success_css_class': 'is-valid',
 }
+
+MEDIA_URL = '/media/'
+
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')

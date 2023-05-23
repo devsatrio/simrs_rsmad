@@ -18,4 +18,7 @@ class KaryawanForm(forms.ModelForm):
             "jenis_kelamin",
             "golongan_darah",
             "status_nikah",
+            "golongan_karyawan",
+            "jabatan_karyawan",
+            "unit",
         ]

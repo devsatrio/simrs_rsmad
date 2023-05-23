@@ -66,6 +66,15 @@ class Poliklinik(models.Model):
       def __str__(self):
             return self.name
 
+class Unit(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      name=models.CharField(max_length=50)
+      class Meta:
+            verbose_name="Unit"
+            verbose_name_plural = "Unit"
+      def __str__(self):
+            return self.name
+
 class Bangsal(models.Model):
       kode=models.CharField(max_length=30,unique=True)
       name=models.CharField(max_length=50)
@@ -84,7 +93,6 @@ class kategori_perawatan(models.Model):
             verbose_name_plural = "Kategori Perawatan"
       def __str__(self):
             return self.name
-
 
 class perawatan_rawat_jalan(models.Model):
       kode=models.CharField(max_length=30,unique=True)

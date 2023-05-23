@@ -17,6 +17,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, reverse_lazy
 from django.views.generic.base import RedirectView
+from django.conf import settings #add this
+from django.conf.urls.static import static #add this
 from crudbuilder import urls
 from . import views
 
@@ -30,4 +32,4 @@ urlpatterns = [
     path('pasien/', include('pasien.urls')),
     path('crud/',  include('crudbuilder.urls')),
     path('karyawan/',include('karyawan.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
