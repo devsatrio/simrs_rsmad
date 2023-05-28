@@ -52,6 +52,7 @@ INSTALLED_APPS = [
     'crudbuilder',
     'django_filters',
     'bootstrap4',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

@@ -1,7 +1,13 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
+from django_cleanup import cleanup
 from masterData.models import Agama, GolonganDarah, JenisKelamin, StatusNikah, Unit
+
+class StatusBerkasChoices(models.TextChoices):
+      diajukan = 'Berkas Diajukan', 'Berkas Diajukan'
+      berkas_ditolak = 'Berkas Ditolak', 'Berkas Ditolak'
+      berkas_diterima = 'Berkas Diterima', 'Berkas Diterima'
 
 # Create your models here.
 class StatusKaryawan(models.Model):
@@ -39,8 +45,17 @@ class KategoriBerkasKaryawan(models.Model):
                   return self.nama
 
 class Karyawan(models.Model):
+    nik=models.CharField(max_length=30,null=True,blank=True)
     nama=models.CharField(max_length=30)
     nama_lengkap=models.CharField(max_length=200)
+    no_telfon=models.CharField(max_length=30,null=True,blank=True)
+    no_karyawan_tetap=models.CharField(max_length=30,null=True,blank=True)
+    tempat_lahir=models.CharField(max_length=30,null=True,blank=True)
+    tgl_lahir=models.DateField(max_length=30,null=True,blank=True)
+    no_str=models.CharField(max_length=30,null=True,blank=True)
+    tgl_berlaku_str=models.DateField(max_length=30,null=True,blank=True)
+    no_sip=models.CharField(max_length=30,null=True,blank=True)
+    tgl_berlaku_sip=models.DateField(max_length=30,null=True,blank=True)
     user = models.OneToOneField(User,on_delete=models.RESTRICT,null=True,blank=True)
     status_karyawan = models.ForeignKey(StatusKaryawan,on_delete=models.RESTRICT,null=True)
     agama = models.ForeignKey(Agama,on_delete=models.RESTRICT,null=True,blank=True)
@@ -56,6 +71,7 @@ class Karyawan(models.Model):
     def __str__(self):
             return self.nama_lengkap
 
+@cleanup.select
 class BerkasKaryawan(models.Model):
       karyawan = models.ForeignKey(Karyawan,on_delete=models.RESTRICT,null=True,blank=True)
       nama_berkas=models.CharField(max_length=200)
@@ -63,11 +79,12 @@ class BerkasKaryawan(models.Model):
       berkas = models.FileField(upload_to='documents/', blank=True,null=True)
       verifikator = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.RESTRICT,null=True,blank=True)
       keterangan_verifikator = models.TextField(max_length=300,blank=True,null=True)
+      status_berkas = models.CharField(max_length=50,choices=StatusBerkasChoices.choices,default=StatusBerkasChoices.diajukan)
       class Meta:
             verbose_name="Berkas Karyawan"
             verbose_name_plural = "Berkas Karyawan"
             permissions = [
-                  ("verif_berkas", "Can verif the status of berkas"),
+                  ("berkas_saya", "Can access berkas saya"),
             ]
       def __str__(self):
                   return self.nama_berkas

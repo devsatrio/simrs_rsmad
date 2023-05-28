@@ -30,8 +30,7 @@ admin.site.register(KategoriBerkasKaryawan, KategoriBerkasKaryawanAdmin)
 
 #===========================================================================================================================
 class BerkasKaryawanAdmin(admin.ModelAdmin):
-    fields = ['karyawan','nama_berkas','kategori','berkas','verifikator','keterangan_verifikator']
-    list_display = ('karyawan','nama_berkas','kategori','berkas','verifikator','keterangan_verifikator')
+    list_display = ('karyawan','nama_berkas','kategori','berkas','verifikator','keterangan_verifikator','status_berkas')
 
 admin.site.register(BerkasKaryawan, BerkasKaryawanAdmin)
 
