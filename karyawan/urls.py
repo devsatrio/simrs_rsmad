@@ -4,6 +4,8 @@ from . import views
 app_name='karyawan'
 
 urlpatterns = [
+    path('cari-berkas/<int:karyawan_id>', views.berkas_list, name = 'berkas_list'),
+    
     # karyawan
 	path('index',views.index,name='index'),
 	path('create',views.create,name='create'),

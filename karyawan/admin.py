@@ -1,6 +1,42 @@
 from django.contrib import admin
-from .models import StatusKaryawan,Karyawan,JabatanKaryawan,GolonganKaryawan,KategoriBerkasKaryawan,BerkasKaryawan
+from django.utils.html import format_html
+from .forms import RiwayatPedidikanKaryawanAdminForm
+from .models import KarirKaryawan,StatusKaryawan,Karyawan,JabatanKaryawan,GolonganKaryawan,KategoriBerkasKaryawan,BerkasKaryawan,RiwayatPendidikanKaryawan
 # Register your models here.
+
+
+#===========================================================================================================================
+class KarirKaryawanAdmin(admin.ModelAdmin):
+    list_filter = ["karyawan"]
+    list_display = ('karyawan','unit','jabatan','tahun_menjabat','tahun_berhenti_menjabat','berkas','nama_berkas')
+    def nama_berkas(self, obj):
+        if obj.berkas:
+            return format_html("<a href='%s' download>Download</a>" % (obj.berkas.berkas.url,))
+        else:
+            return "No attachment"
+    nama_berkas.allow_tags = True
+    nama_berkas.short_description = 'File Download'
+
+admin.site.register(KarirKaryawan, KarirKaryawanAdmin)
+
+#===========================================================================================================================
+class RiwayatPendidikanKaryawanAdmin(admin.ModelAdmin):
+    list_filter = ["nama_sekolah"]
+    list_display = ('karyawan','strata_pendidikan','nama_sekolah','tahun_lulus','berkas','nama_berkas')
+    form = RiwayatPedidikanKaryawanAdminForm
+    class Media:
+        js = (
+            'js/chained-berkas.js',
+        )
+    def nama_berkas(self, obj):
+        if obj.berkas:
+            return format_html("<a href='%s' download>Download</a>" % (obj.berkas.berkas.url,))
+        else:
+            return "No attachment"
+    nama_berkas.allow_tags = True
+    nama_berkas.short_description = 'File Download'
+
+admin.site.register(RiwayatPendidikanKaryawan, RiwayatPendidikanKaryawanAdmin)
 
 #===========================================================================================================================
 class StatusKaryawanAdmin(admin.ModelAdmin):

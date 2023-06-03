@@ -1,6 +1,48 @@
 
 from django import forms
-from .models import Karyawan,BerkasKaryawan
+from .models import Karyawan,BerkasKaryawan,RiwayatPendidikanKaryawan
+
+class RiwayatPedidikanKaryawanAdminForm(forms.ModelForm):
+    class Meta:
+        model = RiwayatPendidikanKaryawan
+        fields = '__all__'
+        
+    def __init__(self, *args, **kwargs):
+        super(RiwayatPedidikanKaryawanAdminForm, self).__init__(*args, **kwargs)
+
+        try:
+            self.initial['karyawan'] = kwargs['instance'].karyawan.id
+        except:
+            pass
+        karyawan_list = [('', '---------')] + [(i.id, i.nama) for i in Karyawan.objects.all()]
+
+        try:
+            self.initial['berkas'] = kwargs['instance'].BerkasKaryawan.id
+            berkas_init_form = [(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+        except:
+            try:
+                berkas_init_form = [('', '---------'),] +[(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+            except:
+                berkas_init_form = [('', '---------'),]
+        
+        # Override the form, add onchange attribute to call the ajax function
+        self.fields['karyawan'].widget = forms.Select(
+            attrs={
+                'id': 'karyawan',
+                'onchange': 'getBerkasKaryawan(this.value)',
+                'style': 'width:200px'
+            },
+            choices=karyawan_list,
+        )
+
+        self.fields['berkas'].widget = forms.Select(
+            attrs={
+                'id': 'berkas_karyawan',
+                'style': 'width:200px'
+            },
+            choices=berkas_init_form,
+        )
+
 
 #========================================================================================================================
 class KaryawanForm(forms.ModelForm):

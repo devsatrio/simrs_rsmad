@@ -2,12 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 from django_cleanup import cleanup
-from masterData.models import Agama, GolonganDarah, JenisKelamin, StatusNikah, Unit
+from masterData.models import Agama, GolonganDarah, JenisKelamin, StatusNikah, Unit,StrataPendidikan,Unit
 
 class StatusBerkasChoices(models.TextChoices):
       diajukan = 'Berkas Diajukan', 'Berkas Diajukan'
       berkas_ditolak = 'Berkas Ditolak', 'Berkas Ditolak'
       berkas_diterima = 'Berkas Diterima', 'Berkas Diterima'
+
 
 # Create your models here.
 class StatusKaryawan(models.Model):
@@ -89,4 +90,27 @@ class BerkasKaryawan(models.Model):
       def __str__(self):
                   return self.nama_berkas
 
-    
+class RiwayatPendidikanKaryawan(models.Model):
+      karyawan = models.ForeignKey(Karyawan,on_delete=models.RESTRICT,null=True,blank=True)
+      strata_pendidikan = models.ForeignKey(StrataPendidikan,on_delete=models.RESTRICT)
+      nama_sekolah=models.CharField(max_length=80)
+      tahun_lulus=models.CharField(max_length=10)
+      berkas=models.ForeignKey(BerkasKaryawan,on_delete=models.RESTRICT,blank=True,null=True)
+      class Meta:
+            verbose_name="Riwayat Pendidikan Karyawan"
+            verbose_name_plural = "Riwayat Pendidikan Karyawan"
+      def __str__(self):
+                  return self.nama_sekolah
+
+class KarirKaryawan(models.Model):
+      karyawan = models.ForeignKey(Karyawan,on_delete=models.RESTRICT,null=True,blank=True)
+      unit = models.ForeignKey(Unit,on_delete=models.RESTRICT)
+      jabatan = models.ForeignKey(JabatanKaryawan,on_delete=models.RESTRICT)
+      tahun_menjabat=models.CharField(max_length=10)
+      tahun_berhenti_menjabat=models.CharField(max_length=10,blank=True,null=True)
+      berkas=models.ForeignKey(BerkasKaryawan,on_delete=models.RESTRICT)
+      class Meta:
+            verbose_name="Karir Karyawan"
+            verbose_name_plural = "Karir Karyawan"
+      def __str__(self):
+                  return self.tahun_menjabat

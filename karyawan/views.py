@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect
+from django.http import JsonResponse
 from .tables import KaryawanTable,BerkasSayaTable,BerkasKaryawanTable
 from .models import Karyawan,BerkasKaryawan
 from .filters import KaryawanFilter,BerkasSayaFilter,BerkasKaryawanFilter
@@ -8,6 +9,12 @@ from django.shortcuts import get_object_or_404
 from django.db.models import ProtectedError
 from django_tables2 import RequestConfig
 from django.contrib.auth.decorators import login_required,permission_required
+
+#========================================================================================================================
+@login_required
+def berkas_list(request,karyawan_id):
+    berkas_data = BerkasKaryawan.objects.filter(karyawan=karyawan_id).filter(status_berkas='Berkas Diterima')
+    return JsonResponse({'data': [{'id': k.id, 'name': k.nama_berkas} for k in berkas_data]})
 
 #========================================================================================================================
 @login_required
