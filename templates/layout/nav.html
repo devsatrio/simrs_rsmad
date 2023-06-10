@@ -1,3 +1,4 @@
+{% load static %}
 <!-- Navbar -->
 <nav class="main-header navbar navbar-expand navbar-white navbar-light">
     <!-- Left navbar links -->
@@ -6,7 +7,7 @@
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
         <li class="nav-item d-none d-sm-inline-block">
-            <a href="/dashboard" class="nav-link">Home</a>
+            <a href="{%url 'dashboard' %}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Dashboard"><i class="fas fa-tachometer-alt"></i></a>
         </li>
         <!-- <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
@@ -105,11 +106,13 @@
             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-left" style="left: inherit; right: 0px;">
                 <span class="dropdown-header">Account</span>
                 <div class="dropdown-divider"></div>
+                <a href="{% url 'profile' %}" class="dropdown-item">
+                    <i class="far fa-user"></i> See Profile
+                </a>
                 <a href="{% url 'logout' %}" class="dropdown-item">
                     <i class="fas fa-power-off"></i> Log out
                 </a>
                 <div class="dropdown-divider"></div>
-                <a href="/admin/auth/user/1/change/" class="dropdown-item dropdown-footer">See Profile</a>
             </div>
         </li>
         {% endif %}
@@ -120,8 +123,8 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <!-- <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8"> -->
+    <a href="{%url 'dashboard' %}" class="brand-link">
+        <img src="{% static 'static_img/logo.png' %}" alt="My image" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">SIMRS RSMAD</span>
     </a>
 
@@ -130,11 +133,11 @@
         <!-- Sidebar user panel (optional) -->
         {% if user.is_authenticated %}
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-            <!-- <div class="image">
-  <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-</div> -->
+            <div class="image">
+            <img src="{% static 'static_img/user.png' %}" class="img-circle elevation-2" alt="User Image">
+            </div>
             <div class="info">
-                <a href="#" class="d-block">{{user.username}}</a>
+                <a href="{% url 'profile'%}" class="d-block">{{user.username}}</a>
             </div>
         </div>
         {% endif %}
@@ -239,7 +242,8 @@
                     </ul>
                 </li>
                 {% endif %}
-                {% if 'karyawan' in perms %}
+                
+                {% if perms.karyawan.view_golongankaryawan or perms.karyawan.view_jabatankaryawan or perms.karyawan.view_statuskaryawan or perms.karyawan.view_karyawan or perms.karyawan.view_berkaskaryawan or perms.karyawan.view_karirkaryawan %}
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
@@ -273,14 +277,6 @@
                             </a>
                         </li>
                         {% endif %}
-                        {% if perms.karyawan.view_kategoriberkaskaryawan %}
-                        <li class="nav-item">
-                            <a href="/crud/karyawan/kategori-berkas-karyawan" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Kategori Berkas</p>
-                            </a>
-                        </li>
-                        {% endif %}
                         {% if perms.karyawan.view_karyawan %}
                         <li class="nav-item">
                             <a href="{%url 'karyawan:index' %}" class="nav-link">
@@ -297,11 +293,44 @@
                             </a>
                         </li>
                         {% endif %}
+                        {% if perms.karyawan.view_karirkaryawan %}
+                        <li class="nav-item">
+                            <a href="{%url 'karyawan:karir-karyawan-index' %}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Karir Karyawan</p>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a href="{%url 'karyawan:pelatihan-karyawan-index' %}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pelatihan Karyawan</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{%url 'karyawan:riwayat-pendidikan-karyawan-index' %}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Riwayat Pendidikan <br> Karyawan</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                {% endif %}
+                {% if perms.karyawan.berkas_saya %}
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-user-edit"></i>
+                        <p>
+                            Data Saya
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
                         {% if perms.karyawan.berkas_saya %}
                         <li class="nav-item">
                             <a href="{%url 'karyawan:berkas-saya-index' %}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Berkas Saya</p>
+                                <p>Berkas</p>
                             </a>
                         </li>
                         {% endif %}

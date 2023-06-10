@@ -1,14 +1,245 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
-from .tables import KaryawanTable,BerkasSayaTable,BerkasKaryawanTable
-from .models import Karyawan,BerkasKaryawan
-from .filters import KaryawanFilter,BerkasSayaFilter,BerkasKaryawanFilter
-from .forms import KaryawanForm,BerkasSayaForm,BerkasKaryawanForm
+from .tables import KaryawanTable,BerkasSayaTable,BerkasKaryawanTable,KarirKaryawanTable,RiwayatPendidikanKaryawanTable,PelatihanKaryawanTable
+from .models import Karyawan,BerkasKaryawan,KarirKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan
+from .filters import KaryawanFilter,BerkasSayaFilter,BerkasKaryawanFilter,KarirKaryawanFilter,RiwayatPendidikanKaryawanFilter,PelatihanKaryawanFilter
+from .forms import KaryawanForm,BerkasSayaForm,BerkasKaryawanForm,KarirKaryawanForm,RiwayatPendidikanKaryawanForm,PelatihanKaryawanForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.db.models import ProtectedError
 from django_tables2 import RequestConfig
 from django.contrib.auth.decorators import login_required,permission_required
+
+#========================================================================================================================
+@login_required
+def destroypelatihankaryawan(request,id):
+    if request.method == 'POST':
+        data_dihapus = PelatihanKaryawan.objects.get(id=id)
+        try:
+            data_dihapus.delete()
+            messages.success(request, 'Data Berhasil Dihapus')
+            return redirect('karyawan:pelatihan-karyawan-index')
+        except ProtectedError:
+            messages.error(request, 'Data Gagal Dihapus')
+            return redirect('karyawan:pelatihan-karyawan-destroy',id=id)
+    
+    data =get_object_or_404(PelatihanKaryawan,pk=id) 
+    context = {
+        'data':data,
+    }
+    return render(request,'pelatihan_karyawan/delete.html',context)
+
+#========================================================================================================================
+@login_required
+def editpelatihankaryawan(request,id):
+    obj = get_object_or_404(PelatihanKaryawan, id = id)
+    form = PelatihanKaryawanForm(request.POST or None, instance = obj)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Data Berhasil Diedit')
+        return redirect('karyawan:pelatihan-karyawan-index')
+    
+    context={
+        'form':form,
+        'title':'Pelatihan Karyawan',
+        'status_form':'Edit Data',
+    }
+    return render(request,'pelatihan_karyawan/form.html',context)
+
+#========================================================================================================================
+@login_required
+def showpelatihankaryawan(request,id):
+    data =get_object_or_404(PelatihanKaryawan,pk=id) 
+    context = {
+        'title':'Pelatihan Karyawan',
+        'data':data,
+    }
+    return render(request,'pelatihan_karyawan/show.html',context)
+
+#========================================================================================================================
+@login_required
+def createpelatihankaryawan(request):
+    form = PelatihanKaryawanForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Data Berhasil Disimpan')
+        return redirect('karyawan:pelatihan-karyawan-index')
+    
+    context={
+        'form':form,
+        'title':'Pelatihan Karyawan',
+        'status_form':'Add Data',
+    }
+    return render(request,'pelatihan_karyawan/form.html',context)
+
+#========================================================================================================================
+@login_required
+def indexpelatihankaryawan(request):
+    f = PelatihanKaryawanFilter(request.GET, queryset=PelatihanKaryawan.objects.all().order_by('-pk'))
+    tabelnya = PelatihanKaryawanTable(f.qs)
+    tabelnya.paginate(page=request.GET.get("page", 1), per_page=50)
+    context = {
+        'title':'Pelatihan Karyawan',
+        'tabelnya':tabelnya,
+        'filter':f,
+    }
+    return render(request,'pelatihan_karyawan/index.html',context)
+
+#========================================================================================================================
+@login_required
+def destroyriwayatpendidikankaryawan(request,id):
+    if request.method == 'POST':
+        data_dihapus = RiwayatPendidikanKaryawan.objects.get(id=id)
+        try:
+            data_dihapus.delete()
+            messages.success(request, 'Data Berhasil Dihapus')
+            return redirect('karyawan:riwayat-pendidikan-karyawan-index')
+        except ProtectedError:
+            messages.error(request, 'Data Gagal Dihapus')
+            return redirect('karyawan:riwayat-pendidikan-karyawan-destroy',id=id)
+    
+    data =get_object_or_404(RiwayatPendidikanKaryawan,pk=id) 
+    context = {
+        'data':data,
+    }
+    return render(request,'riwayat_pendidikan_karyawan/delete.html',context)
+
+    
+#========================================================================================================================
+@login_required
+def editriwayatpendidikankaryawan(request,id):
+    obj = get_object_or_404(RiwayatPendidikanKaryawan, id = id)
+    form = RiwayatPendidikanKaryawanForm(request.POST or None, instance = obj)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Data Berhasil Diedit')
+        return redirect('karyawan:riwayat-pendidikan-karyawan-index')
+    
+    context={
+        'form':form,
+        'title':'Riwayat Pendidikan Karyawan',
+        'status_form':'Edit Data',
+    }
+    return render(request,'riwayat_pendidikan_karyawan/form.html',context)
+
+#========================================================================================================================
+@login_required
+def showriwayatpendidikankaryawan(request,id):
+    data =get_object_or_404(RiwayatPendidikanKaryawan,pk=id) 
+    context = {
+        'title':'Riwayat Pendidikan Karyawan',
+        'data':data,
+    }
+    return render(request,'riwayat_pendidikan_karyawan/show.html',context)
+
+#========================================================================================================================
+@login_required
+def createriwayatpendidikankaryawan(request):
+    form = RiwayatPendidikanKaryawanForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Data Berhasil Disimpan')
+        return redirect('karyawan:riwayat-pendidikan-karyawan-index')
+    
+    context={
+        'form':form,
+        'title':'Riwayat Pendidikan Karyawan',
+        'status_form':'Add Data',
+    }
+    return render(request,'riwayat_pendidikan_karyawan/form.html',context)
+
+#========================================================================================================================
+@login_required
+def indexriwayatpendidikankaryawan(request):
+    f = RiwayatPendidikanKaryawanFilter(request.GET, queryset=RiwayatPendidikanKaryawan.objects.all().order_by('-pk'))
+    tabelnya = RiwayatPendidikanKaryawanTable(f.qs)
+    tabelnya.paginate(page=request.GET.get("page", 1), per_page=50)
+    context = {
+        'title':'Riwayat Pendidikan Karyawan',
+        'tabelnya':tabelnya,
+        'filter':f,
+    }
+    return render(request,'riwayat_pendidikan_karyawan/index.html',context)
+
+#========================================================================================================================
+@login_required
+@permission_required('karyawan.view_karirkaryawan')
+def indexkarirkaryawan(request):
+    f = KarirKaryawanFilter(request.GET, queryset=KarirKaryawan.objects.all())
+    tabelnya = KarirKaryawanTable(f.qs)
+    tabelnya.paginate(page=request.GET.get("page", 1), per_page=50)
+    context = {
+        'title':'Karir Karyawan',
+        'tabelnya':tabelnya,
+        'filter':f,
+    }
+    return render(request,'karir_karyawan/index.html',context)
+
+#========================================================================================================================
+@login_required
+@permission_required('karyawan.add_karirkaryawan')
+def createkarirkaryawan(request):
+    form = KarirKaryawanForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Data Berhasil Disimpan')
+        return redirect('karyawan:karir-karyawan-index')
+    
+    context={
+        'form':form,
+        'title':'Karir Karyawan',
+        'status_form':'Add Data',
+    }
+    return render(request,'karir_karyawan/form.html',context)
+
+#========================================================================================================================
+@login_required
+@permission_required('karyawan.view_karirkaryawan')
+def showkarirkaryawan(request,id):
+    data =get_object_or_404(KarirKaryawan,pk=id) 
+    context = {
+        'title':'Karir Karyawan',
+        'data':data,
+    }
+    return render(request,'karir_karyawan/show.html',context)
+
+#========================================================================================================================
+@login_required
+@permission_required('karyawan.change_karirkaryawan')
+def editkarirkaryawan(request,id):
+    obj = get_object_or_404(KarirKaryawan, id = id)
+    form = KarirKaryawanForm(request.POST or None, instance = obj)
+    if form.is_valid():
+        form.save()
+        messages.success(request, 'Data Berhasil Diedit')
+        return redirect('karyawan:karir-karyawan-index')
+    
+    context={
+        'form':form,
+        'title':'Karir Karyawan',
+        'status_form':'Edit Data',
+    }
+    return render(request,'karir_karyawan/form.html',context)
+
+#========================================================================================================================
+@login_required
+@permission_required('karyawan.delete_karirkaryawan')
+def destroykarirkaryawan(request,id):
+    if request.method == 'POST':
+        data_karyawan_dihapus = KarirKaryawan.objects.get(id=id)
+        try:
+            data_karyawan_dihapus.delete()
+            messages.success(request, 'Data Berhasil Dihapus')
+            return redirect('karyawan:karir-karyawan-index')
+        except ProtectedError:
+            messages.error(request, 'Data Gagal Dihapus')
+            return redirect('karyawan:karir-karyawan-destroy',id=id)
+    
+    data =get_object_or_404(KarirKaryawan,pk=id) 
+    context = {
+        'data':data,
+    }
+    return render(request,'karir_karyawan/delete.html',context)
 
 #========================================================================================================================
 @login_required
@@ -20,7 +251,7 @@ def berkas_list(request,karyawan_id):
 @login_required
 @permission_required('karyawan.view_karyawan')
 def index(request):
-    f = KaryawanFilter(request.GET, queryset=Karyawan.objects.all())
+    f = KaryawanFilter(request.GET, queryset=Karyawan.objects.all().order_by('-pk'))
     table_karyawan = KaryawanTable(f.qs)
     table_karyawan.paginate(page=request.GET.get("page", 1), per_page=50)
     context = {

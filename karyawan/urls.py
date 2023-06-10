@@ -26,4 +26,25 @@ urlpatterns = [
 	path('show-berkas-karyawan/<int:id>',views.showberkaskaryawan,name='berkas-karyawan-show'),
 	path('edit-berkas-karyawan/<int:id>',views.editberkaskaryawan,name='berkas-karyawan-edit'),
 	path('destroy-berkas-karyawan/<int:id>',views.destroyberkaskaryawan,name='berkas-karyawan-destroy'),
+	
+	# Karir karyawan
+	path('karir-karyawan',views.indexkarirkaryawan,name='karir-karyawan-index'),
+	path('create-karir-karyawan',views.createkarirkaryawan,name='karir-karyawan-create'),
+	path('show-karir-karyawan/<int:id>',views.showkarirkaryawan,name='karir-karyawan-show'),
+	path('edit-karir-karyawan/<int:id>',views.editkarirkaryawan,name='karir-karyawan-edit'),
+	path('destroy-karir-karyawan/<int:id>',views.destroykarirkaryawan,name='karir-karyawan-destroy'),
+    
+	# Riwayat Pendidikan karyawan
+	path('riwayat-pendidikan-karyawan',views.indexriwayatpendidikankaryawan,name='riwayat-pendidikan-karyawan-index'),
+	path('create-riwayat-pendidikan-karyawan',views.createriwayatpendidikankaryawan,name='riwayat-pendidikan-karyawan-create'),
+	path('show-riwayat-pendidikan-karyawan/<int:id>',views.showriwayatpendidikankaryawan,name='riwayat-pendidikan-karyawan-show'),
+	path('edit-riwayat-pendidikan-karyawan/<int:id>',views.editriwayatpendidikankaryawan,name='riwayat-pendidikan-karyawan-edit'),
+	path('destroy-riwayat-pendidikan-karyawan/<int:id>',views.destroyriwayatpendidikankaryawan,name='riwayat-pendidikan-karyawan-destroy'),
+	
+	# Pelatihan karyawan
+	path('pelatihan-karyawan',views.indexpelatihankaryawan,name='pelatihan-karyawan-index'),
+	path('create-pelatihan-karyawan',views.createpelatihankaryawan,name='pelatihan-karyawan-create'),
+	path('show-pelatihan-karyawan/<int:id>',views.showpelatihankaryawan,name='pelatihan-karyawan-show'),
+	path('edit-pelatihan-karyawan/<int:id>',views.editpelatihankaryawan,name='pelatihan-karyawan-edit'),
+	path('destroy-pelatihan-karyawan/<int:id>',views.destroypelatihankaryawan,name='pelatihan-karyawan-destroy'),
 ]

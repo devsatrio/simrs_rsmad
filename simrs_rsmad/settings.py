@@ -25,6 +25,9 @@ SECRET_KEY = 'django-insecure-o8(owg#%@)ux0^no+)fv0inj*r+-m1beb+c0li3+h@1^3pykbo
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+X_FRAME_OPTIONS = 'ALLOWALL'
+
+XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
 ALLOWED_HOSTS = [
   'localhost',
@@ -43,16 +46,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'karyawan',
-    'masterData',
-    'masterWilayah',
-    'pasien',
-    'frontoffice',
     'django_tables2',
     'crudbuilder',
     'django_filters',
     'bootstrap4',
     'django_cleanup.apps.CleanupConfig',
+    'karyawan',
+    'masterData',
+    'masterWilayah',
+    'pasien',
+    'frontoffice',
 ]
 
 MIDDLEWARE = [
@@ -239,7 +242,15 @@ JAZZMIN_SETTINGS = {
     "order_with_respect_to": [
         "frontoffice",
         "pasien",
+        
+        # Karyawan
         "karyawan",
+        "karyawan.StatusKaryawan",
+        "karyawan.GolonganKaryawan",
+        "karyawan.JabatanKaryawan",
+        "karyawan.KategoriBerkasKaryawan",
+        
+        # Master Data
         "masterData",
         "masterWilayah", 
         "masterWilayah.negara", 
@@ -272,6 +283,9 @@ JAZZMIN_SETTINGS = {
         "karyawan.BerkasKaryawan": "fas fa-suitcase",
         "karyawan.StatusKaryawan": "fas fa-tags",
         "karyawan.Karyawan": "fas fa-child",
+        "karyawan.RiwayatPendidikanKaryawan":"fas fa-user-graduate",
+        "karyawan.KarirKaryawan":"fas fa-hiking",
+        "karyawan.PelatihanKaryawan":"fas fa-snowboarding",
         "masterWilayah.negara": "fas fa-flag-usa",
         "pasien.pasien": "fas fa-wheelchair",
         "frontoffice.registrasiPasien": "fas fa-user-plus",

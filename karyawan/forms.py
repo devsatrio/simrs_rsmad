@@ -1,7 +1,129 @@
 
 from django import forms
-from .models import Karyawan,BerkasKaryawan,RiwayatPendidikanKaryawan
+from .models import Karyawan,BerkasKaryawan,RiwayatPendidikanKaryawan,KarirKaryawan,PelatihanKaryawan
 
+#========================================================================================================================
+class PelatihanKaryawanForm(forms.ModelForm):
+    class Meta:
+        model = PelatihanKaryawan
+        fields = '__all__'
+        widgets = {
+            'tanggal_pelatihan': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        super(PelatihanKaryawanForm, self).__init__(*args, **kwargs)
+
+        try:
+            self.initial['karyawan'] = kwargs['instance'].karyawan.id
+        except:
+            pass
+        karyawan_list = [('', '---------')] + [(i.id, i.nama) for i in Karyawan.objects.all()]
+
+        try:
+            self.initial['berkas'] = kwargs['instance'].BerkasKaryawan.id
+            berkas_init_form = [(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+        except:
+            try:
+                berkas_init_form = [('', '---------'),] +[(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+            except:
+                berkas_init_form = [('', '---------'),]
+        
+        # Override the form, add onchange attribute to call the ajax function
+        self.fields['karyawan'].widget = forms.Select(
+            attrs={
+                'id': 'karyawan',
+                'onchange': 'getBerkasKaryawanDua(this.value)',
+            },
+            choices=karyawan_list,
+        )
+
+        self.fields['berkas'].widget = forms.Select(
+            attrs={
+                'id': 'berkas_karyawan',
+            },
+            choices=berkas_init_form,
+        )
+#========================================================================================================================
+class PelatihanKaryawanAdminForm(forms.ModelForm):
+    class Meta:
+        model = PelatihanKaryawan
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(PelatihanKaryawanAdminForm, self).__init__(*args, **kwargs)
+
+        try:
+            self.initial['karyawan'] = kwargs['instance'].karyawan.id
+        except:
+            pass
+        karyawan_list = [('', '---------')] + [(i.id, i.nama) for i in Karyawan.objects.all()]
+
+        try:
+            self.initial['berkas'] = kwargs['instance'].BerkasKaryawan.id
+            berkas_init_form = [(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+        except:
+            try:
+                berkas_init_form = [('', '---------'),] +[(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+            except:
+                berkas_init_form = [('', '---------'),]
+        
+        # Override the form, add onchange attribute to call the ajax function
+        self.fields['karyawan'].widget = forms.Select(
+            attrs={
+                'id': 'karyawan',
+                'onchange': 'getBerkasKaryawan(this.value)',
+            },
+            choices=karyawan_list,
+        )
+
+        self.fields['berkas'].widget = forms.Select(
+            attrs={
+                'id': 'berkas_karyawan',
+            },
+            choices=berkas_init_form,
+        )
+
+#========================================================================================================================
+class KarirKaryawanAdminForm(forms.ModelForm):
+    class Meta:
+        model = KarirKaryawan
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(KarirKaryawanAdminForm, self).__init__(*args, **kwargs)
+
+        try:
+            self.initial['karyawan'] = kwargs['instance'].karyawan.id
+        except:
+            pass
+        karyawan_list = [('', '---------')] + [(i.id, i.nama) for i in Karyawan.objects.all()]
+
+        try:
+            self.initial['berkas'] = kwargs['instance'].BerkasKaryawan.id
+            berkas_init_form = [(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+        except:
+            try:
+                berkas_init_form = [('', '---------'),] +[(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+            except:
+                berkas_init_form = [('', '---------'),]
+        
+        # Override the form, add onchange attribute to call the ajax function
+        self.fields['karyawan'].widget = forms.Select(
+            attrs={
+                'id': 'karyawan',
+                'onchange': 'getBerkasKaryawan(this.value)',
+            },
+            choices=karyawan_list,
+        )
+
+        self.fields['berkas'].widget = forms.Select(
+            attrs={
+                'id': 'berkas_karyawan',
+            },
+            choices=berkas_init_form,
+        )
+#========================================================================================================================
 class RiwayatPedidikanKaryawanAdminForm(forms.ModelForm):
     class Meta:
         model = RiwayatPendidikanKaryawan
@@ -30,7 +152,6 @@ class RiwayatPedidikanKaryawanAdminForm(forms.ModelForm):
             attrs={
                 'id': 'karyawan',
                 'onchange': 'getBerkasKaryawan(this.value)',
-                'style': 'width:200px'
             },
             choices=karyawan_list,
         )
@@ -38,20 +159,19 @@ class RiwayatPedidikanKaryawanAdminForm(forms.ModelForm):
         self.fields['berkas'].widget = forms.Select(
             attrs={
                 'id': 'berkas_karyawan',
-                'style': 'width:200px'
             },
             choices=berkas_init_form,
         )
 
-
 #========================================================================================================================
 class KaryawanForm(forms.ModelForm):
+    required_css_class = 'required'
     class Meta:
         # specify model to be used
         model = Karyawan
- 
         # specify fields to be used
         fields = [
+            "kode",
             "nik",
             "nama",
             "nama_lengkap",
@@ -72,6 +192,7 @@ class KaryawanForm(forms.ModelForm):
             "golongan_karyawan",
             "jabatan_karyawan",
             "unit",
+            "foto",
         ]
         widgets = {
             'tgl_lahir': forms.DateInput(attrs={'type': 'date'}),
@@ -81,7 +202,7 @@ class KaryawanForm(forms.ModelForm):
 
 #========================================================================================================================
 class BerkasSayaForm(forms.ModelForm):
- 
+    required_css_class = 'required'
     class Meta:
         # specify model to be used
         model = BerkasKaryawan
@@ -94,8 +215,52 @@ class BerkasSayaForm(forms.ModelForm):
         ]
 
 #========================================================================================================================
-class BerkasKaryawanForm(forms.ModelForm):
+class RiwayatPendidikanKaryawanForm(forms.ModelForm):
+    required_css_class = 'required'
+    class Meta:
+        # specify model to be used
+        model = RiwayatPendidikanKaryawan
  
+        # specify fields to be used
+        fields = '__all__'
+    
+    def __init__(self, *args, **kwargs):
+        super(RiwayatPendidikanKaryawanForm, self).__init__(*args, **kwargs)
+
+        try:
+            self.initial['karyawan'] = kwargs['instance'].karyawan.id
+        except:
+            pass
+        karyawan_list = [('', '---------')] + [(i.id, i.nama) for i in Karyawan.objects.all()]
+
+        try:
+            self.initial['berkas'] = kwargs['instance'].BerkasKaryawan.id
+            berkas_init_form = [(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+        except:
+            try:
+                berkas_init_form = [('', '---------'),] +[(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+            except:
+                berkas_init_form = [('', '---------'),]
+        
+        # Override the form, add onchange attribute to call the ajax function
+        self.fields['karyawan'].widget = forms.Select(
+            attrs={
+                'id': 'karyawan',
+                'onchange': 'getBerkasKaryawanDua(this.value)',
+            },
+            choices=karyawan_list,
+        )
+
+        self.fields['berkas'].widget = forms.Select(
+            attrs={
+                'id': 'berkas_karyawan',
+            },
+            choices=berkas_init_form,
+        )
+
+#========================================================================================================================
+class BerkasKaryawanForm(forms.ModelForm):
+    required_css_class = 'required'
     class Meta:
         # specify model to be used
         model = BerkasKaryawan
@@ -109,3 +274,44 @@ class BerkasKaryawanForm(forms.ModelForm):
             "status_berkas",
             "keterangan_verifikator",
         ]
+    
+#========================================================================================================================
+class KarirKaryawanForm(forms.ModelForm):
+    required_css_class = 'required'
+    class Meta:
+        model = KarirKaryawan
+        fields = '__all__'
+
+    def __init__(self, *args, **kwargs):
+        super(KarirKaryawanForm, self).__init__(*args, **kwargs)
+
+        try:
+            self.initial['karyawan'] = kwargs['instance'].karyawan.id
+        except:
+            pass
+        karyawan_list = [('', '---------')] + [(i.id, i.nama) for i in Karyawan.objects.all()]
+
+        try:
+            self.initial['berkas'] = kwargs['instance'].BerkasKaryawan.id
+            berkas_init_form = [(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+        except:
+            try:
+                berkas_init_form = [('', '---------'),] +[(i.id, i.nama_berkas) for i in BerkasKaryawan.objects.filter(karyawan=kwargs['instance'].karyawan).filter(status_berkas='Berkas Diterima')]
+            except:
+                berkas_init_form = [('', '---------'),]
+        
+        # Override the form, add onchange attribute to call the ajax function
+        self.fields['karyawan'].widget = forms.Select(
+            attrs={
+                'id': 'karyawan',
+                'onchange': 'getBerkasKaryawanDua(this.value)',
+            },
+            choices=karyawan_list,
+        )
+
+        self.fields['berkas'].widget = forms.Select(
+            attrs={
+                'id': 'berkas_karyawan',
+            },
+            choices=berkas_init_form,
+        )

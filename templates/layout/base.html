@@ -1,6 +1,7 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,11 +9,24 @@
     <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome-free/css/all.min.css'%}">
     <link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css'%}">
     {% block customcss %}
-    {% endblock customcss %} 
+    {% endblock customcss %}
+    <style>
+        div.required>label::after {
+            content: " *";
+            color: red;
+        }
+    </style>
 </head>
 
 <body class="sidebar-mini sidebar-closed sidebar-collapse">
     <div class="wrapper">
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="{% static 'static_img/logo.png' %}" alt="app logo" height="60"
+                width="60">
+            <br>
+            <h1>SIMR RSMAD</h1>
+            <span>By EDP 2023</span>
+        </div>
         {% include 'layout/nav.html' %}
         {% block content %}
         {% endblock content %}
@@ -28,7 +42,7 @@
     {% block customjs %}
     {% endblock customjs %}
     <script src="{% static 'assets/dist/js/adminlte.min.js'%}"></script>
-       
+
 </body>
 
 </html>

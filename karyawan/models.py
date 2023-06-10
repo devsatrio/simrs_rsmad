@@ -4,13 +4,14 @@ from django.conf import settings
 from django_cleanup import cleanup
 from masterData.models import Agama, GolonganDarah, JenisKelamin, StatusNikah, Unit,StrataPendidikan,Unit
 
+# =========================================================================================================
 class StatusBerkasChoices(models.TextChoices):
       diajukan = 'Berkas Diajukan', 'Berkas Diajukan'
       berkas_ditolak = 'Berkas Ditolak', 'Berkas Ditolak'
       berkas_diterima = 'Berkas Diterima', 'Berkas Diterima'
 
 
-# Create your models here.
+# =========================================================================================================
 class StatusKaryawan(models.Model):
     name=models.CharField(max_length=30)
     class Meta:
@@ -18,7 +19,8 @@ class StatusKaryawan(models.Model):
           verbose_name_plural = "Status Karyawan"
     def __str__(self):
             return self.name
-    
+
+# =========================================================================================================   
 class GolonganKaryawan(models.Model):
       nama=models.CharField(max_length=40)
       keterangan=models.TextField(max_length=200,null=True,blank=True)
@@ -28,6 +30,7 @@ class GolonganKaryawan(models.Model):
       def __str__(self):
                   return self.nama
 
+# =========================================================================================================
 class JabatanKaryawan(models.Model):
       nama=models.CharField(max_length=40)
       keterangan=models.TextField(max_length=200,null=True,blank=True)
@@ -37,6 +40,7 @@ class JabatanKaryawan(models.Model):
       def __str__(self):
                   return self.nama
 
+# =========================================================================================================
 class KategoriBerkasKaryawan(models.Model):
       nama=models.CharField(max_length=40)
       class Meta:
@@ -45,33 +49,38 @@ class KategoriBerkasKaryawan(models.Model):
       def __str__(self):
                   return self.nama
 
+# =========================================================================================================
+@cleanup.select
 class Karyawan(models.Model):
-    nik=models.CharField(max_length=30,null=True,blank=True)
-    nama=models.CharField(max_length=30)
-    nama_lengkap=models.CharField(max_length=200)
-    no_telfon=models.CharField(max_length=30,null=True,blank=True)
-    no_karyawan_tetap=models.CharField(max_length=30,null=True,blank=True)
-    tempat_lahir=models.CharField(max_length=30,null=True,blank=True)
-    tgl_lahir=models.DateField(max_length=30,null=True,blank=True)
-    no_str=models.CharField(max_length=30,null=True,blank=True)
-    tgl_berlaku_str=models.DateField(max_length=30,null=True,blank=True)
-    no_sip=models.CharField(max_length=30,null=True,blank=True)
-    tgl_berlaku_sip=models.DateField(max_length=30,null=True,blank=True)
-    user = models.OneToOneField(User,on_delete=models.RESTRICT,null=True,blank=True)
-    status_karyawan = models.ForeignKey(StatusKaryawan,on_delete=models.RESTRICT,null=True)
-    agama = models.ForeignKey(Agama,on_delete=models.RESTRICT,null=True,blank=True)
-    jenis_kelamin = models.ForeignKey(JenisKelamin,on_delete=models.RESTRICT,null=True)
-    golongan_darah = models.ForeignKey(GolonganDarah,on_delete=models.RESTRICT,null=True)
-    status_nikah = models.ForeignKey(StatusNikah,on_delete=models.RESTRICT,null=True)
-    golongan_karyawan = models.ForeignKey(GolonganKaryawan,on_delete=models.RESTRICT,null=True,blank=True)
-    jabatan_karyawan = models.ForeignKey(JabatanKaryawan,on_delete=models.RESTRICT,null=True,blank=True)
-    unit = models.ForeignKey(Unit,on_delete=models.RESTRICT,null=True,blank=True)
-    class Meta:
-          verbose_name="Karyawan"
-          verbose_name_plural = "Karyawan"
-    def __str__(self):
-            return self.nama_lengkap
+      kode=models.CharField(max_length=30,unique=True,null=True,blank=True)
+      nik=models.CharField(max_length=30,null=True,blank=True)
+      nama=models.CharField(max_length=30)
+      nama_lengkap=models.CharField(max_length=200)
+      no_telfon=models.CharField(max_length=30,null=True,blank=True)
+      no_karyawan_tetap=models.CharField(max_length=30,null=True,blank=True)
+      tempat_lahir=models.CharField(max_length=30,null=True,blank=True)
+      tgl_lahir=models.DateField(max_length=30,null=True,blank=True)
+      no_str=models.CharField(max_length=30,null=True,blank=True)
+      tgl_berlaku_str=models.DateField(max_length=30,null=True,blank=True)
+      no_sip=models.CharField(max_length=30,null=True,blank=True)
+      tgl_berlaku_sip=models.DateField(max_length=30,null=True,blank=True)
+      user = models.OneToOneField(User,on_delete=models.RESTRICT,null=True,blank=True)
+      status_karyawan = models.ForeignKey(StatusKaryawan,on_delete=models.RESTRICT,null=True)
+      agama = models.ForeignKey(Agama,on_delete=models.RESTRICT,null=True,blank=True)
+      jenis_kelamin = models.ForeignKey(JenisKelamin,on_delete=models.RESTRICT,null=True)
+      golongan_darah = models.ForeignKey(GolonganDarah,on_delete=models.RESTRICT,null=True)
+      status_nikah = models.ForeignKey(StatusNikah,on_delete=models.RESTRICT,null=True)
+      golongan_karyawan = models.ForeignKey(GolonganKaryawan,on_delete=models.RESTRICT,null=True,blank=True)
+      jabatan_karyawan = models.ForeignKey(JabatanKaryawan,on_delete=models.RESTRICT,null=True,blank=True)
+      unit = models.ForeignKey(Unit,on_delete=models.RESTRICT,null=True,blank=True)
+      foto = models.ImageField(upload_to='karyawan/', blank=True,null=True)
+      class Meta:
+            verbose_name="Data Karyawan"
+            verbose_name_plural = "Data Karyawan"
+      def __str__(self):
+                  return self.nama_lengkap
 
+# =========================================================================================================
 @cleanup.select
 class BerkasKaryawan(models.Model):
       karyawan = models.ForeignKey(Karyawan,on_delete=models.RESTRICT,null=True,blank=True)
@@ -90,6 +99,7 @@ class BerkasKaryawan(models.Model):
       def __str__(self):
                   return self.nama_berkas
 
+# =========================================================================================================
 class RiwayatPendidikanKaryawan(models.Model):
       karyawan = models.ForeignKey(Karyawan,on_delete=models.RESTRICT,null=True,blank=True)
       strata_pendidikan = models.ForeignKey(StrataPendidikan,on_delete=models.RESTRICT)
@@ -102,15 +112,31 @@ class RiwayatPendidikanKaryawan(models.Model):
       def __str__(self):
                   return self.nama_sekolah
 
+# =========================================================================================================
 class KarirKaryawan(models.Model):
       karyawan = models.ForeignKey(Karyawan,on_delete=models.RESTRICT,null=True,blank=True)
       unit = models.ForeignKey(Unit,on_delete=models.RESTRICT)
       jabatan = models.ForeignKey(JabatanKaryawan,on_delete=models.RESTRICT)
-      tahun_menjabat=models.CharField(max_length=10)
-      tahun_berhenti_menjabat=models.CharField(max_length=10,blank=True,null=True)
-      berkas=models.ForeignKey(BerkasKaryawan,on_delete=models.RESTRICT)
+      tahun_menjabat=models.IntegerField()
+      tahun_berhenti_menjabat=models.IntegerField(blank=True,null=True)
+      berkas=models.ForeignKey(BerkasKaryawan,on_delete=models.RESTRICT,blank=True,null=True)
       class Meta:
             verbose_name="Karir Karyawan"
             verbose_name_plural = "Karir Karyawan"
       def __str__(self):
-                  return self.tahun_menjabat
+                  return self.unit.name
+
+
+# =========================================================================================================
+class PelatihanKaryawan(models.Model):
+      karyawan = models.ForeignKey(Karyawan,on_delete=models.RESTRICT,null=True,blank=True)
+      nama_pelatihan = models.CharField(max_length=200)
+      tanggal_pelatihan=models.DateField()
+      tahun_kegiatan=models.IntegerField()
+      tahun_expired=models.IntegerField(blank=True,null=True)
+      berkas=models.ForeignKey(BerkasKaryawan,on_delete=models.RESTRICT,blank=True,null=True)
+      class Meta:
+            verbose_name="Pelatihan Karyawan"
+            verbose_name_plural = "Pelatihan Karyawan"
+      def __str__(self):
+                  return self.nama_pelatihan

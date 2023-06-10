@@ -1,17 +1,43 @@
 from django.contrib import admin
 from django.utils.html import format_html
-from .forms import RiwayatPedidikanKaryawanAdminForm
-from .models import KarirKaryawan,StatusKaryawan,Karyawan,JabatanKaryawan,GolonganKaryawan,KategoriBerkasKaryawan,BerkasKaryawan,RiwayatPendidikanKaryawan
+from .forms import RiwayatPedidikanKaryawanAdminForm,KarirKaryawanAdminForm,PelatihanKaryawanAdminForm
+from .models import KarirKaryawan,StatusKaryawan,Karyawan,JabatanKaryawan,GolonganKaryawan,KategoriBerkasKaryawan,BerkasKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan
 # Register your models here.
 
+
+#===========================================================================================================================
+class PelatihanKaryawanAdmin(admin.ModelAdmin):
+    list_filter = ["karyawan"]
+    list_display = ('karyawan','nama_pelatihan','tanggal_pelatihan','tahun_kegiatan','tahun_expired','berkas','nama_berkas')
+    form = PelatihanKaryawanAdminForm
+    class Media:
+        js = (
+            'js/chained-berkas.js',
+        )
+    def nama_berkas(self, obj):
+        if obj.berkas:
+            # return format_html("<a href='%s' download>Download</a>" % (obj.berkas.berkas.url,))
+            return format_html("<a href='%s' target='blank'>Download</a>" % (obj.berkas.berkas.url,))
+        else:
+            return "No attachment"
+    nama_berkas.allow_tags = True
+    nama_berkas.short_description = 'File Download'
+
+admin.site.register(PelatihanKaryawan, PelatihanKaryawanAdmin)
 
 #===========================================================================================================================
 class KarirKaryawanAdmin(admin.ModelAdmin):
     list_filter = ["karyawan"]
     list_display = ('karyawan','unit','jabatan','tahun_menjabat','tahun_berhenti_menjabat','berkas','nama_berkas')
+    form = KarirKaryawanAdminForm
+    class Media:
+        js = (
+            'js/chained-berkas.js',
+        )
     def nama_berkas(self, obj):
         if obj.berkas:
-            return format_html("<a href='%s' download>Download</a>" % (obj.berkas.berkas.url,))
+            # return format_html("<a href='%s' download>Download</a>" % (obj.berkas.berkas.url,))
+            return format_html("<a href='%s' target='blank'>Download</a>" % (obj.berkas.berkas.url,))
         else:
             return "No attachment"
     nama_berkas.allow_tags = True
@@ -30,7 +56,7 @@ class RiwayatPendidikanKaryawanAdmin(admin.ModelAdmin):
         )
     def nama_berkas(self, obj):
         if obj.berkas:
-            return format_html("<a href='%s' download>Download</a>" % (obj.berkas.berkas.url,))
+            return format_html("<a href='%s' target='blank' >Download</a>" % (obj.berkas.berkas.url,))
         else:
             return "No attachment"
     nama_berkas.allow_tags = True
@@ -72,6 +98,6 @@ admin.site.register(BerkasKaryawan, BerkasKaryawanAdmin)
 
 #===========================================================================================================================
 class KaryawanAdmin(admin.ModelAdmin):
-    list_display = ("nama", "nama_lengkap", "user","status_karyawan","agama","jenis_kelamin","golongan_darah","status_nikah","golongan_karyawan","jabatan_karyawan","unit")
+    list_display = ("nama","nik","kode","no_telfon", "nama_lengkap", "user","status_karyawan","agama","jenis_kelamin","golongan_darah","status_nikah","golongan_karyawan","jabatan_karyawan","unit")
     list_filter = ["nama_lengkap","status_karyawan","golongan_karyawan","jabatan_karyawan"]
 admin.site.register(Karyawan, KaryawanAdmin)

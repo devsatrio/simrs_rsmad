@@ -1,5 +1,37 @@
 from django_filters import FilterSet
-from .models import Karyawan,BerkasKaryawan
+from .models import Karyawan,BerkasKaryawan,KarirKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan
+
+# =========================================================================================================
+class PelatihanKaryawanFilter(FilterSet):
+    class Meta:
+        model = PelatihanKaryawan
+        fields = {
+            "karyawan": ["exact"],
+            "nama_pelatihan": ["exact"],
+            "tahun_kegiatan": ["exact"],
+            }
+        
+# =========================================================================================================
+class RiwayatPendidikanKaryawanFilter(FilterSet):
+    class Meta:
+        model = RiwayatPendidikanKaryawan
+        fields = {
+            "karyawan": ["exact"],
+            "strata_pendidikan": ["exact"],
+            "nama_sekolah": ["contains"],
+            "tahun_lulus": ["exact"],
+            }
+        
+# =========================================================================================================
+class KarirKaryawanFilter(FilterSet):
+    class Meta:
+        model = KarirKaryawan
+        fields = {
+            "karyawan": ["exact"],
+            "unit": ["exact"],
+            "jabatan": ["exact"],
+            "tahun_menjabat": ["exact"],
+            }
 
 # =========================================================================================================
 class KaryawanFilter(FilterSet):
