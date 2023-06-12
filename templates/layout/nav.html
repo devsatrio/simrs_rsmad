@@ -243,7 +243,7 @@
                 </li>
                 {% endif %}
                 
-                {% if perms.karyawan.view_golongankaryawan or perms.karyawan.view_jabatankaryawan or perms.karyawan.view_statuskaryawan or perms.karyawan.view_karyawan or perms.karyawan.view_berkaskaryawan or perms.karyawan.view_karirkaryawan %}
+                {% if perms.karyawan.view_golongankaryawan or perms.karyawan.view_jabatankaryawan or perms.karyawan.view_statuskaryawan or perms.karyawan.view_karyawan or perms.karyawan.view_berkaskaryawan or perms.karyawan.view_karirkaryawan or perms.karyawan.view_pelatihankaryawan or perms.karyawan.view_riwayatpendidikankaryawan %}
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-users"></i>
@@ -301,22 +301,27 @@
                             </a>
                         </li>
                         {% endif %}
+                        {% if perms.karyawan.view_pelatihankaryawan %}
                         <li class="nav-item">
                             <a href="{%url 'karyawan:pelatihan-karyawan-index' %}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pelatihan Karyawan</p>
                             </a>
                         </li>
+                        {% endif %}
+                        {% if perms.karyawan.view_riwayatpendidikankaryawan %}
                         <li class="nav-item">
                             <a href="{%url 'karyawan:riwayat-pendidikan-karyawan-index' %}" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Riwayat Pendidikan <br> Karyawan</p>
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </li>
                 {% endif %}
-                {% if perms.karyawan.berkas_saya %}
+
+                {% if perms.karyawan.berkas_saya or perms.karyawan.berkas_saya or perms.karyawan.karir_saya or perms.karyawan.riwayat_pendidikan_saya or perms.karyawan.pelatihan_saya %}
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-user-edit"></i>
@@ -334,9 +339,40 @@
                             </a>
                         </li>
                         {% endif %}
+                        {% if perms.karyawan.karir_saya %}
+                        <li class="nav-item">
+                            <a href="{%url 'karyawan:karir-saya-index' %}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Karir</p>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if perms.karyawan.riwayat_pendidikan_saya %}
+                        <li class="nav-item">
+                            <a href="{%url 'karyawan:riwayat-pendidikan-saya-index' %}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Riwayat Pendidikan</p>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if perms.karyawan.pelatihan_saya %}
+                        <li class="nav-item">
+                            <a href="{%url 'karyawan:pelatihan-saya-index' %}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Pelatihan</p>
+                            </a>
+                        </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a href="{%url 'karyawan:cv_saya' %}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Curriculum Vitae</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 {% endif %}
+                
             </ul>
         </nav>
     </div>

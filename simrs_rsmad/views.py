@@ -2,6 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
+from django.contrib.admin.models import ADDITION, LogEntry
+from karyawan.models import Karyawan
 from .forms import UserUpdateForm,UserUpdatePassForm
 
 #========================================================================================================================
@@ -89,4 +91,11 @@ def logout(request):
 #========================================================================================================================
 @login_required
 def dashboard(request):
-    return render(request,'dashboard.html')
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    data_log = LogEntry.objects.filter(user=user).order_by('-pk')[:30]
+    context={
+        'cek_relasi':cek_relasi,
+        'data_log':data_log,
+    }
+    return render(request,'dashboard.html',context)

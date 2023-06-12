@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.conf import settings
 from django_cleanup import cleanup
+from django.core.validators import MinLengthValidator
 from masterData.models import Agama, GolonganDarah, JenisKelamin, StatusNikah, Unit,StrataPendidikan,Unit
 
 # =========================================================================================================
@@ -52,7 +53,10 @@ class KategoriBerkasKaryawan(models.Model):
 # =========================================================================================================
 @cleanup.select
 class Karyawan(models.Model):
-      kode=models.CharField(max_length=30,unique=True,null=True,blank=True)
+      kode=models.CharField(max_length=30,unique=True,validators=[
+            MinLengthValidator(8, 'must contain at least 8 characters')
+            ]
+        )
       nik=models.CharField(max_length=30,null=True,blank=True)
       nama=models.CharField(max_length=30)
       nama_lengkap=models.CharField(max_length=200)
@@ -77,6 +81,9 @@ class Karyawan(models.Model):
       class Meta:
             verbose_name="Data Karyawan"
             verbose_name_plural = "Data Karyawan"
+            permissions = [
+                  ("cv_saya", "Can access cv saya"),
+            ]
       def __str__(self):
                   return self.nama_lengkap
 
@@ -109,6 +116,9 @@ class RiwayatPendidikanKaryawan(models.Model):
       class Meta:
             verbose_name="Riwayat Pendidikan Karyawan"
             verbose_name_plural = "Riwayat Pendidikan Karyawan"
+            permissions = [
+                  ("riwayat_pendidikan_saya", "Can access riwayat pendidikan saya"),
+            ]
       def __str__(self):
                   return self.nama_sekolah
 
@@ -123,6 +133,9 @@ class KarirKaryawan(models.Model):
       class Meta:
             verbose_name="Karir Karyawan"
             verbose_name_plural = "Karir Karyawan"
+            permissions = [
+                  ("karir_saya", "Can access karir saya"),
+            ]
       def __str__(self):
                   return self.unit.name
 
@@ -138,5 +151,8 @@ class PelatihanKaryawan(models.Model):
       class Meta:
             verbose_name="Pelatihan Karyawan"
             verbose_name_plural = "Pelatihan Karyawan"
+            permissions = [
+                  ("pelatihan_saya", "Can access pelatihan saya"),
+            ]
       def __str__(self):
                   return self.nama_pelatihan

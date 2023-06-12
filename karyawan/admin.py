@@ -2,6 +2,8 @@ from django.contrib import admin
 from django.utils.html import format_html
 from .forms import RiwayatPedidikanKaryawanAdminForm,KarirKaryawanAdminForm,PelatihanKaryawanAdminForm
 from .models import KarirKaryawan,StatusKaryawan,Karyawan,JabatanKaryawan,GolonganKaryawan,KategoriBerkasKaryawan,BerkasKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan
+from django.contrib.auth.models import User
+from django.contrib.auth.models import Group
 # Register your models here.
 
 
@@ -97,7 +99,20 @@ class BerkasKaryawanAdmin(admin.ModelAdmin):
 admin.site.register(BerkasKaryawan, BerkasKaryawanAdmin)
 
 #===========================================================================================================================
+
+def change_no_telp_action(modeladmin, request, queryset):
+    for Karyawan in queryset:
+        print(Karyawan.user)
+        if(Karyawan.user is None):
+            User.objects.create_user(username=Karyawan.kode,password=Karyawan.kode)
+            my_group = Group.objects.get(name='Karyawan') 
+            my_group.user_set.add(User.objects.get(username=Karyawan.kode))
+            Karyawan.user = User.objects.get(username=Karyawan.kode)
+            Karyawan.save()
+change_no_telp_action.short_description = 'Generate Akun Karyawan'
+
 class KaryawanAdmin(admin.ModelAdmin):
-    list_display = ("nama","nik","kode","no_telfon", "nama_lengkap", "user","status_karyawan","agama","jenis_kelamin","golongan_darah","status_nikah","golongan_karyawan","jabatan_karyawan","unit")
+    list_display = ("kode","nama","nik","no_telfon", "nama_lengkap", "user","status_karyawan","agama","jenis_kelamin","golongan_darah","status_nikah","golongan_karyawan","jabatan_karyawan","unit")
     list_filter = ["nama_lengkap","status_karyawan","golongan_karyawan","jabatan_karyawan"]
+    actions = [change_no_telp_action,]
 admin.site.register(Karyawan, KaryawanAdmin)

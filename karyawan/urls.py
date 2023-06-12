@@ -4,7 +4,11 @@ from . import views
 app_name='karyawan'
 
 urlpatterns = [
+    #cari berkas karyawan ajax
     path('cari-berkas/<int:karyawan_id>', views.berkas_list, name = 'berkas_list'),
+    
+    #cv saya
+    path('curriculum-vitae', views.cv_saya, name = 'cv_saya'),
     
     # karyawan
 	path('index',views.index,name='index'),
@@ -34,12 +38,26 @@ urlpatterns = [
 	path('edit-karir-karyawan/<int:id>',views.editkarirkaryawan,name='karir-karyawan-edit'),
 	path('destroy-karir-karyawan/<int:id>',views.destroykarirkaryawan,name='karir-karyawan-destroy'),
     
+	# karir saya
+	path('karir-saya',views.indexkarirsaya,name='karir-saya-index'),
+    path('create-karir-saya',views.createkarirsaya,name='karir-saya-create'),
+	path('show-karir-saya/<int:id>',views.showkarirsaya,name='karir-saya-show'),
+	path('edit-karir-saya/<int:id>',views.editkarirsaya,name='karir-saya-edit'),
+	path('destroy-karir-saya/<int:id>',views.destroykarirsaya,name='karir-saya-destroy'),
+    
 	# Riwayat Pendidikan karyawan
 	path('riwayat-pendidikan-karyawan',views.indexriwayatpendidikankaryawan,name='riwayat-pendidikan-karyawan-index'),
 	path('create-riwayat-pendidikan-karyawan',views.createriwayatpendidikankaryawan,name='riwayat-pendidikan-karyawan-create'),
 	path('show-riwayat-pendidikan-karyawan/<int:id>',views.showriwayatpendidikankaryawan,name='riwayat-pendidikan-karyawan-show'),
 	path('edit-riwayat-pendidikan-karyawan/<int:id>',views.editriwayatpendidikankaryawan,name='riwayat-pendidikan-karyawan-edit'),
 	path('destroy-riwayat-pendidikan-karyawan/<int:id>',views.destroyriwayatpendidikankaryawan,name='riwayat-pendidikan-karyawan-destroy'),
+    
+	# Riwayat Pendidikan saya
+	path('riwayat-pendidikan-saya',views.indexriwayatpendidikansaya,name='riwayat-pendidikan-saya-index'),
+    path('create-riwayat-pendidikan-saya',views.createriwayatpendidikansaya,name='riwayat-pendidikan-saya-create'),
+	path('show-riwayat-pendidikan-saya/<int:id>',views.showriwayatpendidikansaya,name='riwayat-pendidikan-saya-show'),
+	path('edit-riwayat-pendidikan-saya/<int:id>',views.editriwayatpendidikansaya,name='riwayat-pendidikan-saya-edit'),
+	path('destroy-riwayat-pendidikan-saya/<int:id>',views.destroyriwayatpendidikansaya,name='riwayat-pendidikan-saya-destroy'),
 	
 	# Pelatihan karyawan
 	path('pelatihan-karyawan',views.indexpelatihankaryawan,name='pelatihan-karyawan-index'),
@@ -47,4 +65,11 @@ urlpatterns = [
 	path('show-pelatihan-karyawan/<int:id>',views.showpelatihankaryawan,name='pelatihan-karyawan-show'),
 	path('edit-pelatihan-karyawan/<int:id>',views.editpelatihankaryawan,name='pelatihan-karyawan-edit'),
 	path('destroy-pelatihan-karyawan/<int:id>',views.destroypelatihankaryawan,name='pelatihan-karyawan-destroy'),
+    
+	# Pelatihan Saya
+	path('pelatihan-saya',views.indexpelatihansaya,name='pelatihan-saya-index'),
+	path('create-pelatihan-saya',views.createpelatihansaya,name='pelatihan-saya-create'),
+	path('show-pelatihan-saya/<int:id>',views.showpelatihansaya,name='pelatihan-saya-show'),
+	path('edit-pelatihan-saya/<int:id>',views.editpelatihansaya,name='pelatihan-saya-edit'),
+	path('destroy-pelatihan-saya/<int:id>',views.destroypelatihansaya,name='pelatihan-saya-destroy'),
 ]

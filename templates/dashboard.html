@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    
+
     <div class="content">
         <div class="container-fluid">
             <div class="row">
@@ -19,28 +19,37 @@
                     {% if messages %}
                     {% for message in messages %}
                     {% if message.tags == "error" %}
-                    <div class="alert alert-danger alert-dismissible"><button type="button" class="close"
-                            data-dismiss="alert" aria-hidden="true">×</button><i
-                            class="fa fa-lg fa-check-circle-o"></i> {{ message }}</div>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><i class="icon fas fa-ban"></i> Oops!</h5>
+                        {{ message }}
+                    </div>
                     {% else %}
-                    <div class="alert alert-success alert-dismissible"><button type="button" class="close"
-                            data-dismiss="alert" aria-hidden="true">×</button><i
-                            class="fa fa-lg fa-check-circle-o"></i> {{ message }}</div>
+                    <div class="alert alert-success alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><i class="icon fas fa-check"></i> Yes!</h5>
+                        {{ message }}
+                    </div>
                     {% endif %}
                     {% endfor %}
+                    {% endif %}
+                </div>
+                <div class="col-md-12">
+                    {% if cek_relasi == 0 %}
+                    <div class="alert alert-warning">
+                        <h5><i class="icon fas fa-exclamation-triangle"></i> Peringatan !</h5>
+                        Akun anda belum berelasi dengan data karyawan, hal ini membuat anda tidak dapat mengakses
+                        beberapa fitur aplikasi, hubungi SDI untuk menyelesaikan masalah ini.
+                    </div>
                     {% endif %}
                 </div>
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="m-0">Featured</h5>
+                            <h5 class="m-0">Welcome</h5>
                         </div>
                         <div class="card-body">
-                            <h6 class="card-title">Special title treatment</h6>
-
-                            <p class="card-text">With supporting text below as a natural lead-in to additional
-                                content.</p>
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
+                            <h6 class="card-title">To SIMRS RSMAD BETA</h6>
                         </div>
                     </div>
                 </div>

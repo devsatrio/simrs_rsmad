@@ -2,6 +2,15 @@ from django_filters import FilterSet
 from .models import Karyawan,BerkasKaryawan,KarirKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan
 
 # =========================================================================================================
+class PelatihanSayaFilter(FilterSet):
+    class Meta:
+        model = PelatihanKaryawan
+        fields = {
+            "nama_pelatihan": ["exact"],
+            "tahun_kegiatan": ["exact"],
+            }
+        
+# =========================================================================================================
 class PelatihanKaryawanFilter(FilterSet):
     class Meta:
         model = PelatihanKaryawan
@@ -10,7 +19,17 @@ class PelatihanKaryawanFilter(FilterSet):
             "nama_pelatihan": ["exact"],
             "tahun_kegiatan": ["exact"],
             }
-        
+         
+# =========================================================================================================
+class RiwayatPendidikanSayaFilter(FilterSet):
+    class Meta:
+        model = RiwayatPendidikanKaryawan
+        fields = {
+            "strata_pendidikan": ["exact"],
+            "nama_sekolah": ["contains"],
+            "tahun_lulus": ["exact"],
+            }
+               
 # =========================================================================================================
 class RiwayatPendidikanKaryawanFilter(FilterSet):
     class Meta:
@@ -22,6 +41,16 @@ class RiwayatPendidikanKaryawanFilter(FilterSet):
             "tahun_lulus": ["exact"],
             }
         
+# =========================================================================================================
+class KarirSayaFilter(FilterSet):
+    class Meta:
+        model = KarirKaryawan
+        fields = {
+            "unit": ["exact"],
+            "jabatan": ["exact"],
+            "tahun_menjabat": ["exact"],
+            }
+                
 # =========================================================================================================
 class KarirKaryawanFilter(FilterSet):
     class Meta:

@@ -1,9 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
-from .tables import KaryawanTable,BerkasSayaTable,BerkasKaryawanTable,KarirKaryawanTable,RiwayatPendidikanKaryawanTable,PelatihanKaryawanTable
+from .tables import KaryawanTable,BerkasSayaTable,BerkasKaryawanTable,KarirKaryawanTable,RiwayatPendidikanKaryawanTable,PelatihanKaryawanTable,KarirSayaTable,RiwayatPendidikanSayaTable,PelatihanSayaTable
 from .models import Karyawan,BerkasKaryawan,KarirKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan
-from .filters import KaryawanFilter,BerkasSayaFilter,BerkasKaryawanFilter,KarirKaryawanFilter,RiwayatPendidikanKaryawanFilter,PelatihanKaryawanFilter
-from .forms import KaryawanForm,BerkasSayaForm,BerkasKaryawanForm,KarirKaryawanForm,RiwayatPendidikanKaryawanForm,PelatihanKaryawanForm
+from .filters import KaryawanFilter,BerkasSayaFilter,BerkasKaryawanFilter,KarirKaryawanFilter,RiwayatPendidikanKaryawanFilter,PelatihanKaryawanFilter,KarirSayaFilter,RiwayatPendidikanSayaFilter,PelatihanSayaFilter
+from .forms import KaryawanForm,BerkasSayaForm,BerkasKaryawanForm,KarirKaryawanForm,RiwayatPendidikanKaryawanForm,PelatihanKaryawanForm,KarirSayaForm,RiwayatPendidikanSayaForm,PelatihanSayaForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.db.models import ProtectedError
@@ -12,6 +12,343 @@ from django.contrib.auth.decorators import login_required,permission_required
 
 #========================================================================================================================
 @login_required
+def cv_saya(request):
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        data_karyawan = get_object_or_404(Karyawan, user = user)
+        data_riwayat_pendidikan = RiwayatPendidikanKaryawan.objects.filter(karyawan=Karyawan.objects.get(user=user))
+        data_pelatihan = PelatihanKaryawan.objects.filter(karyawan=Karyawan.objects.get(user=user))
+        data_karir = KarirKaryawan.objects.filter(karyawan=Karyawan.objects.get(user=user))
+        data_berkas = BerkasKaryawan.objects.filter(karyawan=Karyawan.objects.get(user=user)).filter(status_berkas='Berkas Diterima')
+        context = {
+            'data':data_karyawan,
+            'data_riwayat_pendidikan':data_riwayat_pendidikan,
+            'data_pelatihan':data_pelatihan,
+            'data_karir':data_karir,
+            'data_berkas':data_berkas,
+        }
+    return render(request,'cv_saya/index.html',context)
+
+#========================================================================================================================
+@login_required
+def destroypelatihansaya(request,id):
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        if request.method == 'POST':
+            data_dihapus = PelatihanKaryawan.objects.get(id=id)
+            try:
+                data_dihapus.delete()
+                messages.success(request, 'Data Berhasil Dihapus')
+                return redirect('karyawan:pelatihan-saya-index')
+            except ProtectedError:
+                messages.error(request, 'Data Gagal Dihapus')
+                return redirect('karyawan:pelatihan-saya-destroy',id=id)
+        
+        data =get_object_or_404(PelatihanKaryawan,pk=id) 
+        context = {
+            'data':data,
+        }
+    return render(request,'pelatihan_saya/delete.html',context)
+
+#========================================================================================================================
+@login_required
+def editpelatihansaya(request,id):
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        obj = get_object_or_404(PelatihanKaryawan, id = id)
+        form = PelatihanSayaForm(request.user,request.POST or None, instance = obj)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Data Berhasil Diedit')
+            return redirect('karyawan:pelatihan-karyawan-index')
+        
+        context={
+            'form':form,
+            'title':'Pelatihan Saya',
+            'status_form':'Edit Data',
+        }
+    return render(request,'pelatihan_saya/form.html',context)
+
+#========================================================================================================================
+@login_required
+def showpelatihansaya(request,id):
+    data =get_object_or_404(PelatihanKaryawan,pk=id) 
+    context = {
+        'title':'Pelatihan Saya',
+        'data':data,
+    }
+    return render(request,'pelatihan_saya/show.html',context)
+
+
+#========================================================================================================================
+@login_required
+def createpelatihansaya(request):
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        form = PelatihanSayaForm(request.user,request.POST or None)
+        if form.is_valid():
+            obj = form.save(commit=False) # Return an object without saving to the DB
+            obj.karyawan = Karyawan.objects.get(user=user) # Add an author field which will contain current user's id
+            obj.save()
+
+            messages.success(request, 'Data Berhasil Disimpan')
+            return redirect('karyawan:pelatihan-saya-index')
+        
+        context={
+            'form':form,
+            'title':'Pelatihan Karyawan',
+            'status_form':'Edit Data',
+        }
+    return render(request,'pelatihan_saya/form.html',context)
+
+#========================================================================================================================
+@login_required
+def indexpelatihansaya(request):
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        f = PelatihanSayaFilter(request.GET, queryset=PelatihanKaryawan.objects.all().filter(karyawan=Karyawan.objects.get(user=user)).order_by('-pk'))
+        tabelnya = PelatihanSayaTable(f.qs)
+        tabelnya.paginate(page=request.GET.get("page", 1), per_page=50)
+        context = {
+            'title':'Pelatihan Saya',
+            'tabelnya':tabelnya,
+            'filter':f,
+        }
+    return render(request,'pelatihan_saya/index.html',context)
+
+#========================================================================================================================
+@login_required
+def destroyriwayatpendidikansaya(request,id):
+    if request.method == 'POST':
+        data_dihapus = RiwayatPendidikanKaryawan.objects.get(id=id)
+        try:
+            data_dihapus.delete()
+            messages.success(request, 'Data Berhasil Dihapus')
+            return redirect('karyawan:riwayat-pendidikan-saya-index')
+        except ProtectedError:
+            messages.error(request, 'Data Gagal Dihapus')
+            return redirect('karyawan:riwayat-pendidikan-saya-destroy',id=id)
+    
+    data =get_object_or_404(RiwayatPendidikanKaryawan,pk=id) 
+    context = {
+        'data':data,
+    }
+    return render(request,'riwayat_pendidikan_saya/delete.html',context)
+
+#========================================================================================================================
+@login_required
+def editriwayatpendidikansaya(request,id):
+    user = request.user
+    obj = get_object_or_404(RiwayatPendidikanKaryawan, id = id)
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        if request.method == 'POST':
+            form = RiwayatPendidikanSayaForm(request.user, request.POST,instance=obj)
+            if form.is_valid():
+                obj = form.save(commit=False) # Return an object without saving to the DB
+                obj.karyawan = Karyawan.objects.get(user=user) # Add an author field which will contain current user's id
+                obj.save()
+
+                # form.save()
+                messages.success(request, 'Data Berhasil Disimpan')
+                return redirect('karyawan:riwayat-pendidikan-saya-index')
+        else:
+            form = RiwayatPendidikanSayaForm(request.user,instance=obj)
+        context={
+            'title':'Riwayat Pendidikan Saya',
+            'status_form':'Edit Data',
+            'form':form
+        }
+    return render(request,'riwayat_pendidikan_saya/form.html',context)
+
+#========================================================================================================================
+@login_required
+def showriwayatpendidikansaya(request,id):
+    data =get_object_or_404(RiwayatPendidikanKaryawan,pk=id) 
+    context = {
+        'title':'Riwayat Pendidikan Saya',
+        'data':data,
+    }
+    return render(request,'riwayat_pendidikan_saya/show.html',context)
+
+#========================================================================================================================
+@login_required
+def createriwayatpendidikansaya(request):
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        if request.method == 'POST':
+            form = RiwayatPendidikanSayaForm(request.user, request.POST)
+            if form.is_valid():
+                obj = form.save(commit=False) # Return an object without saving to the DB
+                obj.karyawan = Karyawan.objects.get(user=user) # Add an author field which will contain current user's id
+                obj.save()
+
+                # form.save()
+                messages.success(request, 'Data Berhasil Disimpan')
+                return redirect('karyawan:riwayat-pendidikan-saya-index')
+        else:
+            form = RiwayatPendidikanSayaForm(request.user)
+        context={
+            'title':'Riwayat Pendidikan Saya',
+            'status_form':'Add Data',
+            'form':form
+        }
+    return render(request,'riwayat_pendidikan_saya/form.html',context)
+
+#========================================================================================================================
+@login_required
+def indexriwayatpendidikansaya(request):
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        f = RiwayatPendidikanSayaFilter(request.GET, queryset=RiwayatPendidikanKaryawan.objects.filter(karyawan=Karyawan.objects.get(user=user)).order_by('-pk'))
+        tabelnya = RiwayatPendidikanSayaTable(f.qs)
+        tabelnya.paginate(page=request.GET.get("page", 1), per_page=50)
+        context = {
+            'title':'Riwayat Pendidikan Saya',
+            'tabelnya':tabelnya,
+            'filter':f,
+        }
+    return render(request,'riwayat_pendidikan_saya/index.html',context)
+
+#========================================================================================================================
+@login_required
+def destroykarirsaya(request,id):
+    if request.method == 'POST':
+        data_dihapus = KarirKaryawan.objects.get(id=id)
+        try:
+            data_dihapus.delete()
+            messages.success(request, 'Data Berhasil Dihapus')
+            return redirect('karyawan:karir-saya-index')
+        except ProtectedError:
+            messages.error(request, 'Data Gagal Dihapus')
+            return redirect('karyawan:karir-saya-destroy',id=id)
+    
+    data =get_object_or_404(KarirKaryawan,pk=id) 
+    context = {
+        'data':data,
+    }
+    return render(request,'karir_saya/delete.html',context)
+
+#========================================================================================================================
+@login_required
+def editkarirsaya(request,id):
+    obj = get_object_or_404(KarirKaryawan, id = id)
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        if request.method == 'POST':
+            form = KarirSayaForm(request.user, request.POST, instance = obj)
+            if form.is_valid():
+                obj = form.save(commit=False) # Return an object without saving to the DB
+                obj.karyawan = Karyawan.objects.get(user=user) # Add an author field which will contain current user's id
+                obj.save()
+
+                # form.save()
+                messages.success(request, 'Data Berhasil Disimpan')
+                return redirect('karyawan:karir-saya-index')
+        else:
+            form = KarirSayaForm(request.user, instance = obj)
+        context={
+            'title':'Karir Saya',
+            'status_form':'Edit Data',
+            'form':form
+        }
+        return render(request,'karir_saya/form.html',context)
+
+#========================================================================================================================
+@login_required
+def showkarirsaya(request,id):
+    data =get_object_or_404(KarirKaryawan,pk=id) 
+    context = {
+        'title':'Karir Saya',
+        'data':data,
+    }
+    return render(request,'karir_saya/show.html',context)
+
+#========================================================================================================================
+@login_required
+def createkarirsaya(request):
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        if request.method == 'POST':
+            form = KarirSayaForm(request.user, request.POST)
+            if form.is_valid():
+                obj = form.save(commit=False) # Return an object without saving to the DB
+                obj.karyawan = Karyawan.objects.get(user=user) # Add an author field which will contain current user's id
+                obj.save()
+
+                # form.save()
+                messages.success(request, 'Data Berhasil Disimpan')
+                return redirect('karyawan:karir-saya-index')
+        else:
+            form = KarirSayaForm(request.user)
+        context={
+            'title':'Karir Saya',
+            'status_form':'Add Data',
+            'form':form
+        }
+        return render(request,'karir_saya/form.html',context)
+    
+#========================================================================================================================
+@login_required
+def indexkarirsaya(request):
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        f = KarirSayaFilter(request.GET, queryset=KarirKaryawan.objects.filter(karyawan=Karyawan.objects.get(user=user)).order_by('-pk'))
+        tabelnya = KarirSayaTable(f.qs)
+        tabelnya.paginate(page=request.GET.get("page", 1), per_page=50)
+        context = {
+            'title':'Karir Saya',
+            'tabelnya':tabelnya,
+            'filter':f,
+        }
+    return render(request,'karir_saya/index.html',context)
+
+#========================================================================================================================
+@login_required
+@permission_required('karyawan.delete_pelatihankaryawan')
 def destroypelatihankaryawan(request,id):
     if request.method == 'POST':
         data_dihapus = PelatihanKaryawan.objects.get(id=id)
@@ -31,6 +368,7 @@ def destroypelatihankaryawan(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.change_pelatihankaryawan')
 def editpelatihankaryawan(request,id):
     obj = get_object_or_404(PelatihanKaryawan, id = id)
     form = PelatihanKaryawanForm(request.POST or None, instance = obj)
@@ -48,6 +386,7 @@ def editpelatihankaryawan(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.view_pelatihankaryawan')
 def showpelatihankaryawan(request,id):
     data =get_object_or_404(PelatihanKaryawan,pk=id) 
     context = {
@@ -58,6 +397,7 @@ def showpelatihankaryawan(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.add_pelatihankaryawan')
 def createpelatihankaryawan(request):
     form = PelatihanKaryawanForm(request.POST or None)
     if form.is_valid():
@@ -74,6 +414,7 @@ def createpelatihankaryawan(request):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.view_pelatihankaryawan')
 def indexpelatihankaryawan(request):
     f = PelatihanKaryawanFilter(request.GET, queryset=PelatihanKaryawan.objects.all().order_by('-pk'))
     tabelnya = PelatihanKaryawanTable(f.qs)
@@ -87,6 +428,7 @@ def indexpelatihankaryawan(request):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.delete_riwayatpendidikankaryawan')
 def destroyriwayatpendidikankaryawan(request,id):
     if request.method == 'POST':
         data_dihapus = RiwayatPendidikanKaryawan.objects.get(id=id)
@@ -107,6 +449,7 @@ def destroyriwayatpendidikankaryawan(request,id):
     
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.change_riwayatpendidikankaryawan')
 def editriwayatpendidikankaryawan(request,id):
     obj = get_object_or_404(RiwayatPendidikanKaryawan, id = id)
     form = RiwayatPendidikanKaryawanForm(request.POST or None, instance = obj)
@@ -124,6 +467,7 @@ def editriwayatpendidikankaryawan(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.view_riwayatpendidikankaryawan')
 def showriwayatpendidikankaryawan(request,id):
     data =get_object_or_404(RiwayatPendidikanKaryawan,pk=id) 
     context = {
@@ -134,6 +478,7 @@ def showriwayatpendidikankaryawan(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.add_riwayatpendidikankaryawan')
 def createriwayatpendidikankaryawan(request):
     form = RiwayatPendidikanKaryawanForm(request.POST or None)
     if form.is_valid():
@@ -150,6 +495,7 @@ def createriwayatpendidikankaryawan(request):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.view_riwayatpendidikankaryawan')
 def indexriwayatpendidikankaryawan(request):
     f = RiwayatPendidikanKaryawanFilter(request.GET, queryset=RiwayatPendidikanKaryawan.objects.all().order_by('-pk'))
     tabelnya = RiwayatPendidikanKaryawanTable(f.qs)
@@ -165,7 +511,7 @@ def indexriwayatpendidikankaryawan(request):
 @login_required
 @permission_required('karyawan.view_karirkaryawan')
 def indexkarirkaryawan(request):
-    f = KarirKaryawanFilter(request.GET, queryset=KarirKaryawan.objects.all())
+    f = KarirKaryawanFilter(request.GET, queryset=KarirKaryawan.objects.all().order_by('-pk'))
     tabelnya = KarirKaryawanTable(f.qs)
     tabelnya.paginate(page=request.GET.get("page", 1), per_page=50)
     context = {
@@ -264,12 +610,14 @@ def index(request):
 @login_required
 @permission_required('karyawan.add_karyawan')
 def create(request):
-    form = KaryawanForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        messages.success(request, 'Data Berhasil Disimpan')
-        return redirect('karyawan:index')
-    
+    if request.method == 'POST':
+        form = KaryawanForm(request.POST,request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Data Berhasil Disimpan')
+            return redirect('karyawan:index')
+    else:
+        form = KaryawanForm()
     context={
         'form':form
     }
@@ -280,12 +628,14 @@ def create(request):
 @permission_required('karyawan.change_karyawan')
 def edit(request,id):
     obj = get_object_or_404(Karyawan, id = id)
-    form = KaryawanForm(request.POST or None, instance = obj)
-    if form.is_valid():
-        form.save()
-        messages.success(request, 'Data Berhasil Diedit')
-        return redirect('karyawan:index')
-    
+    if request.method == 'POST':
+        form = KaryawanForm(request.POST, request.FILES, instance = obj)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Data Berhasil Diedit')
+            return redirect('karyawan:index')
+    else:
+        form = KaryawanForm(instance = obj)
     context={
         'form':form
     }
@@ -326,14 +676,19 @@ def destroy(request,id):
 @permission_required('karyawan.berkas_saya')
 def indexberkassaya(request):
     user = request.user
-    f = BerkasSayaFilter(request.GET, queryset=BerkasKaryawan.objects.filter(karyawan=Karyawan.objects.get(user=user)).order_by('-pk'))
-    tabelnya = BerkasSayaTable(f.qs)
-    tabelnya.paginate(page=request.GET.get("page", 1), per_page=50)
-    context = {
-        'title':'Berkas Saya',
-        'tabelnya':tabelnya,
-        'filter':f,
-    }
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        f = BerkasSayaFilter(request.GET, queryset=BerkasKaryawan.objects.filter(karyawan=Karyawan.objects.get(user=user)).order_by('-pk'))
+        tabelnya = BerkasSayaTable(f.qs)
+        tabelnya.paginate(page=request.GET.get("page", 1), per_page=50)
+        context = {
+            'title':'Berkas Saya',
+            'tabelnya':tabelnya,
+            'filter':f,
+        }
     return render(request,'berkas_saya/index.html',context)
 
 
@@ -345,7 +700,7 @@ def createberkassaya(request):
     cek_relasi = Karyawan.objects.filter(user=user).count()
     if(cek_relasi<=0):
             messages.error(request, 'User tidak memiliki relasi dengan karyawan')
-            return redirect('karyawan:berkas-saya-index')
+            return redirect('dashboard')
     else:
         if request.method == 'POST':
             form = BerkasSayaForm(request.POST, request.FILES)
@@ -376,7 +731,7 @@ def editberkassaya(request,id):
     obj = get_object_or_404(BerkasKaryawan, id = id)
     if(cek_relasi<=0):
             messages.error(request, 'User tidak memiliki relasi dengan karyawan')
-            return redirect('karyawan:berkas-saya-index')
+            return redirect('dashboard')
     else:
         if request.method == 'POST':
             form = BerkasSayaForm(request.POST, request.FILES,instance = obj)
