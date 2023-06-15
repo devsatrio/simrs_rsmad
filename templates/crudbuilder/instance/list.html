@@ -19,13 +19,13 @@
 				<div class="col-lg-12">
 					<div class="card">
 						<div class="card-header">
-                            <h3 class="card-title">List Data</h3>
+							<h3 class="card-title">List Data</h3>
 							<div class="card-tools">
 								<a class="btn btn-primary btn-sm"
 									href="{% url app_label|add:'-'|add:custom_postfix_url|add:'-create' %}"><i
 										class="glyphicon glyphicon-plus-sign"></i> Add Data</a>
 							</div>
-                        </div>
+						</div>
 						<div class="card-body">
 							<form class="form-inline pull-right mb-4" role="form" action="." method="GET">
 								<div class="input-group input-group-sm">
@@ -44,6 +44,8 @@
 	</div>
 </div>
 
+{% endblock content %}
+
 {% comment %}
 <b>APP :</b> {{app_label}}<br />
 <b>MODEL : </b>{{actual_model_name}}<br />
@@ -52,5 +54,3 @@
 <h4>Using normal queryset</h4>
 {{object_list}}
 {% endcomment %}
-
-{% endblock content %}

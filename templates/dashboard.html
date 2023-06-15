@@ -38,19 +38,53 @@
                     {% if cek_relasi == 0 %}
                     <div class="alert alert-warning">
                         <h5><i class="icon fas fa-exclamation-triangle"></i> Peringatan !</h5>
-                        Akun anda belum berelasi dengan data karyawan, hal ini membuat anda tidak dapat mengakses
+                        Akun anda belum berelasi dengan data karyawan, hal ini membuat anda tidak dapat
+                        mengakses
                         beberapa fitur aplikasi, hubungi SDI untuk menyelesaikan masalah ini.
                     </div>
                     {% endif %}
                 </div>
-                <div class="col-lg-12">
+                <div class="col-md-12">
+                    <div class="alert alert-info alert-dismissible">
+                        <h5><i class="icon fas fa-info"></i> Welcome</h5>
+                        {{user.username}} To SIMRS RSMAD BETA
+                    </div>
+                </div>
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="callout callout-warning">
+                                <h5>Pengumumman !</h5>
+                                <p>Pastikan username dan password lama telah diganti dengan username dan password baru yang lebih aman.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3">
                     <div class="card">
                         <div class="card-header">
-                            <h5 class="m-0">Welcome</h5>
+                            <h3 class="card-title">Berkas Terbaru Saya</h3>
                         </div>
-                        <div class="card-body">
-                            <h6 class="card-title">To SIMRS RSMAD BETA</h6>
+                        <div class="card-body p-0">
+                            <ul class="products-list product-list-in-card pl-2 pr-2">
+                                {% for row_berkas_saya in berkas_saya %}
+                                <li class="item">
+                                    <div class="product-info ml-3">
+                                        <a href="{{row_berkas_saya.berkas.url}}" target="blank" class="product-title">{{row_berkas_saya.nama_berkas}}
+                                            <span class="badge badge-warning float-right">{{row_berkas_saya.status_berkas}}</span></a>
+                                        <span class="product-description">
+                                            {{row_berkas_saya.verifikator.username}}
+                                        </span>
+                                    </div>
+                                </li>
+                                {% endfor %}
+                            </ul>
                         </div>
+
+                        <div class="card-footer text-center">
+                            <a href="{%url 'karyawan:berkas-saya-index' %}" class="uppercase">View All Data</a>
+                        </div>
+
                     </div>
                 </div>
             </div>

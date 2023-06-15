@@ -6,9 +6,9 @@
         <li class="nav-item">
             <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <!-- <li class="nav-item d-none d-sm-inline-block">
             <a href="{%url 'dashboard' %}" class="nav-link" data-toggle="tooltip" data-placement="bottom" title="Dashboard"><i class="fas fa-tachometer-alt"></i></a>
-        </li>
+        </li> -->
         <!-- <li class="nav-item d-none d-sm-inline-block">
             <a href="#" class="nav-link">Contact</a>
         </li> -->
@@ -144,14 +144,14 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <li class="nav-item">
-                    <a href="{%url 'dashboard' %}" class="nav-link">
+                    <a href="{%url 'dashboard' %}" class="nav-link {% if request.resolver_match.view_name == 'dashboard' %} active {% endif %}">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 {% if 'masterData' in perms %}
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item {% if request.resolver_match.view_name == 'masterData-master-data-agama-list' or request.resolver_match.view_name == 'masterData-master-data-agama-create' or request.resolver_match.view_name == 'masterData-master-data-agama-detail' or request.resolver_match.view_name == 'masterData-master-data-agama-update' or request.resolver_match.view_name == 'masterData-master-data-agama-delete' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-list' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-create' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-detail' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-update' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-delete' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-list' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-create' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-detail' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-update' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-delete' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-list' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-create' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-detail' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-update' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-delete' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-list' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-create' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-detail' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-update' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-delete' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-list' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-create' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-detail' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-update' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-delete' or request.resolver_match.view_name == 'masterData-master-data-asuransi-list' or request.resolver_match.view_name == 'masterData-master-data-asuransi-create' or request.resolver_match.view_name == 'masterData-master-data-asuransi-detail' or request.resolver_match.view_name == 'masterData-master-data-asuransi-update' or request.resolver_match.view_name == 'masterData-master-data-asuransi-delete' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-list' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-create' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-detail' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-update' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-delete' or request.resolver_match.view_name == 'masterData-master-data-bangsal-list' or request.resolver_match.view_name == 'masterData-master-data-bangsal-create' or request.resolver_match.view_name == 'masterData-master-data-bangsal-detail' or request.resolver_match.view_name == 'masterData-master-data-bangsal-update' or request.resolver_match.view_name == 'masterData-master-data-bangsal-delete' or request.resolver_match.view_name == 'masterData-master-data-unit-list' or request.resolver_match.view_name == 'masterData-master-data-unit-create' or request.resolver_match.view_name == 'masterData-master-data-unit-detail' or request.resolver_match.view_name == 'masterData-master-data-unit-update' or request.resolver_match.view_name == 'masterData-master-data-unit-delete' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-list' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-create' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-detail' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-update' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-delete' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-list' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-create' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-detail' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-update' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-delete' %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-agama-list' or request.resolver_match.view_name == 'masterData-master-data-agama-create' or request.resolver_match.view_name == 'masterData-master-data-agama-detail' or request.resolver_match.view_name == 'masterData-master-data-agama-update' or request.resolver_match.view_name == 'masterData-master-data-agama-delete' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-list' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-create' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-detail' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-update' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-delete' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-list' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-create' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-detail' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-update' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-delete' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-list' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-create' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-detail' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-update' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-delete' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-list' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-create' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-detail' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-update' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-delete' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-list' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-create' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-detail' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-update' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-delete' or request.resolver_match.view_name == 'masterData-master-data-asuransi-list' or request.resolver_match.view_name == 'masterData-master-data-asuransi-create' or request.resolver_match.view_name == 'masterData-master-data-asuransi-detail' or request.resolver_match.view_name == 'masterData-master-data-asuransi-update' or request.resolver_match.view_name == 'masterData-master-data-asuransi-delete' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-list' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-create' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-detail' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-update' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-delete' or request.resolver_match.view_name == 'masterData-master-data-bangsal-list' or request.resolver_match.view_name == 'masterData-master-data-bangsal-create' or request.resolver_match.view_name == 'masterData-master-data-bangsal-detail' or request.resolver_match.view_name == 'masterData-master-data-bangsal-update' or request.resolver_match.view_name == 'masterData-master-data-bangsal-delete' or request.resolver_match.view_name == 'masterData-master-data-unit-list' or request.resolver_match.view_name == 'masterData-master-data-unit-create' or request.resolver_match.view_name == 'masterData-master-data-unit-detail' or request.resolver_match.view_name == 'masterData-master-data-unit-update' or request.resolver_match.view_name == 'masterData-master-data-unit-delete' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-list' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-create' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-detail' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-update' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-delete' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-list' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-create' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-detail' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-update' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-delete' %} active {% endif %}">
                         <i class="nav-icon fas fa-database"></i>
                         <p>
                             Master Data
@@ -159,93 +159,120 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        {% if perms.masterData.view_agama %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-agama" class="nav-link">
+                            <a href="/crud/masterData/master-data-agama" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-agama-list' or request.resolver_match.view_name == 'masterData-master-data-agama-create' or request.resolver_match.view_name == 'masterData-master-data-agama-detail' or request.resolver_match.view_name == 'masterData-master-data-agama-update' or request.resolver_match.view_name == 'masterData-master-data-agama-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Agama</p>
                             </a>
                         </li>
+                        {% endif %}
+
+                        {% if perms.masterData.view_jeniskelamin %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-jenis-kelamin" class="nav-link">
+                            <a href="/crud/masterData/master-data-jenis-kelamin" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-list' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-create' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-detail' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-update' or request.resolver_match.view_name == 'masterData-master-data-jenis-kelamin-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Jenis Kelamin</p>
                             </a>
                         </li>
+                        {% endif %}
+
+                        {% if perms.masterData.view_golongandarah %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-golongan-darah" class="nav-link">
+                            <a href="/crud/masterData/master-data-golongan-darah" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-golongan-darah-list' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-create' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-detail' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-update' or request.resolver_match.view_name == 'masterData-master-data-golongan-darah-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Golongan Darah</p>
                             </a>
                         </li>
+                        {% endif %}
+
+                        {% if perms.masterData.view_statusnikah %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-status-nikah" class="nav-link">
+                            <a href="/crud/masterData/master-data-status-nikah" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-status-nikah-list' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-create' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-detail' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-update' or request.resolver_match.view_name == 'masterData-master-data-status-nikah-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Status Nikah</p>
                             </a>
                         </li>
+                        {% endif %}
+
+                        {% if perms.masterData.view_stratapendidikan %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-strata-pendidikan" class="nav-link">
+                            <a href="/crud/masterData/master-data-strata-pendidikan" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-list' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-create' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-detail' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-update' or request.resolver_match.view_name == 'masterData-master-data-strata-pendidikan-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Strata Pendidikan</p>
                             </a>
                         </li>
+                        {% endif %}
+
+                        {% if perms.masterData.view_jenispekerjaan %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-jenis-pekerjaan" class="nav-link">
+                            <a href="/crud/masterData/master-data-jenis-pekerjaan" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-list' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-create' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-detail' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-update' or request.resolver_match.view_name == 'masterData-master-data-jenis-pekerjaan-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Jenis Pekerjaan</p>
                             </a>
                         </li>
+                        {% endif %}
+
+                        {% if perms.masterData.view_asuransi %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-asuransi" class="nav-link">
+                            <a href="/crud/masterData/master-data-asuransi" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-asuransi-list' or request.resolver_match.view_name == 'masterData-master-data-asuransi-create' or request.resolver_match.view_name == 'masterData-master-data-asuransi-detail' or request.resolver_match.view_name == 'masterData-master-data-asuransi-update' or request.resolver_match.view_name == 'masterData-master-data-asuransi-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Asuransi</p>
                             </a>
                         </li>
+                        {% endif %}
+
+                        {% if perms.masterData.view_poliklinik %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-poliklinik" class="nav-link">
+                            <a href="/crud/masterData/master-data-poliklinik" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-poliklinik-list' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-create' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-detail' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-update' or request.resolver_match.view_name == 'masterData-master-data-poliklinik-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Poliklinik</p>
                             </a>
                         </li>
+                        {% endif %}
 
                         {% if perms.masterData.view_bangsal %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-bangsal" class="nav-link">
+                            <a href="/crud/masterData/master-data-bangsal" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-bangsal-list' or request.resolver_match.view_name == 'masterData-master-data-bangsal-create' or request.resolver_match.view_name == 'masterData-master-data-bangsal-detail' or request.resolver_match.view_name == 'masterData-master-data-bangsal-update' or request.resolver_match.view_name == 'masterData-master-data-bangsal-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Bangsal</p>
                             </a>
                         </li>
                         {% endif %}
 
-
                         {% if perms.masterData.view_unit %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-unit" class="nav-link">
+                            <a href="/crud/masterData/master-data-unit" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-unit-list' or request.resolver_match.view_name == 'masterData-master-data-unit-create' or request.resolver_match.view_name == 'masterData-master-data-unit-detail' or request.resolver_match.view_name == 'masterData-master-data-unit-update' or request.resolver_match.view_name == 'masterData-master-data-unit-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Unit</p>
                             </a>
                         </li>
                         {% endif %}
                         
+                        {% if perms.masterData.view_kategori_perawatan %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-kategori-perawatan" class="nav-link">
+                            <a href="/crud/masterData/master-data-kategori-perawatan" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-list' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-create' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-detail' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-update' or request.resolver_match.view_name == 'masterData-master-data-kategori-perawatan-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kategori Perawatan</p>
                             </a>
                         </li>
+                        {% endif %}
+
+                        {% if perms.masterData.view_perawatan_rawat_jalan %}
                         <li class="nav-item">
-                            <a href="/crud/masterData/master-data-perawatan-rawat-jalan" class="nav-link">
+                            <a href="/crud/masterData/master-data-perawatan-rawat-jalan" class="nav-link {% if request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-list' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-create' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-detail' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-update' or request.resolver_match.view_name == 'masterData-master-data-perawatan-rawat-jalan-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Perawatan Rawat Jalan</p>
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </li>
                 {% endif %}
                 
                 {% if perms.karyawan.view_golongankaryawan or perms.karyawan.view_jabatankaryawan or perms.karyawan.view_statuskaryawan or perms.karyawan.view_karyawan or perms.karyawan.view_berkaskaryawan or perms.karyawan.view_karirkaryawan or perms.karyawan.view_pelatihankaryawan or perms.karyawan.view_riwayatpendidikankaryawan %}
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item {% if request.resolver_match.view_name == 'karyawan-golongan-karyawan-list' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-create' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-detail' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-update' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-delete' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-list' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-create' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-detail' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-update' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-delete' or request.resolver_match.view_name == 'karyawan-status-karyawan-list' or request.resolver_match.view_name == 'karyawan-status-karyawan-create' or request.resolver_match.view_name == 'karyawan-status-karyawan-detail' or request.resolver_match.view_name == 'karyawan-status-karyawan-update' or request.resolver_match.view_name == 'karyawan-status-karyawan-delete' or request.resolver_match.view_name == 'karyawan:index' or request.resolver_match.view_name == 'karyawan:create' or request.resolver_match.view_name == 'karyawan:show' or request.resolver_match.view_name == 'karyawan:edit' or request.resolver_match.view_name == 'karyawan:destroy' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-index' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-create' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-show' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-edit' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-destroy' or request.resolver_match.view_name == 'karyawan:karir-karyawan-index' or request.resolver_match.view_name == 'karyawan:karir-karyawan-create' or request.resolver_match.view_name == 'karyawan:karir-karyawan-show' or request.resolver_match.view_name == 'karyawan:karir-karyawan-edit' or request.resolver_match.view_name == 'karyawan:karir-karyawan-destroy' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-index' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-create' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-show' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-edit' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-destroy' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-index' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-create' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-show' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-edit' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-destroy' %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if request.resolver_match.view_name == 'karyawan-golongan-karyawan-list' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-create' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-detail' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-update' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-delete' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-list' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-create' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-detail' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-update' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-delete' or request.resolver_match.view_name == 'karyawan-status-karyawan-list' or request.resolver_match.view_name == 'karyawan-status-karyawan-create' or request.resolver_match.view_name == 'karyawan-status-karyawan-detail' or request.resolver_match.view_name == 'karyawan-status-karyawan-update' or request.resolver_match.view_name == 'karyawan-status-karyawan-delete' or request.resolver_match.view_name == 'karyawan:index' or request.resolver_match.view_name == 'karyawan:create' or request.resolver_match.view_name == 'karyawan:show' or request.resolver_match.view_name == 'karyawan:edit' or request.resolver_match.view_name == 'karyawan:destroy' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-index' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-create' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-show' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-edit' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-destroy' or request.resolver_match.view_name == 'karyawan:karir-karyawan-index' or request.resolver_match.view_name == 'karyawan:karir-karyawan-create' or request.resolver_match.view_name == 'karyawan:karir-karyawan-show' or request.resolver_match.view_name == 'karyawan:karir-karyawan-edit' or request.resolver_match.view_name == 'karyawan:karir-karyawan-destroy' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-index' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-create' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-show' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-edit' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-destroy' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-index' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-create' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-show' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-edit' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-destroy' %} active {% endif %}">
                         <i class="nav-icon fas fa-users"></i>
                         <p>
                             Karyawan
@@ -255,7 +282,7 @@
                     <ul class="nav nav-treeview">
                         {% if perms.karyawan.view_golongankaryawan %}
                         <li class="nav-item">
-                            <a href="/crud/karyawan/golongan-karyawan" class="nav-link">
+                            <a href="/crud/karyawan/golongan-karyawan" class="nav-link {% if request.resolver_match.view_name == 'karyawan-golongan-karyawan-list' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-create' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-detail' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-update' or request.resolver_match.view_name == 'karyawan-golongan-karyawan-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Golongan Karyawan</p>
                             </a>
@@ -263,7 +290,7 @@
                         {% endif %}
                         {% if perms.karyawan.view_jabatankaryawan %}
                         <li class="nav-item">
-                            <a href="/crud/karyawan/jabatan-karyawan" class="nav-link">
+                            <a href="/crud/karyawan/jabatan-karyawan" class="nav-link {% if request.resolver_match.view_name == 'karyawan-jabatan-karyawan-list' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-create' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-detail' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-update' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Jabatan Karyawan</p>
                             </a>
@@ -271,7 +298,7 @@
                         {% endif %}
                         {% if perms.karyawan.view_statuskaryawan %}
                         <li class="nav-item">
-                            <a href="/crud/karyawan/status-karyawan" class="nav-link">
+                            <a href="/crud/karyawan/status-karyawan" class="nav-link {% if request.resolver_match.view_name == 'karyawan-status-karyawan-list' or request.resolver_match.view_name == 'karyawan-status-karyawan-create' or request.resolver_match.view_name == 'karyawan-status-karyawan-detail' or request.resolver_match.view_name == 'karyawan-status-karyawan-update' or request.resolver_match.view_name == 'karyawan-status-karyawan-delete' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Status Karyawan</p>
                             </a>
@@ -279,7 +306,7 @@
                         {% endif %}
                         {% if perms.karyawan.view_karyawan %}
                         <li class="nav-item">
-                            <a href="{%url 'karyawan:index' %}" class="nav-link">
+                            <a href="{%url 'karyawan:index' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:index' or request.resolver_match.view_name == 'karyawan:create' or request.resolver_match.view_name == 'karyawan:show' or request.resolver_match.view_name == 'karyawan:edit' or request.resolver_match.view_name == 'karyawan:destroy' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Karyawan</p>
                             </a>
@@ -287,7 +314,7 @@
                         {% endif %}
                         {% if perms.karyawan.view_berkaskaryawan %}
                         <li class="nav-item">
-                            <a href="{%url 'karyawan:berkas-karyawan-index' %}" class="nav-link">
+                            <a href="{%url 'karyawan:berkas-karyawan-index' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:berkas-karyawan-index' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-create' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-show' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-edit' or request.resolver_match.view_name == 'karyawan:berkas-karyawan-destroy' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Berkas Karyawan</p>
                             </a>
@@ -295,7 +322,7 @@
                         {% endif %}
                         {% if perms.karyawan.view_karirkaryawan %}
                         <li class="nav-item">
-                            <a href="{%url 'karyawan:karir-karyawan-index' %}" class="nav-link">
+                            <a href="{%url 'karyawan:karir-karyawan-index' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:karir-karyawan-index' or request.resolver_match.view_name == 'karyawan:karir-karyawan-create' or request.resolver_match.view_name == 'karyawan:karir-karyawan-show' or request.resolver_match.view_name == 'karyawan:karir-karyawan-edit' or request.resolver_match.view_name == 'karyawan:karir-karyawan-destroy' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Karir Karyawan</p>
                             </a>
@@ -303,7 +330,7 @@
                         {% endif %}
                         {% if perms.karyawan.view_pelatihankaryawan %}
                         <li class="nav-item">
-                            <a href="{%url 'karyawan:pelatihan-karyawan-index' %}" class="nav-link">
+                            <a href="{%url 'karyawan:pelatihan-karyawan-index' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-index' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-create' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-show' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-edit' or request.resolver_match.view_name == 'karyawan:pelatihan-karyawan-destroy' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pelatihan Karyawan</p>
                             </a>
@@ -311,7 +338,7 @@
                         {% endif %}
                         {% if perms.karyawan.view_riwayatpendidikankaryawan %}
                         <li class="nav-item">
-                            <a href="{%url 'karyawan:riwayat-pendidikan-karyawan-index' %}" class="nav-link">
+                            <a href="{%url 'karyawan:riwayat-pendidikan-karyawan-index' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-index' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-create' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-show' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-edit' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-karyawan-destroy' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Riwayat Pendidikan <br> Karyawan</p>
                             </a>
@@ -322,8 +349,8 @@
                 {% endif %}
 
                 {% if perms.karyawan.berkas_saya or perms.karyawan.berkas_saya or perms.karyawan.karir_saya or perms.karyawan.riwayat_pendidikan_saya or perms.karyawan.pelatihan_saya %}
-                <li class="nav-item">
-                    <a href="#" class="nav-link">
+                <li class="nav-item {% if request.resolver_match.view_name == 'karyawan:cv_saya' or request.resolver_match.view_name == 'karyawan:berkas-saya-index' or request.resolver_match.view_name == 'karyawan:berkas-saya-create' or request.resolver_match.view_name == 'karyawan:berkas-saya-show' or request.resolver_match.view_name == 'karyawan:berkas-saya-edit' or request.resolver_match.view_name == 'karyawan:berkas-saya-destroy' or request.resolver_match.view_name == 'karyawan:karir-saya-index' or request.resolver_match.view_name == 'karyawan:karir-saya-create' or request.resolver_match.view_name == 'karyawan:karir-saya-show' or request.resolver_match.view_name == 'karyawan:karir-saya-edit' or request.resolver_match.view_name == 'karyawan:karir-saya-destroy' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-index' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-create' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-show' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-edit' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-destroy' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-index' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-create' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-show' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-edit' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-destroy' %} menu-open {% endif %}">
+                    <a href="#" class="nav-link {% if request.resolver_match.view_name == 'karyawan:cv_saya' or request.resolver_match.view_name == 'karyawan:berkas-saya-index' or request.resolver_match.view_name == 'karyawan:berkas-saya-create' or request.resolver_match.view_name == 'karyawan:berkas-saya-show' or request.resolver_match.view_name == 'karyawan:berkas-saya-edit' or request.resolver_match.view_name == 'karyawan:berkas-saya-destroy' or request.resolver_match.view_name == 'karyawan:karir-saya-index' or request.resolver_match.view_name == 'karyawan:karir-saya-create' or request.resolver_match.view_name == 'karyawan:karir-saya-show' or request.resolver_match.view_name == 'karyawan:karir-saya-edit' or request.resolver_match.view_name == 'karyawan:karir-saya-destroy' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-index' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-create' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-show' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-edit' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-destroy' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-index' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-create' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-show' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-edit' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-destroy' %} active {% endif %}">
                         <i class="nav-icon fas fa-user-edit"></i>
                         <p>
                             Data Saya
@@ -333,7 +360,7 @@
                     <ul class="nav nav-treeview">
                         {% if perms.karyawan.berkas_saya %}
                         <li class="nav-item">
-                            <a href="{%url 'karyawan:berkas-saya-index' %}" class="nav-link">
+                            <a href="{%url 'karyawan:berkas-saya-index' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:berkas-saya-index' or request.resolver_match.view_name == 'karyawan:berkas-saya-create' or request.resolver_match.view_name == 'karyawan:berkas-saya-show' or request.resolver_match.view_name == 'karyawan:berkas-saya-edit' or request.resolver_match.view_name == 'karyawan:berkas-saya-destroy' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Berkas</p>
                             </a>
@@ -341,7 +368,7 @@
                         {% endif %}
                         {% if perms.karyawan.karir_saya %}
                         <li class="nav-item">
-                            <a href="{%url 'karyawan:karir-saya-index' %}" class="nav-link">
+                            <a href="{%url 'karyawan:karir-saya-index' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:karir-saya-index' or request.resolver_match.view_name == 'karyawan:karir-saya-create' or request.resolver_match.view_name == 'karyawan:karir-saya-show' or request.resolver_match.view_name == 'karyawan:karir-saya-edit' or request.resolver_match.view_name == 'karyawan:karir-saya-destroy' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Karir</p>
                             </a>
@@ -349,7 +376,7 @@
                         {% endif %}
                         {% if perms.karyawan.riwayat_pendidikan_saya %}
                         <li class="nav-item">
-                            <a href="{%url 'karyawan:riwayat-pendidikan-saya-index' %}" class="nav-link">
+                            <a href="{%url 'karyawan:riwayat-pendidikan-saya-index' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-index' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-create' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-show' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-edit' or request.resolver_match.view_name == 'karyawan:riwayat-pendidikan-saya-destroy' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Riwayat Pendidikan</p>
                             </a>
@@ -357,14 +384,14 @@
                         {% endif %}
                         {% if perms.karyawan.pelatihan_saya %}
                         <li class="nav-item">
-                            <a href="{%url 'karyawan:pelatihan-saya-index' %}" class="nav-link">
+                            <a href="{%url 'karyawan:pelatihan-saya-index' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:pelatihan-saya-index' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-create' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-show' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-edit' or request.resolver_match.view_name == 'karyawan:pelatihan-saya-destroy' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Pelatihan</p>
                             </a>
                         </li>
                         {% endif %}
                         <li class="nav-item">
-                            <a href="{%url 'karyawan:cv_saya' %}" class="nav-link">
+                            <a href="{%url 'karyawan:cv_saya' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:cv_saya' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Curriculum Vitae</p>
                             </a>

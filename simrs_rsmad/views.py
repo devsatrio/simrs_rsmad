@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.admin.models import ADDITION, LogEntry
-from karyawan.models import Karyawan
+from karyawan.models import Karyawan,BerkasKaryawan
 from .forms import UserUpdateForm,UserUpdatePassForm
 
 #========================================================================================================================
@@ -93,9 +93,14 @@ def logout(request):
 def dashboard(request):
     user = request.user
     cek_relasi = Karyawan.objects.filter(user=user).count()
-    data_log = LogEntry.objects.filter(user=user).order_by('-pk')[:30]
+    if(cek_relasi>0):
+        berkas_saya = BerkasKaryawan.objects.filter(karyawan=Karyawan.objects.get(user=user)).order_by('-pk')[:5]
+    else:
+        berkas_saya =''
+
     context={
         'cek_relasi':cek_relasi,
-        'data_log':data_log,
+        'user':user,
+        'berkas_saya':berkas_saya,
     }
     return render(request,'dashboard.html',context)
