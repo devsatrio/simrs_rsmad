@@ -18,7 +18,7 @@
     </style>
 </head>
 
-<body class="sidebar-mini sidebar-closed sidebar-collapse">
+<body class="sidebar-mini layout-navbar-fixed sidebar-closed sidebar-collapse">
     <div class="wrapper">
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="{% static 'static_img/logo.png' %}" alt="app logo" height="60"
@@ -48,6 +48,8 @@
     {% block customjs %}
     {% endblock customjs %}
     <script src="{% static 'assets/dist/js/adminlte.min.js'%}"></script>
+    {% block customscripts %}
+    {% endblock customscripts %}
 
 </body>
 

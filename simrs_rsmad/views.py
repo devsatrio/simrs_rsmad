@@ -1,5 +1,6 @@
 from django.shortcuts import render,redirect
 from django.contrib import messages
+from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.admin.models import ADDITION, LogEntry
@@ -93,6 +94,12 @@ def logout(request):
 def dashboard(request):
     user = request.user
     cek_relasi = Karyawan.objects.filter(user=user).count()
+    jumlah_berkas_diajukan=BerkasKaryawan.objects.filter(status_berkas='Berkas Diajukan').count()
+    jumlah_berkas_ditolak=BerkasKaryawan.objects.filter(status_berkas='Berkas Ditolak').count()
+    jumlah_berkas_diterima=BerkasKaryawan.objects.filter(status_berkas='Berkas Diterima').count()
+    jumlah_semua_karyawan=Karyawan.objects.all().count()
+    jumlah_karyawan_perkategori = Karyawan.objects.all().values('status_karyawan__name').annotate(total=Count('status_karyawan__name')).order_by('total')
+    jumlah_karyawan_pergolongan = Karyawan.objects.all().values('golongan_karyawan__nama').annotate(total=Count('golongan_karyawan__nama')).order_by('total')
     if(cek_relasi>0):
         berkas_saya = BerkasKaryawan.objects.filter(karyawan=Karyawan.objects.get(user=user)).order_by('-pk')[:5]
     else:
@@ -102,5 +109,11 @@ def dashboard(request):
         'cek_relasi':cek_relasi,
         'user':user,
         'berkas_saya':berkas_saya,
+        'jumlah_berkas_diajukan':jumlah_berkas_diajukan,
+        'jumlah_berkas_ditolak':jumlah_berkas_ditolak,
+        'jumlah_berkas_diterima':jumlah_berkas_diterima,
+        'jumlah_semua_karyawan':jumlah_semua_karyawan,
+        'jumlah_karyawan_perkategori':jumlah_karyawan_perkategori,
+        'jumlah_karyawan_pergolongan':jumlah_karyawan_pergolongan,
     }
     return render(request,'dashboard.html',context)

@@ -50,41 +50,119 @@
                         {{user.username}} To SIMRS RSMAD BETA
                     </div>
                 </div>
-                <div class="col-md-9">
+                <div class="col-md-12">
                     <div class="row">
-                        <div class="col-md-12">
-                            <div class="callout callout-warning">
-                                <h5>Pengumumman !</h5>
-                                <p>Pastikan username dan password lama telah diganti dengan username dan password baru yang lebih aman.</p>
+                        <div class="col-md-6">
+                            <div class="card card-success">
+                                <div class="card-body">
+                                    <div class="chart">
+                                        <canvas id="barChart"
+                                            style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="info-box mb-3">
+                                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-users"></i></span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">Total Seluruh Karyawan</span>
+                                    <span class="info-box-number">{{jumlah_semua_karyawan}}</span>
+                                </div>
+                            </div>
+                            <div class="card card-danger">
+                              <div class="card-body">
+                                <canvas id="pieChart" style="min-height: 250px; height: 250px; max-height: 250px; max-width: 100%;"></canvas>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-header border-0">
+                                    <h3 class="card-title">Summary Berkas Karyawan</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
+                                        <p class="text-info text-xl">
+                                            <i class="fas fa-info-circle"></i>
+                                        </p>
+                                        <p class="d-flex flex-column text-right">
+                                            <span class="font-weight-bold">
+                                                <i class="fas fa-file text-info"></i> {{jumlah_berkas_diajukan}} Berkas
+                                            </span>
+                                            <span class="text-muted">Diajukan</span>
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center border-bottom mb-3">
+                                        <p class="text-danger text-xl">
+                                            <i class="fas fa-exclamation-circle"></i>
+                                        </p>
+                                        <p class="d-flex flex-column text-right">
+                                            <span class="font-weight-bold">
+                                                <i class="fas fa-file text-danger"></i> {{jumlah_berkas_ditolak}}
+                                                Berkas
+                                            </span>
+                                            <span class="text-muted">Belum ACC</span>
+                                        </p>
+                                    </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-0">
+                                        <p class="text-success text-xl">
+                                            <i class="fas fa-check-circle"></i>
+                                        </p>
+                                        <p class="d-flex flex-column text-right">
+                                            <span class="font-weight-bold">
+                                                <i class="fas fa-file text-success"></i> {{jumlah_berkas_diterima}}
+                                                Berkas
+                                            </span>
+                                            <span class="text-muted">Telah ACC</span>
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-md-3">
-                    <div class="card">
-                        <div class="card-header">
-                            <h3 class="card-title">Berkas Terbaru Saya</h3>
-                        </div>
-                        <div class="card-body p-0">
-                            <ul class="products-list product-list-in-card pl-2 pr-2">
-                                {% for row_berkas_saya in berkas_saya %}
-                                <li class="item">
-                                    <div class="product-info ml-3">
-                                        <a href="{{row_berkas_saya.berkas.url}}" target="blank" class="product-title">{{row_berkas_saya.nama_berkas}}
-                                            <span class="badge badge-warning float-right">{{row_berkas_saya.status_berkas}}</span></a>
-                                        <span class="product-description">
-                                            {{row_berkas_saya.verifikator.username}}
-                                        </span>
+                <div class="col-md-12">
+                    <div class="row">
+                        <div class="col-md-9">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="callout callout-warning">
+                                        <h5>Pengumumman !</h5>
+                                        <p>Pastikan username dan password lama telah diganti dengan username dan
+                                            password baru
+                                            yang lebih aman.</p>
                                     </div>
-                                </li>
-                                {% endfor %}
-                            </ul>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="card-footer text-center">
-                            <a href="{%url 'karyawan:berkas-saya-index' %}" class="uppercase">View All Data</a>
+                        <div class="col-md-3">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">Berkas Terbaru Saya</h3>
+                                </div>
+                                <div class="card-body p-0">
+                                    <ul class="products-list product-list-in-card pl-2 pr-2">
+                                        {% for row_berkas_saya in berkas_saya %}
+                                        <li class="item">
+                                            <div class="product-info ml-3">
+                                                <a href="{{row_berkas_saya.berkas.url}}" target="blank"
+                                                    class="product-title">{{row_berkas_saya.nama_berkas}}
+                                                    <span
+                                                        class="badge badge-warning float-right">{{row_berkas_saya.status_berkas}}</span></a>
+                                                <span class="product-description">
+                                                    {{row_berkas_saya.verifikator.username}}
+                                                </span>
+                                            </div>
+                                        </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="card-footer text-center">
+                                    <a href="{%url 'karyawan:berkas-saya-index' %}" class="uppercase">View All Data</a>
+                                </div>
+                            </div>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -92,3 +170,74 @@
     </div>
 </div>
 {% endblock content %}
+
+{% block customjs %}
+<script src="{% static 'assets/plugins/chart.js/Chart.min.js' %}"></script>
+{% endblock customjs %}
+
+{% block customscripts %}
+<script>
+    $(function () {
+        var donutData        = {
+      labels: [{% for row_jumlah_karyawan_pergolongan in jumlah_karyawan_pergolongan %}'{{row_jumlah_karyawan_pergolongan.golongan_karyawan__nama}}',{% endfor %}],
+      datasets: [
+        {
+          data: [{% for row_jumlah_karyawan_pergolongan in jumlah_karyawan_pergolongan %}{{row_jumlah_karyawan_pergolongan.total}},{% endfor %}],
+          backgroundColor : ['#f56954', '#00a65a', '#f39c12', '#00c0ef', '#3c8dbc', '#d2d6de'],
+        }
+      ]
+    }
+        var areaChartData = {
+            labels: [{% for row_jumlah_karyawan_perkategori in jumlah_karyawan_perkategori %}'{{row_jumlah_karyawan_perkategori.status_karyawan__name}}',{% endfor %}],
+            datasets: [
+                {
+                    label: 'Jumlah Kategori Karyawan',
+                    backgroundColor: 'rgba(60,141,188,0.9)',
+                    borderColor: 'rgba(60,141,188,0.8)',
+                    pointRadius: false,
+                    pointColor: '#3b8bba',
+                    pointStrokeColor: 'rgba(60,141,188,1)',
+                    pointHighlightFill: '#fff',
+                    pointHighlightStroke: 'rgba(60,141,188,1)',
+                    data: [{% for row_jumlah_karyawan_perkategori in jumlah_karyawan_perkategori %}{{row_jumlah_karyawan_perkategori.total}},{% endfor %}]
+                },
+            ]
+        }
+
+        var barChartCanvas = $('#barChart').get(0).getContext('2d')
+        var barChartData = $.extend(true, {}, areaChartData)
+        var temp0 = areaChartData.datasets[0]
+        barChartData.datasets[0] = temp0
+
+        var barChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            datasetFill: false
+        }
+
+        new Chart(barChartCanvas, {
+            type: 'bar',
+            data: barChartData,
+            options: barChartOptions
+        })
+
+        //-------------
+        //- PIE CHART -
+        //-------------
+        // Get context with jQuery - using jQuery's .get() method.
+        var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+        var pieData        = donutData;
+        var pieOptions     = {
+        maintainAspectRatio : false,
+        responsive : true,
+        }
+        //Create pie or douhnut chart
+        // You can switch between pie and douhnut using the method below.
+        new Chart(pieChartCanvas, {
+        type: 'pie',
+        data: pieData,
+        options: pieOptions
+        })
+    })
+</script>
+{% endblock customscripts %}
