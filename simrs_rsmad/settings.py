@@ -104,7 +104,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'db_simrs_rsmad',
         'USER': 'root',
-        'PASSWORD': '',
+        'PASSWORD': '1q2w3e4r5t',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
     }

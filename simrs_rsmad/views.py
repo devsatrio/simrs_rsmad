@@ -100,6 +100,7 @@ def dashboard(request):
     jumlah_semua_karyawan=Karyawan.objects.all().count()
     jumlah_karyawan_perkategori = Karyawan.objects.all().values('status_karyawan__name').annotate(total=Count('status_karyawan__name')).order_by('total')
     jumlah_karyawan_pergolongan = Karyawan.objects.all().values('golongan_karyawan__nama').annotate(total=Count('golongan_karyawan__nama')).order_by('total')
+    berkas_diajukan = BerkasKaryawan.objects.filter(status_berkas='Berkas Diajukan').order_by('-pk')[:10]
     if(cek_relasi>0):
         berkas_saya = BerkasKaryawan.objects.filter(karyawan=Karyawan.objects.get(user=user)).order_by('-pk')[:5]
     else:
@@ -115,5 +116,6 @@ def dashboard(request):
         'jumlah_semua_karyawan':jumlah_semua_karyawan,
         'jumlah_karyawan_perkategori':jumlah_karyawan_perkategori,
         'jumlah_karyawan_pergolongan':jumlah_karyawan_pergolongan,
+        'berkas_diajukan':berkas_diajukan
     }
     return render(request,'dashboard.html',context)

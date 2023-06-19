@@ -390,12 +390,14 @@
                             </a>
                         </li>
                         {% endif %}
+                        {% if perms.karyawan.cv_saya %}
                         <li class="nav-item">
                             <a href="{%url 'karyawan:cv_saya' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:cv_saya' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Curriculum Vitae</p>
                             </a>
                         </li>
+                        {% endif %}
                     </ul>
                 </li>
                 {% endif %}

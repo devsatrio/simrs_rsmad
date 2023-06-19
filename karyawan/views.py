@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required,permission_required
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.cv_saya')
 def cv_saya(request):
     user = request.user
     cek_relasi = Karyawan.objects.filter(user=user).count()
@@ -35,6 +36,7 @@ def cv_saya(request):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.pelatihan_saya')
 def destroypelatihansaya(request,id):
     user = request.user
     cek_relasi = Karyawan.objects.filter(user=user).count()
@@ -60,6 +62,7 @@ def destroypelatihansaya(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.pelatihan_saya')
 def editpelatihansaya(request,id):
     user = request.user
     cek_relasi = Karyawan.objects.filter(user=user).count()
@@ -83,6 +86,7 @@ def editpelatihansaya(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.pelatihan_saya')
 def showpelatihansaya(request,id):
     data =get_object_or_404(PelatihanKaryawan,pk=id) 
     context = {
@@ -94,6 +98,7 @@ def showpelatihansaya(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.pelatihan_saya')
 def createpelatihansaya(request):
     user = request.user
     cek_relasi = Karyawan.objects.filter(user=user).count()
@@ -119,6 +124,7 @@ def createpelatihansaya(request):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.pelatihan_saya')
 def indexpelatihansaya(request):
     user = request.user
     cek_relasi = Karyawan.objects.filter(user=user).count()
@@ -138,6 +144,7 @@ def indexpelatihansaya(request):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.riwayat_pendidikan_saya')
 def destroyriwayatpendidikansaya(request,id):
     if request.method == 'POST':
         data_dihapus = RiwayatPendidikanKaryawan.objects.get(id=id)
@@ -157,6 +164,7 @@ def destroyriwayatpendidikansaya(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.riwayat_pendidikan_saya')
 def editriwayatpendidikansaya(request,id):
     user = request.user
     obj = get_object_or_404(RiwayatPendidikanKaryawan, id = id)
@@ -186,6 +194,7 @@ def editriwayatpendidikansaya(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.riwayat_pendidikan_saya')
 def showriwayatpendidikansaya(request,id):
     data =get_object_or_404(RiwayatPendidikanKaryawan,pk=id) 
     context = {
@@ -196,6 +205,7 @@ def showriwayatpendidikansaya(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.riwayat_pendidikan_saya')
 def createriwayatpendidikansaya(request):
     user = request.user
     cek_relasi = Karyawan.objects.filter(user=user).count()
@@ -224,6 +234,7 @@ def createriwayatpendidikansaya(request):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.riwayat_pendidikan_saya')
 def indexriwayatpendidikansaya(request):
     user = request.user
     cek_relasi = Karyawan.objects.filter(user=user).count()
@@ -243,6 +254,7 @@ def indexriwayatpendidikansaya(request):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.karir_saya')
 def destroykarirsaya(request,id):
     if request.method == 'POST':
         data_dihapus = KarirKaryawan.objects.get(id=id)
@@ -262,6 +274,7 @@ def destroykarirsaya(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.karir_saya')
 def editkarirsaya(request,id):
     obj = get_object_or_404(KarirKaryawan, id = id)
     user = request.user
@@ -291,6 +304,7 @@ def editkarirsaya(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.karir_saya')
 def showkarirsaya(request,id):
     data =get_object_or_404(KarirKaryawan,pk=id) 
     context = {
@@ -301,6 +315,7 @@ def showkarirsaya(request,id):
 
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.karir_saya')
 def createkarirsaya(request):
     user = request.user
     cek_relasi = Karyawan.objects.filter(user=user).count()
@@ -329,6 +344,7 @@ def createkarirsaya(request):
     
 #========================================================================================================================
 @login_required
+@permission_required('karyawan.karir_saya')
 def indexkarirsaya(request):
     user = request.user
     cek_relasi = Karyawan.objects.filter(user=user).count()

@@ -19,7 +19,7 @@
                     <div class="card card-primary card-outline">
                         <div class="card-body box-profile">
                             <div class="text-center">
-                                <img class="profile-user-img img-fluid img-circle" src="{{data.foto.url}}"
+                                <img class="profile-user-img img-fluid" src="{{data.foto.url}}"
                                     alt="User profile picture">
                             </div>
                             <h3 class="profile-username text-center">{{data.nama_lengkap}}</h3>
@@ -116,9 +116,12 @@
                                     <strong><i class="fas fa-pencil-alt mr-1"></i> Pelatihan</strong>
                                     <ul class="pl-4">
                                         {% for row_pelatihan in data_pelatihan %}
-                                        <li>{{row_pelatihan.nama_pelatihan}} - {{row_pelatihan.tanggal_pelatihan}} ({{row_pelatihan.tahun_kegiatan}} - {{row_pelatihan.tahun_expired}})</li>
+                                        <li>{{row_pelatihan.nama_pelatihan}} - {{row_pelatihan.tanggal_pelatihan}}
+                                            ({{row_pelatihan.tahun_kegiatan}} - {{row_pelatihan.tahun_expired}})</li>
                                         {% endfor %}
                                     </ul>
+                                    <button class="btn btn-secondary btn-sm" id="print_cv_btn" type="button"><i
+                                            class="fas fa-print"></i> Print</button>
                                 </div>
 
                                 <div class="tab-pane" id="berkas_panel">
@@ -150,4 +153,141 @@
         </div>
     </section>
 </div>
+
+<div id="print_cv" style="display: none;">
+    <table style="width:100%;">
+        <tr>
+            <td width="30%" style="vertical-align:top;">
+                <div align="center">
+                    <img style="width: 200px;" src="{{data.foto.url}}"><br><br>
+                    <span style="font-size: 22px;"><b>{{data.nama_lengkap}}</b></span><br>
+                    {{data.status_karyawan}}
+                </div>
+                <hr>
+                <table>
+                    <tr>
+                        <td>
+                            <b>NIK</b> <br>
+                            <span class="float-right text-primary">{{data.nik}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Kode Karyawan</b> <br>
+                            <span class="float-right text-primary">{{data.kode}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>No. Karyawan Tetap</b> <br>
+                            <span class="float-right text-primary">{{data.no_karyawan_tetap}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Unit</b> <br>
+                            <span class="float-right text-primary">{{data.unit}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Gol. Karyawan</b> <br>
+                            <span class="float-right text-primary">{{data.golongan_karyawan}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Jabatan Karyawan</b> <br>
+                            <span class="float-right text-primary">{{data.jabatan_karyawan}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>No Telp</b> <br>
+                            <span class="float-right text-primary">{{data.no_telfon}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>TTL</b> <br>
+                            <span class="float-right text-primary">{{data.tempat_lahir}}, {{data.tgl_lahir}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Agama</b> <br>
+                            <span class="float-right text-primary">{{data.agama}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Jenis Kelamin</b> <br>
+                            <span class="float-right text-primary">{{data.jenis_kelamin}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Gol. Darah</b> <br>
+                            <span class="float-right text-primary">{{data.golongan_darah}}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <b>Status Menikah</b> <br>
+                            <span class="float-right text-primary">{{data.status_nikah}}</span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td width="70%" style="vertical-align:top;">
+                <strong><i class="far fa-file-alt mr-1"></i> STR & SIP</strong>
+                <ol class="pl-3">
+                    {% if data.no_str is not None %}
+                    <li>No. STR : {{data.no_str}} (berlaku sampai {{data.tgl_berlaku_str}})</li>
+                    {% endif %}
+                    {% if data.no_sip is not None %}
+                    <li>No. SIP : {{data.no_sip}} (berlaku sampai {{data.tgl_berlaku_sip}})</li>
+                    {% endif %}
+                </ol>
+                <hr>
+                <strong><i class="fas fa-child mr-1"></i> Karir</strong>
+                <ul class="pl-4">
+                    {% for row_karir in data_karir %}
+                    <li>{{row_karir.tahun_menjabat}} {% if data.tahun_berhenti_menjabat is not None %} -
+                        {{row_karir.tahun_berhenti_menjabat}} {% endif %}<b>{{row_karir.jabatan}}</b> {{row_karir.unit}}
+                    </li>
+                    {% endfor %}
+                </ul>
+                <hr>
+                <strong><i class="fas fa-book mr-1"></i> Pendidikan</strong>
+                <ul class="pl-4">
+                    {% for row_pendidikan in data_riwayat_pendidikan %}
+                    <li>{{row_pendidikan.tahun_lulus}} - <b>{{row_pendidikan.strata_pendidikan}}</b>
+                        {{row_pendidikan.nama_sekolah}}</li>
+                    {% endfor %}
+                </ul>
+                <hr>
+                <strong><i class="fas fa-pencil-alt mr-1"></i> Pelatihan</strong>
+                <ul class="pl-4">
+                    {% for row_pelatihan in data_pelatihan %}
+                    <li>{{row_pelatihan.nama_pelatihan}} - {{row_pelatihan.tanggal_pelatihan}}
+                        ({{row_pelatihan.tahun_kegiatan}} - {{row_pelatihan.tahun_expired}})</li>
+                    {% endfor %}
+                </ul>
+            </td>
+        </tr>
+    </table>
+</div>
 {% endblock content %}
+
+{% block customscripts %}
+<script>
+    $('#print_cv_btn').on('click', function () {
+        var divToPrint = document.getElementById('print_cv');
+        var newWin = window.open('', 'Print-Window');
+        newWin.document.open();
+        newWin.document.write('<html><body onload="window.print();window.close()">' + divToPrint.innerHTML + '</body></html>');
+        newWin.document.close();
+    });
+</script>
+{% endblock customscripts %}

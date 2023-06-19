@@ -83,6 +83,8 @@ class Karyawan(models.Model):
             verbose_name_plural = "Data Karyawan"
             permissions = [
                   ("cv_saya", "Can access cv saya"),
+                  ("dashboard_admin_karyawan", "Can access dashboard admin karyawan"),
+                  ("dashboard_karyawan", "Can access dashboard karyawan"),
             ]
       def __str__(self):
                   return self.nama_lengkap
