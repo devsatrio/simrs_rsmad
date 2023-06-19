@@ -31,7 +31,7 @@ XS_SHARING_ALLOWED_METHODS = ['POST','GET','OPTIONS', 'PUT', 'DELETE']
 
 ALLOWED_HOSTS = [
   'localhost',
-  '192.168.6.7:8000',
+  '192.168.6.7', 
   '127.0.0.1',
   '111.222.333.444',
   'mywebsite.example']
