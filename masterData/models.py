@@ -1,6 +1,11 @@
 from django.db import models
 
-# Create your models here.
+# =========================================================================================================
+class JenisBarang(models.TextChoices):
+      logistik_rt = 'Logistik RT', 'Logistik RT'
+      logistik_gizi = 'Logistik Gizi', 'Logistik Gizi'
+
+#===========================================================================================================================
 class Agama(models.Model):
     name=models.CharField(max_length=30)
     class Meta:
@@ -9,6 +14,7 @@ class Agama(models.Model):
     def __str__(self):
             return self.name
 
+#===========================================================================================================================
 class JenisKelamin(models.Model):
     name=models.CharField(max_length=30)
     class Meta:
@@ -17,6 +23,7 @@ class JenisKelamin(models.Model):
     def __str__(self):
             return self.name
 
+#===========================================================================================================================
 class GolonganDarah(models.Model):
     name=models.CharField(max_length=30)
     class Meta:
@@ -25,6 +32,7 @@ class GolonganDarah(models.Model):
     def __str__(self):
             return self.name
 
+#===========================================================================================================================
 class StatusNikah(models.Model):
     name=models.CharField(max_length=30)
     class Meta:
@@ -33,6 +41,7 @@ class StatusNikah(models.Model):
     def __str__(self):
             return self.name
 
+#===========================================================================================================================
 class StrataPendidikan(models.Model):
     name=models.CharField(max_length=30)
     class Meta:
@@ -40,7 +49,8 @@ class StrataPendidikan(models.Model):
           verbose_name_plural = "Strata Pendidikan"
     def __str__(self):
             return self.name        
-    
+
+#===========================================================================================================================
 class JenisPekerjaan(models.Model):
     name=models.CharField(max_length=30)
     class Meta:
@@ -49,6 +59,7 @@ class JenisPekerjaan(models.Model):
     def __str__(self):
             return self.name   
 
+#===========================================================================================================================
 class Asuransi(models.Model):
     name=models.CharField(max_length=30)
     class Meta:
@@ -57,6 +68,7 @@ class Asuransi(models.Model):
     def __str__(self):
             return self.name   
 
+#===========================================================================================================================
 class Poliklinik(models.Model):
       kode=models.CharField(max_length=30,unique=True)
       name=models.CharField(max_length=50)
@@ -66,6 +78,7 @@ class Poliklinik(models.Model):
       def __str__(self):
             return self.name
 
+#===========================================================================================================================
 class Unit(models.Model):
       kode=models.CharField(max_length=30,unique=True)
       name=models.CharField(max_length=50)
@@ -75,6 +88,7 @@ class Unit(models.Model):
       def __str__(self):
             return self.name
 
+#===========================================================================================================================
 class Bangsal(models.Model):
       kode=models.CharField(max_length=30,unique=True)
       name=models.CharField(max_length=50)
@@ -85,6 +99,7 @@ class Bangsal(models.Model):
       def __str__(self):
             return self.name
 
+#===========================================================================================================================
 class kategori_perawatan(models.Model):
       kode=models.CharField(max_length=30,unique=True)
       name=models.CharField(max_length=50)
@@ -94,6 +109,7 @@ class kategori_perawatan(models.Model):
       def __str__(self):
             return self.name
 
+#===========================================================================================================================
 class perawatan_rawat_jalan(models.Model):
       kode=models.CharField(max_length=30,unique=True)
       nama_perawatan=models.CharField(max_length=50)
@@ -104,3 +120,55 @@ class perawatan_rawat_jalan(models.Model):
             verbose_name_plural = "Perawatan Rawat Jalan"
       def __str__(self):
             return self.nama_perawatan
+
+#===========================================================================================================================
+class SatuanBarang(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      name=models.CharField(max_length=50)
+      status=models.BooleanField()
+      class Meta:
+            verbose_name="Satuan Barang"
+            verbose_name_plural = "Satuan Barang"
+      def __str__(self):
+            return self.name
+
+#===========================================================================================================================
+class KategoriBarang(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      name=models.CharField(max_length=50)
+      status=models.BooleanField()
+      class Meta:
+            verbose_name="Kategori Barang"
+            verbose_name_plural = "Kategori Barang"
+      def __str__(self):
+            return self.name
+
+#===========================================================================================================================
+class Barang(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      name=models.CharField(max_length=50)
+      kategori_barang = models.ForeignKey(KategoriBarang,on_delete=models.RESTRICT,null=True,blank=True)
+      stok = models.IntegerField(null=True,blank=True)
+      satuan_barang = models.ForeignKey(SatuanBarang,on_delete=models.RESTRICT,null=True,blank=True)
+      harga_beli = models.IntegerField(null=True,blank=True)
+      harga_beli_terakhir = models.IntegerField(null=True,blank=True)
+      jenis_barang = models.CharField(max_length=50,choices=JenisBarang.choices,default=JenisBarang.logistik_rt)
+      status=models.BooleanField()
+      class Meta:
+            verbose_name="Barang"
+            verbose_name_plural = "Barang"
+      def __str__(self):
+            return self.name
+
+#===========================================================================================================================
+class Perusahaan(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      name=models.CharField(max_length=50)
+      no_telfon=models.CharField(max_length=30,null=True,blank=True)
+      alamat = models.TextField(max_length=300,blank=True,null=True)
+      status=models.BooleanField()
+      class Meta:
+            verbose_name="Perusahaan"
+            verbose_name_plural = "Perusahaan"
+      def __str__(self):
+            return self.name
