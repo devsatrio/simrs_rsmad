@@ -100,6 +100,28 @@ class Bangsal(models.Model):
             return self.name
 
 #===========================================================================================================================
+class Ruangan(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      name=models.CharField(max_length=50)
+      bangsal = models.ForeignKey(Bangsal,on_delete=models.RESTRICT,null=True,blank=True)
+      status=models.BooleanField()
+      class Meta:
+            verbose_name="Ruangan"
+            verbose_name_plural = "Ruangan"
+      def __str__(self):
+            return self.name
+
+#===========================================================================================================================
+class RuanganUnit(models.Model):
+      unit = models.ForeignKey(Unit,on_delete=models.RESTRICT,null=True,blank=True)
+      ruangan = models.ForeignKey(Ruangan,on_delete=models.RESTRICT,null=True,blank=True)
+      class Meta:
+            verbose_name="Ruangan Unit"
+            verbose_name_plural = "Ruangan Unit"
+      def __str__(self):
+            return self.ruangan.name
+
+#===========================================================================================================================
 class kategori_perawatan(models.Model):
       kode=models.CharField(max_length=30,unique=True)
       name=models.CharField(max_length=50)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import perawatan_rawat_jalan,Agama,GolonganDarah,JenisKelamin,StatusNikah,JenisPekerjaan, StrataPendidikan, Asuransi, Poliklinik,Bangsal,kategori_perawatan,Unit,SatuanBarang,KategoriBarang,Perusahaan,Barang
+from .models import perawatan_rawat_jalan,Agama,GolonganDarah,JenisKelamin,StatusNikah,JenisPekerjaan, StrataPendidikan, Asuransi, Poliklinik,Bangsal,kategori_perawatan,Unit,SatuanBarang,KategoriBarang,Perusahaan,Barang,Ruangan,RuanganUnit
 import locale
 # Register your models here.
 
@@ -13,6 +13,18 @@ admin.site.register(StrataPendidikan)
 admin.site.register(Asuransi)
 admin.site.register(kategori_perawatan)
 admin.site.register(perawatan_rawat_jalan)
+
+#===========================================================================================================================
+class RuanganUnitAdmin(admin.ModelAdmin):
+    list_display = ["unit","ruangan"]
+
+admin.site.register(RuanganUnit,RuanganUnitAdmin)
+
+#===========================================================================================================================
+class RuanganAdmin(admin.ModelAdmin):
+    list_display = ["kode","name","status"]
+
+admin.site.register(Ruangan,RuanganAdmin)
 
 #===========================================================================================================================
 class BarangAdmin(admin.ModelAdmin):

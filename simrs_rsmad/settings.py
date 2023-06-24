@@ -332,12 +332,15 @@ JAZZMIN_SETTINGS = {
     "changeform_format": "horizontal_tabs",
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
+    "related_modal_active": True
 }
 
 JAZZMIN_UI_TWEAKS = {
     "navbar_fixed": True,
     "actions_sticky_top": True
 }
+
+
 
 DJANGO_TABLES2_TEMPLATE = "django_tables2/bootstrap4-responsive.html"
 BOOTSTRAP4 = {
