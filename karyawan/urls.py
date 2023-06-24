@@ -8,6 +8,9 @@ urlpatterns = [
     path('cari-berkas/<int:karyawan_id>', views.berkas_list, name = 'berkas_list'),
     
     #cv saya
+    path('edit-data-karyawan-saya', views.datakaryawansaya, name = 'data-karyawan-saya'),
+    
+    #cv saya
     path('curriculum-vitae', views.cv_saya, name = 'cv_saya'),
     
     # karyawan

@@ -360,6 +360,14 @@
                     <ul class="nav nav-treeview">
                         {% if perms.karyawan.berkas_saya %}
                         <li class="nav-item">
+                            <a href="{%url 'karyawan:data-karyawan-saya' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:berkas-saya-index' or request.resolver_match.view_name == 'karyawan:berkas-saya-create' or request.resolver_match.view_name == 'karyawan:berkas-saya-show' or request.resolver_match.view_name == 'karyawan:berkas-saya-edit' or request.resolver_match.view_name == 'karyawan:berkas-saya-destroy' %} active {% endif %}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Karyawan</p>
+                            </a>
+                        </li>
+                        {% endif %}
+                        {% if perms.karyawan.berkas_saya %}
+                        <li class="nav-item">
                             <a href="{%url 'karyawan:berkas-saya-index' %}" class="nav-link {% if request.resolver_match.view_name == 'karyawan:berkas-saya-index' or request.resolver_match.view_name == 'karyawan:berkas-saya-create' or request.resolver_match.view_name == 'karyawan:berkas-saya-show' or request.resolver_match.view_name == 'karyawan:berkas-saya-edit' or request.resolver_match.view_name == 'karyawan:berkas-saya-destroy' %} active {% endif %}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Berkas</p>
