@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.admin.models import ADDITION, LogEntry
 from karyawan.models import Karyawan,BerkasKaryawan
-from .forms import UserUpdateForm,UserUpdatePassForm
+from .forms import UserUpdateForm,UserUpdatePassForm,CaptchaLoginForm
 
 #========================================================================================================================
 def index(request):
@@ -62,26 +62,35 @@ def editprofile(request):
 #========================================================================================================================
 def login(request):
     if request.method == 'POST':
+        captcha_form = CaptchaLoginForm(request.POST)
         username = request.POST['username']
         password = request.POST['password']
-
-        user = authenticate(username=username, password=password)
-        if user is not None:
-            if user.is_active:
-                auth_login(request, user)
-                #messages.success(request, 'Berhasil Membuat akun')
-                return redirect('dashboard')
+        if captcha_form.is_valid():
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                if user.is_active:
+                    auth_login(request, user)
+                    #messages.success(request, 'Berhasil Membuat akun')
+                    return redirect('dashboard')
+                else:
+                    messages.error(request, 'Akun tidak aktif')
+                    return redirect('login')
             else:
-                messages.error(request, 'Akun tidak aktif')
+                messages.error(request, 'Username / Password salah')
                 return redirect('login')
         else:
-            messages.error(request, 'Username / Password salah')
+            messages.error(request, 'Captcha Salah')
             return redirect('login')
     if request.user.is_authenticated:
         return redirect('dashboard')
-    else:    
-        return render(request,'login.html')
+    else:
+        captcha_form = CaptchaLoginForm()
+        context = {
+            'captcha_form':captcha_form
+        }
+        return render(request,'login.html',context)
 
+#========================================================================================================================
 def logout(request):
     if request.user.is_authenticated:
         auth_logout(request)

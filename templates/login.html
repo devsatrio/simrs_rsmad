@@ -23,13 +23,15 @@
       <div class="card-body login-card-body">
         <p class="login-box-msg">Sign in to start your session</p>
         {% if messages %}
-          {% for message in messages %}
-            {% if message.tags == "error" %}
-              <div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><i class="fa fa-lg fa-check-circle-o"></i> {{ message }}</div>
-            {% else %}
-              <div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button><i class="fa fa-lg fa-check-circle-o"></i> {{ message }}</div>
-            {% endif %}
-          {% endfor %}
+        {% for message in messages %}
+        {% if message.tags == "error" %}
+        <div class="alert alert-danger alert-dismissible"><button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">×</button><i class="fa fa-lg fa-check-circle-o"></i> {{ message }}</div>
+        {% else %}
+        <div class="alert alert-success alert-dismissible"><button type="button" class="close" data-dismiss="alert"
+            aria-hidden="true">×</button><i class="fa fa-lg fa-check-circle-o"></i> {{ message }}</div>
+        {% endif %}
+        {% endfor %}
         {% endif %}
         <form method="post">
           {% csrf_token %}
@@ -52,7 +54,13 @@
             </div>
           </div>
           <div class="row">
-            <div class="col-8">
+            <div class="col-md-12 text-center">
+              {{captcha_form.captcha}}
+            </div>
+            <div class="col-md-4 text-left">
+              <button class='js-captcha-refresh btn btn-xs btn-warning' type="button">Reload Captcha</button>
+            </div>
+            <div class="col-md-8 text-right">
               <div class="icheck-primary">
                 <input type="checkbox" id="show_pass" onclick="showpassword()">
                 <label for="show_pass">
@@ -92,6 +100,14 @@
         x.type = "password";
       }
     }
+    $('.captcha').addClass('img-thumbnail')
+    $('#id_captcha_1').addClass('mt-3 mb-2 form-control');
+    $('.js-captcha-refresh').click(function () {
+      $.getJSON("/captcha/refresh/", function (result) {
+        $('.captcha').attr('src', result['image_url']);
+        $('#id_captcha_0').val(result['key'])
+      });
+    });
   </script>
 </body>
 
