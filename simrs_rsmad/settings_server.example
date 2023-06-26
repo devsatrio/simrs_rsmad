@@ -40,7 +40,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    # 'jazzmin',
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -105,28 +105,28 @@ WSGI_APPLICATION = 'simrs_rsmad.wsgi.application'
 #     }
 # }
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql', 
-        'NAME': 'db_simrs_rsmad',
-        'OPTIONS': {
-            'sql_mode': 'traditional',
-        },
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
-        'PORT': '3306',
-    },
     # 'default': {
     #     'ENGINE': 'django.db.backends.mysql', 
     #     'NAME': 'db_simrs_rsmad',
     #     'OPTIONS': {
     #         'sql_mode': 'traditional',
     #     },
-    #     'USER': 'django_simrs_user',
-    #     'PASSWORD': '1q2w3e4r5t',
-    #     'HOST': 'localhost',
+    #     'USER': 'root',
+    #     'PASSWORD': '',
+    #     'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
     #     'PORT': '3306',
     # },
+    'default': {
+        'ENGINE': 'django.db.backends.mysql', 
+        'NAME': 'db_simrs_rsmad',
+        'OPTIONS': {
+            'sql_mode': 'traditional',
+        },
+        'USER': 'django_simrs_user',
+        'PASSWORD': '1q2w3e4r5t',
+        'HOST': '192.168.3.5',
+        'PORT': '3306',
+    },
 }
 
 
