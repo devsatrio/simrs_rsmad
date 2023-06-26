@@ -40,7 +40,7 @@ ALLOWED_HOSTS = [
 # Application definition
 
 INSTALLED_APPS = [
-    'jazzmin',
+    # 'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_tables2',
-    'crudbuilder',
+    # 'crudbuilder',
     'django_filters',
     'bootstrap4',
     'django_cleanup.apps.CleanupConfig',
@@ -59,7 +59,7 @@ INSTALLED_APPS = [
     'pasien',
     'frontoffice',
     'captcha',
-    'simple_history',
+    # 'simple_history',
 ]
 
 MIDDLEWARE = [
@@ -329,7 +329,7 @@ JAZZMIN_SETTINGS = {
     # - vertical_tabs
     # - collapsible
     # - carousel
-    "changeform_format": "horizontal_tabs",
+    "changeform_format": "single",
     # override change forms on a per modeladmin basis
     "changeform_format_overrides": {"auth.user": "collapsible", "auth.group": "vertical_tabs"},
     "related_modal_active": True
