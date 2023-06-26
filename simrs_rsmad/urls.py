@@ -24,13 +24,14 @@ from . import views
 
 urlpatterns = [
     path('',views.index,name='index'),
+    path('admin/', admin.site.urls),
     path('login',views.login,name='login'),
     path('logout',views.logout,name='logout'),
+    path('captcha/', include('captcha.urls')),
     path('dashboard',views.dashboard,name='dashboard'),
     path('dashboard/profile',views.profile,name='profile'),
     path('dashboard/edit-profile',views.editprofile,name='editprofile'),
     path('dashboard/edit-profile-pass',views.editprofilepass,name='editprofilepass'),
-    path('admin/', admin.site.urls),
     path('pasien/', include('pasien.urls')),
     path('crud/',  include('crudbuilder.urls')),
     path('karyawan/',include('karyawan.urls')),

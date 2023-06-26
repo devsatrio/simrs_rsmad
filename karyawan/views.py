@@ -3,12 +3,38 @@ from django.http import JsonResponse
 from .tables import KaryawanTable,BerkasSayaTable,BerkasKaryawanTable,KarirKaryawanTable,RiwayatPendidikanKaryawanTable,PelatihanKaryawanTable,KarirSayaTable,RiwayatPendidikanSayaTable,PelatihanSayaTable
 from .models import Karyawan,BerkasKaryawan,KarirKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan
 from .filters import KaryawanFilter,BerkasSayaFilter,BerkasKaryawanFilter,KarirKaryawanFilter,RiwayatPendidikanKaryawanFilter,PelatihanKaryawanFilter,KarirSayaFilter,RiwayatPendidikanSayaFilter,PelatihanSayaFilter
-from .forms import KaryawanForm,BerkasSayaForm,BerkasKaryawanForm,KarirKaryawanForm,RiwayatPendidikanKaryawanForm,PelatihanKaryawanForm,KarirSayaForm,RiwayatPendidikanSayaForm,PelatihanSayaForm
+from .forms import KaryawanForm,BerkasSayaForm,BerkasKaryawanForm,KarirKaryawanForm,RiwayatPendidikanKaryawanForm,PelatihanKaryawanForm,KarirSayaForm,RiwayatPendidikanSayaForm,PelatihanSayaForm,DataKaryawanSayaForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.db.models import ProtectedError
 from django_tables2 import RequestConfig
 from django.contrib.auth.decorators import login_required,permission_required
+
+#========================================================================================================================
+@login_required
+def datakaryawansaya(request):
+    user = request.user
+    cek_relasi = Karyawan.objects.filter(user=user).count()
+    if(cek_relasi<=0):
+            messages.error(request, 'User tidak memiliki relasi dengan karyawan')
+            return redirect('dashboard')
+    else:
+        obj = get_object_or_404(Karyawan, user = user)
+        if request.method == 'POST':
+            form = DataKaryawanSayaForm(request.POST or None,request.FILES, instance = obj)
+            if form.is_valid():
+                form.save()
+                messages.success(request, 'Data Berhasil Diedit')
+                return redirect('karyawan:data-karyawan-saya')
+        else:
+            form = DataKaryawanSayaForm(request.POST or None,instance = obj)
+        
+        context={
+            'form':form,
+            'title':'Data Karyawan Saya',
+            'status_form':'Edit Data',
+        }
+    return render(request,'data_karyawan_saya/form.html',context)
 
 #========================================================================================================================
 @login_required
@@ -32,6 +58,7 @@ def cv_saya(request):
             'data_karir':data_karir,
             'data_berkas':data_berkas,
         }
+        print(data_karyawan.foto)
     return render(request,'cv_saya/index.html',context)
 
 #========================================================================================================================

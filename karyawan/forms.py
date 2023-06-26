@@ -3,6 +3,30 @@ from django import forms
 from .models import Karyawan,BerkasKaryawan,RiwayatPendidikanKaryawan,KarirKaryawan,PelatihanKaryawan
 
 #========================================================================================================================
+class DataKaryawanSayaForm(forms.ModelForm):
+    required_css_class = 'required'
+    class Meta:
+        # specify model to be used
+        model = Karyawan
+        # specify fields to be used
+        fields = [
+            "nama",
+            "nama_lengkap",
+            "no_telfon",
+            "tempat_lahir",
+            "tgl_lahir",
+            "agama",
+            "jenis_kelamin",
+            "golongan_darah",
+            "status_nikah",
+            "foto",
+        ]
+        widgets = {
+            'tgl_lahir': forms.DateInput(attrs={'type': 'date'}),
+        }
+
+
+#========================================================================================================================
 class PelatihanSayaForm(forms.ModelForm):
     class Meta:
         model = PelatihanKaryawan

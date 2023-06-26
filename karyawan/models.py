@@ -11,7 +11,6 @@ class StatusBerkasChoices(models.TextChoices):
       berkas_ditolak = 'Berkas Ditolak', 'Berkas Ditolak'
       berkas_diterima = 'Berkas Diterima', 'Berkas Diterima'
 
-
 # =========================================================================================================
 class StatusKaryawan(models.Model):
     name=models.CharField(max_length=30)

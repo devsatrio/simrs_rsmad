@@ -7,7 +7,7 @@ db.sqlite3
 media
 
 # Django settings#
-/simrs_rsmad/settings.py
+# /simrs_rsmad/settings.py
 
 # Backup files # 
 *.bak 
