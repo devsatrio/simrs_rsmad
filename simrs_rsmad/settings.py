@@ -115,7 +115,18 @@ DATABASES = {
         'PASSWORD': '',
         'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
         'PORT': '3306',
-    }
+    },
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql', 
+    #     'NAME': 'db_simrs_rsmad',
+    #     'OPTIONS': {
+    #         'sql_mode': 'traditional',
+    #     },
+    #     'USER': 'django_simrs_user',
+    #     'PASSWORD': '1q2w3e4r5t',
+    #     'HOST': 'localhost',
+    #     'PORT': '3306',
+    # },
 }
 
 
