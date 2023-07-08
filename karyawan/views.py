@@ -38,6 +38,23 @@ def datakaryawansaya(request):
 
 #========================================================================================================================
 @login_required
+def cv_karyawan(request,id):
+    data_karyawan = get_object_or_404(Karyawan, id = id)
+    data_riwayat_pendidikan = RiwayatPendidikanKaryawan.objects.filter(karyawan=Karyawan.objects.get(id=id))
+    data_pelatihan = PelatihanKaryawan.objects.filter(karyawan=Karyawan.objects.get(id=id))
+    data_karir = KarirKaryawan.objects.filter(karyawan=Karyawan.objects.get(id=id))
+    data_berkas = BerkasKaryawan.objects.filter(karyawan=Karyawan.objects.get(id=id)).filter(status_berkas='Berkas Diterima')
+    context = {
+        'data':data_karyawan,
+        'data_riwayat_pendidikan':data_riwayat_pendidikan,
+        'data_pelatihan':data_pelatihan,
+        'data_karir':data_karir,
+        'data_berkas':data_berkas,
+    }
+    return render(request,'karyawan/cv.html',context)
+
+#========================================================================================================================
+@login_required
 @permission_required('karyawan.cv_saya')
 def cv_saya(request):
     user = request.user
@@ -58,7 +75,6 @@ def cv_saya(request):
             'data_karir':data_karir,
             'data_berkas':data_berkas,
         }
-        print(data_karyawan.foto)
     return render(request,'cv_saya/index.html',context)
 
 #========================================================================================================================
@@ -647,6 +663,7 @@ def index(request):
         'tabel_karyawan':table_karyawan,
         'filter':f,
     }
+    print(f)
     return render(request,'karyawan/index.html',context)
 
 #========================================================================================================================

@@ -22,7 +22,8 @@
                         <div class="card-body">
                             <a href="{% url 'karyawan:index' %}" class="btn btn-sm btn-danger">Back</a>
                             <a href="{% url 'karyawan:destroy' karyawan.id %}" class="btn btn-sm btn-warning">Delete</a>
-                            <a href="{% url 'karyawan:edit' karyawan.id %}" class="btn btn-sm btn-success">Edit</a><br>
+                            <a href="{% url 'karyawan:edit' karyawan.id %}" class="btn btn-sm btn-success">Edit</a>
+                            <a href="{% url 'karyawan:cv_karyawan' karyawan.id %}" class="btn btn-sm btn-secondary">CV Karyawan</a><br>
                             <table class="table table-bordered mt-3">
                                 <tbody>
                                     <tr>

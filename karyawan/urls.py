@@ -12,6 +12,7 @@ urlpatterns = [
     
     #cv saya
     path('curriculum-vitae', views.cv_saya, name = 'cv_saya'),
+    path('curriculum-vitae/<int:id>', views.cv_karyawan, name = 'cv_karyawan'),
     
     # karyawan
 	path('index',views.index,name='index'),

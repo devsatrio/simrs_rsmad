@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SIMRS RSMAD</title>
     <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome-free/css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/plugins/select2/css/select2.min.css'%}">
     <link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css'%}">
     {% block customcss %}
     {% endblock customcss %}
@@ -45,12 +46,18 @@
     </div>
     <script src="{% static 'assets/plugins/jquery/jquery.min.js'%}"></script>
     <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'assets/plugins/select2/js/select2.full.min.js'%}"></script>
     {% block customjs %}
     {% endblock customjs %}
     <script src="{% static 'assets/dist/js/adminlte.min.js'%}"></script>
     {% block customscripts %}
     {% endblock customscripts %}
-
+    <script>
+        $(function () {
+          //Initialize Select2 Elements
+          $('select').select2();
+        });
+    </script>
 </body>
 
 </html>
