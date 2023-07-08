@@ -85,11 +85,11 @@ class KarirKaryawanTable(tables.Table):
 # =========================================================================================================
 class KaryawanTable(tables.Table):
     no = tables.Column(empty_values=(), orderable=False)
-    Aksi = TemplateColumn(template_code='<a href="{% url "karyawan:show" record.id %}" class="btn btn-warning btn-sm"><i class="fas fa-eye"></a>')
+    Aksi = TemplateColumn(template_code='<a href="{% url "karyawan:show" record.id %}" class="btn btn-warning btn-sm"><i class="fas fa-eye"></a>', orderable=False)
 
     class Meta:
         model=Karyawan
-        sequence = ("no","kode","nik", "nama",)
+        sequence = ("Aksi","no","kode","nik", "nama",)
         exclude = ("id", "foto")
     def render_no(self):
         self.row_no = getattr(self, 'row_no', itertools.count(self.page.start_index()))

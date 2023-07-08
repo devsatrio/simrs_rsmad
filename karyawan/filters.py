@@ -67,8 +67,10 @@ class KaryawanFilter(FilterSet):
     class Meta:
         model = Karyawan
         fields = {
+            "kode": ["contains"],
             "nama": ["contains"], 
             "nama_lengkap": ["contains"],
+            "nik": ["contains"],
             "status_karyawan": ["exact"],
             "agama": ["exact"],
             "jenis_kelamin": ["exact"],
