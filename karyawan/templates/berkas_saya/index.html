@@ -28,7 +28,11 @@
                         </div>
                         <div class="card-body pt-1 pb-1">
                             <form method="get" class="mb-3 form row">
-                                {% bootstrap_form filter.form bound_css_class='m-1' %}
+                                {% for field in filter.form  %}
+                                <div class="col-md-3">
+                                    {% bootstrap_field field bound_css_class='m-1' %}
+                                </div>
+                                {% endfor %}
                                 <div class="form-group m-1 col-md-12">
                                     <button class="btn btn-secondary btn-sm" type="submit">Cari Data</button>
                                 </div>
