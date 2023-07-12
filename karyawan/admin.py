@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from .forms import RiwayatPedidikanKaryawanAdminForm,KarirKaryawanAdminForm,PelatihanKaryawanAdminForm
-from .models import KarirKaryawan,StatusKaryawan,Karyawan,JabatanKaryawan,GolonganKaryawan,KategoriBerkasKaryawan,BerkasKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan
+from .models import KarirKaryawan,StatusKaryawan,Karyawan,JabatanKaryawan,GolonganKaryawan,KategoriBerkasKaryawan,BerkasKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan, JamKerja
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 # Register your models here.
@@ -87,6 +87,13 @@ class GolonganKaryawanAdmin(admin.ModelAdmin):
 admin.site.register(GolonganKaryawan, GolonganKaryawanAdmin)
 
 #===========================================================================================================================
+class JamKerjaAdmin(admin.ModelAdmin):
+    fields = ['nama','jam_masuk','jam_pulang','keterangan']
+    list_display = ('nama','jam_masuk','jam_pulang','keterangan')
+
+admin.site.register(JamKerja, JamKerjaAdmin)
+
+#===========================================================================================================================
 class KategoriBerkasKaryawanAdmin(admin.ModelAdmin):
     fields = ['nama']
 
@@ -112,7 +119,7 @@ def change_no_telp_action(modeladmin, request, queryset):
 change_no_telp_action.short_description = 'Generate Akun Karyawan'
 
 class KaryawanAdmin(admin.ModelAdmin):
-    list_display = ("kode","nama","nik","no_telfon", "nama_lengkap", "user","status_karyawan","agama","jenis_kelamin","golongan_darah","status_nikah","golongan_karyawan","jabatan_karyawan","unit")
+    list_display = ("kode","nama","nik","no_telfon", "nama_lengkap", "user","status_karyawan","agama","jenis_kelamin","golongan_darah","status_nikah","golongan_karyawan","jabatan_karyawan","unit",)
     list_filter = ["nama_lengkap","status_karyawan","golongan_karyawan","jabatan_karyawan"]
     actions = [change_no_telp_action,]
 admin.site.register(Karyawan, KaryawanAdmin)

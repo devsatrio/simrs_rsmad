@@ -50,6 +50,19 @@ class KategoriBerkasKaryawan(models.Model):
                   return self.nama
 
 # =========================================================================================================
+class JamKerja(models.Model):
+      nama = models.CharField(max_length=200)
+      jam_masuk =  models.TimeField()
+      jam_pulang =  models.TimeField()
+      keterangan = models.TextField(max_length=200,null=True,blank=True)
+      
+      class Meta:
+            verbose_name="Jam Kerja"
+            verbose_name_plural = "Jam Kerja"
+      def __str__(self):
+                  return self.nama
+      
+# =========================================================================================================
 @cleanup.select
 class Karyawan(models.Model):
       kode=models.CharField(max_length=30,unique=True,validators=[
@@ -77,6 +90,7 @@ class Karyawan(models.Model):
       jabatan_karyawan = models.ForeignKey(JabatanKaryawan,on_delete=models.RESTRICT,null=True,blank=True)
       unit = models.ForeignKey(Unit,on_delete=models.RESTRICT,null=True,blank=True)
       foto = models.ImageField(upload_to='karyawan/', blank=True,null=True)
+      jam_kerja = models.ManyToManyField(JamKerja,blank=True)
       class Meta:
             verbose_name="Data Karyawan"
             verbose_name_plural = "Data Karyawan"
@@ -139,7 +153,6 @@ class KarirKaryawan(models.Model):
             ]
       def __str__(self):
                   return self.unit.name
-
 
 # =========================================================================================================
 class PelatihanKaryawan(models.Model):
