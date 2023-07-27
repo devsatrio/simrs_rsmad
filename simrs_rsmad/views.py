@@ -4,12 +4,28 @@ from django.db.models import Count
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.admin.models import ADDITION, LogEntry
-from karyawan.models import Karyawan,BerkasKaryawan
+from karyawan.models import Karyawan,BerkasKaryawan,JamKerja
+from django.core.serializers import serialize
+from django.http import HttpResponse
 from .forms import UserUpdateForm,UserUpdatePassForm,CaptchaLoginForm
 
 #========================================================================================================================
 def index(request):
     return render(request,'index.html')
+
+#========================================================================================================================
+def absensi_get_data_karyawan(request,kode_karyawan):
+    obj =Karyawan.objects.get(kode=kode_karyawan)
+    data = serialize("json", [obj], fields=('kode', 'nama','jam_kerja'))
+    return HttpResponse(data, content_type="application/json")
+
+#========================================================================================================================
+def absensi_karyawan(request):
+    jam_kerja=JamKerja.objects.all()
+    context={
+        'data_jam_kerja':jam_kerja,
+    }
+    return render(request,'absensi_karyawan.html',context)
 
 #========================================================================================================================
 @login_required

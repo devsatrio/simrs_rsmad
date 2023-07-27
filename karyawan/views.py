@@ -1,14 +1,39 @@
 from django.shortcuts import render,redirect
 from django.http import JsonResponse
-from .tables import KaryawanTable,BerkasSayaTable,BerkasKaryawanTable,KarirKaryawanTable,RiwayatPendidikanKaryawanTable,PelatihanKaryawanTable,KarirSayaTable,RiwayatPendidikanSayaTable,PelatihanSayaTable
-from .models import Karyawan,BerkasKaryawan,KarirKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan
-from .filters import KaryawanFilter,BerkasSayaFilter,BerkasKaryawanFilter,KarirKaryawanFilter,RiwayatPendidikanKaryawanFilter,PelatihanKaryawanFilter,KarirSayaFilter,RiwayatPendidikanSayaFilter,PelatihanSayaFilter
+from .tables import KaryawanTable,BerkasSayaTable,BerkasKaryawanTable,KarirKaryawanTable,RiwayatPendidikanKaryawanTable,PelatihanKaryawanTable,KarirSayaTable,RiwayatPendidikanSayaTable,PelatihanSayaTable,AbsensiKaryawanTable
+from .models import Karyawan,BerkasKaryawan,KarirKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan,AbsensiKaryawan
+from .filters import KaryawanFilter,BerkasSayaFilter,BerkasKaryawanFilter,KarirKaryawanFilter,RiwayatPendidikanKaryawanFilter,PelatihanKaryawanFilter,KarirSayaFilter,RiwayatPendidikanSayaFilter,PelatihanSayaFilter,AbsensiKaryawanFilter
 from .forms import KaryawanForm,BerkasSayaForm,BerkasKaryawanForm,KarirKaryawanForm,RiwayatPendidikanKaryawanForm,PelatihanKaryawanForm,KarirSayaForm,RiwayatPendidikanSayaForm,PelatihanSayaForm,DataKaryawanSayaForm
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.db.models import ProtectedError
 from django_tables2 import RequestConfig
 from django.contrib.auth.decorators import login_required,permission_required
+
+#========================================================================================================================
+@login_required
+@permission_required('karyawan.view_absensikaryawan')
+def showabsensikaryawan(request,id):
+    data =get_object_or_404(AbsensiKaryawan,pk=id) 
+    context = {
+        'title':'Absensi Karyawan',
+        'data':data,
+    }
+    return render(request,'absensi_karyawan/show.html',context)
+
+#========================================================================================================================
+@login_required
+@permission_required('karyawan.view_absensikaryawan')
+def indexabsensikaryawan(request):
+    f = AbsensiKaryawanFilter(request.GET, queryset=AbsensiKaryawan.objects.all().order_by('-pk'))
+    table_absensi_karyawan = AbsensiKaryawanTable(f.qs)
+    table_absensi_karyawan.paginate(page=request.GET.get("page", 1), per_page=50)
+    context = {
+        'tabelnya':table_absensi_karyawan,
+        'title':'Absensi Karyawan',
+        'filter':f,
+    }
+    return render(request,'absensi_karyawan/index.html',context)
 
 #========================================================================================================================
 @login_required

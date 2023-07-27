@@ -1,9 +1,22 @@
 import django_tables2 as tables
 from django_tables2 import TemplateColumn
-from .models import Karyawan,BerkasKaryawan,KarirKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan
+from .models import Karyawan,BerkasKaryawan,KarirKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan,AbsensiKaryawan
 from django_tables2.utils import A
 import itertools
 
+# =========================================================================================================
+class AbsensiKaryawanTable(tables.Table):
+    no = tables.Column(empty_values=(), orderable=False)
+    Aksi = TemplateColumn(template_code='<a href="{% url "karyawan:absensi-karyawan-show" record.id %}" class="btn btn-warning btn-sm"><i class="fas fa-eye"></a>', orderable=False)
+
+    class Meta:
+        model=AbsensiKaryawan
+        sequence = ("Aksi","no",)
+        exclude = ("id", )
+    def render_no(self):
+        self.row_no = getattr(self, 'row_no', itertools.count(self.page.start_index()))
+        return next(self.row_no)
+    
 # =========================================================================================================
 class PelatihanSayaTable(tables.Table):
     no = tables.Column(empty_values=(), orderable=False)

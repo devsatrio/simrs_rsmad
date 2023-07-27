@@ -1,5 +1,15 @@
 from django_filters import FilterSet
-from .models import Karyawan,BerkasKaryawan,KarirKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan
+from .models import Karyawan,BerkasKaryawan,KarirKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan,AbsensiKaryawan
+
+# =========================================================================================================
+class AbsensiKaryawanFilter(FilterSet):
+    class Meta:
+        model = AbsensiKaryawan
+        fields = {
+            "karyawan": ["exact"],
+            "jam_kerja": ["exact"],
+            "tgl_absen": ["contains"],
+            }
 
 # =========================================================================================================
 class PelatihanSayaFilter(FilterSet):

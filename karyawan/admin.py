@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.html import format_html
 from .forms import RiwayatPedidikanKaryawanAdminForm,KarirKaryawanAdminForm,PelatihanKaryawanAdminForm
-from .models import KarirKaryawan,StatusKaryawan,Karyawan,JabatanKaryawan,GolonganKaryawan,KategoriBerkasKaryawan,BerkasKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan, JamKerja
+from .models import KarirKaryawan,StatusKaryawan,Karyawan,JabatanKaryawan,GolonganKaryawan,KategoriBerkasKaryawan,BerkasKaryawan,RiwayatPendidikanKaryawan,PelatihanKaryawan, JamKerja,AbsensiKaryawan
 from django.contrib.auth.models import User
 from django.contrib.auth.models import Group
 # Register your models here.
@@ -87,9 +87,16 @@ class GolonganKaryawanAdmin(admin.ModelAdmin):
 admin.site.register(GolonganKaryawan, GolonganKaryawanAdmin)
 
 #===========================================================================================================================
+class AbsensiKaryawanAdmin(admin.ModelAdmin):
+    list_filter = ["karyawan","jam_kerja","tgl_absen"]
+    list_display = ('karyawan','jam_kerja','tgl_absen','jam_masuk_karyawan','jam_pulang_karyawan','lama_jam_kerja_karyawan')
+
+admin.site.register(AbsensiKaryawan, AbsensiKaryawanAdmin)
+
+#===========================================================================================================================
 class JamKerjaAdmin(admin.ModelAdmin):
-    fields = ['nama','jam_masuk','jam_pulang','keterangan']
-    list_display = ('nama','jam_masuk','jam_pulang','keterangan')
+    # fields = ['nama','jam_masuk','jam_pulang','keterangan']
+    list_display = ('nama','lama_jam_kerja','jam_masuk','jam_pulang','gunakan_aturan_jam','keterangan')
 
 admin.site.register(JamKerja, JamKerjaAdmin)
 

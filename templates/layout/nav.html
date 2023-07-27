@@ -288,6 +288,12 @@
                             </a>
                         </li>
                         {% endif %}
+                        <li class="nav-item">
+                            <a href="/crud/karyawan/jam-kerja-karyawan" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Jam Kerja Karyawan</p>
+                            </a>
+                        </li>
                         {% if perms.karyawan.view_jabatankaryawan %}
                         <li class="nav-item">
                             <a href="/crud/karyawan/jabatan-karyawan" class="nav-link {% if request.resolver_match.view_name == 'karyawan-jabatan-karyawan-list' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-create' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-detail' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-update' or request.resolver_match.view_name == 'karyawan-jabatan-karyawan-delete' %} active {% endif %}">
@@ -344,6 +350,12 @@
                             </a>
                         </li>
                         {% endif %}
+                        <li class="nav-item">
+                            <a href="{%url 'karyawan:absensi-karyawan' %}" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Absensi Karyawan</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
                 {% endif %}

@@ -22,6 +22,10 @@ urlpatterns = [
 	path('destroy/<int:id>',views.destroy,name='destroy'),
     
 	# berkas saya
+	path('absensi-karyawan',views.indexabsensikaryawan,name='absensi-karyawan'),
+	path('absensi-karyawan/<int:id>',views.showabsensikaryawan,name='absensi-karyawan-show'),
+    
+	# berkas saya
 	path('berkas-saya',views.indexberkassaya,name='berkas-saya-index'),
     path('create-berkas-saya',views.createberkassaya,name='berkas-saya-create'),
 	path('show-berkas-saya/<int:id>',views.showberkassaya,name='berkas-saya-show'),

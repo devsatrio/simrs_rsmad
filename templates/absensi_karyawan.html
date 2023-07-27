@@ -1,0 +1,208 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Absensi Karyawan</title>
+    <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome-free/css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css'%}">
+    <style>
+        /* make input kode karyawan secure */
+        input.kode_karyawan {
+            -webkit-text-security: square;
+        }
+
+        /* make background page more beauty */
+        .bg {
+            animation: slide 5s ease-in-out infinite alternate;
+            background-image: linear-gradient(-60deg, #6c3 50%, #09f 50%);
+            bottom: 0;
+            left: -50%;
+            opacity: .5;
+            position: fixed;
+            right: -50%;
+            top: 0;
+            z-index: -1;
+        }
+
+        .bg2 {
+            animation-direction: alternate-reverse;
+            animation-duration: 4s;
+        }
+
+        .bg3 {
+            animation-duration: 5s;
+        }
+
+        .content {
+            background-color: rgba(255, 255, 255, .8);
+            border-radius: .25em;
+            box-shadow: 0 0 .25em rgba(0, 0, 0, .25);
+            box-sizing: border-box;
+            left: 50%;
+            padding: 10vmin;
+            position: fixed;
+            text-align: center;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        @keyframes slide {
+            0% {
+                transform: translateX(-25%);
+            }
+
+            100% {
+                transform: translateX(25%);
+            }
+        }
+    </style>
+</head>
+
+<body class="hold-transition" onload="startTime()">
+    <div class="bg"></div>
+    <div class="bg bg2"></div>
+    <div class="bg bg3"></div>
+    <div class="vh-100 d-flex justify-content-center align-items-center">
+        <div class="card card-outline" style="width: 40%;">
+            <div class="card-header text-center">
+                <span class="h3 text-primary"><b>Absensi </b>Karyawan</span>
+            </div>
+            <div class="card-body text-center">
+                <img style="width: 65%;" src="{% static 'admin/img/simrs/absensi.svg' %}" alt="My image">
+                <p class="login-box-msg">Scan Barcode Dan Pilih Jam Kerja</p>
+                <div class="input-group mb-3">
+                    <input type="text" name="kode_karyawan" id="kode_karyawan" class="form-control kode_karyawan"
+                        autofocus>
+                    <div class="input-group-append">
+                        <div class="input-group-text">
+                            <span class="fas fa-qrcode"></span>
+                        </div>
+                    </div>
+                </div>
+                <div id="txt" class="text-center h4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bd-example-modal-xl" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+        aria-hidden="true" id="pilih_jam_kerja_modal">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Pilih Jam Kerja</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="row" id="list_jam_kerja">
+                        {% for row_data_jam_kerja in data_jam_kerja %}
+                        <div class="col-md-4 panel_jam_kerja" id="panel_jam_kerja_{{row_data_jam_kerja.id}}">
+                            <button type="button" style="height: 180px;"
+                                class="btn {% if row_data_jam_kerja.gunakan_aturan_jam %} btn-primary {% else %} btn-secondary {% endif %} btn-lg btn-block m-1"
+                                onclick="aksi_absen('{{row_data_jam_kerja.id}}')">
+                                <h2><b>{{row_data_jam_kerja.nama}}</b></h2><br>
+                                {% if row_data_jam_kerja.gunakan_aturan_jam %}
+                                <span>{{row_data_jam_kerja.jam_masuk}} - {{row_data_jam_kerja.jam_pulang}}</span>
+                                {% else %}
+                                <span>{{row_data_jam_kerja.lama_jam_kerja}} Jam</span>
+                                {% endif %}
+                            </button>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'assets/plugins/jquery/jquery.min.js'%}"></script>
+    <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'assets/plugins/sweetalert2/sweetalert2.min.js'%}"></script>
+    <script>
+        function startTime() {
+            const today = new Date();
+            let h = today.getHours();
+            let m = today.getMinutes();
+            let s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            document.getElementById('txt').innerHTML = h + ":" + m + ":" + s;
+            setTimeout(startTime, 1000);
+        }
+
+        function checkTime(i) {
+            if (i < 10) { i = "0" + i };
+            return i;
+        }
+
+        var input_kode_karyawan = document.getElementById("kode_karyawan");
+        input_kode_karyawan.addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                get_data_karyawan(input_kode_karyawan.value);
+            }
+        });
+
+        function get_data_karyawan(kode_karyawan) {
+            $('.panel_jam_kerja').show();
+            $.ajax({
+                type: 'GET',
+                url: '/absensi-karyawan/' + kode_karyawan,
+                success: function (data) {
+                    console.log(data);
+                    data.forEach((element) => {
+                        element.fields.jam_kerja.forEach((id_jam_kerja) => {
+                            $('#panel_jam_kerja_' + id_jam_kerja).hide();
+                        });
+                    });
+                    $('#pilih_jam_kerja_modal').modal({ backdrop: 'static', keyboard: false })
+                    // return {
+                    //     results: $.map(data, function (item) {
+                    //         $("#namapasien").val(item.nm_pasien);
+                    //         $("#tgllahir").val(item.tgl_lahir);
+                    //         $('#jeniskelamin').val(item.jk);
+                    //     })
+                    // }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Gagal Mencari Data Karyawan!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    document.getElementById("kode_karyawan").value = '';
+                },
+                complete: function () {
+                    // $('#panelsatu').loading('stop');
+                }
+            });
+        }
+
+        function aksi_absen(kode_jam_kerja) {
+            alert(kode_jam_kerja);
+            // $.ajax({
+            //     type: 'POST',
+            //     url: '/asuhan-keperawatan/simpan-asuhan-dewasa',
+            //     data: {
+            //         '_token': $('input[name=_token]').val(),
+            //         'final_alasan_kunjungan': final_alasan_kunjungan,
+            //         'status_psiko_sosial': status_psiko_sosial,
+            //     },
+            //     success: function () {
+            //         alert('sukses');
+            //     },
+            //     error: function () {
+            //         alert('error');
+            //     },
+            //     complete: function () {
+            //     }
+            // });
+        }
+    </script>
+</body>
+
+</html>

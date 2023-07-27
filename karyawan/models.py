@@ -54,6 +54,8 @@ class JamKerja(models.Model):
       nama = models.CharField(max_length=200)
       jam_masuk =  models.TimeField()
       jam_pulang =  models.TimeField()
+      lama_jam_kerja = models.IntegerField(null=True,blank=True)
+      gunakan_aturan_jam=models.BooleanField()
       keterangan = models.TextField(max_length=200,null=True,blank=True)
       
       class Meta:
@@ -136,6 +138,21 @@ class RiwayatPendidikanKaryawan(models.Model):
             ]
       def __str__(self):
                   return self.nama_sekolah
+
+# =========================================================================================================
+class AbsensiKaryawan(models.Model):
+      karyawan = models.ForeignKey(Karyawan,on_delete=models.RESTRICT,null=True,blank=True)
+      jam_kerja = models.ForeignKey(JamKerja,on_delete=models.RESTRICT,null=True,blank=True)
+      tgl_absen=models.DateField(max_length=30,null=True,blank=True)
+      jam_masuk_karyawan =  models.TimeField(null=True,blank=True)
+      jam_pulang_karyawan =  models.TimeField(null=True,blank=True)
+      lama_jam_kerja_karyawan = models.IntegerField(null=True,blank=True)
+      class Meta:
+            verbose_name="Absensi Karyawan"
+            verbose_name_plural = "Absensi Karyawan"
+
+      def __str__(self):
+                  return str(self.tgl_absen)
 
 # =========================================================================================================
 class KarirKaryawan(models.Model):
