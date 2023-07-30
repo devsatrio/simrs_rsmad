@@ -10,6 +10,16 @@ from django.db.models import ProtectedError
 from django_tables2 import RequestConfig
 from django.contrib.auth.decorators import login_required,permission_required
 
+
+#========================================================================================================================
+@login_required
+def printidcardkaryawan(request,id):
+    data_karyawan = get_object_or_404(Karyawan, id = id)
+    context = {
+        'data':data_karyawan,
+    }
+    return render(request,'cv_saya/cetak_id_card.html',context)
+
 #========================================================================================================================
 @login_required
 @permission_required('karyawan.view_absensikaryawan')
