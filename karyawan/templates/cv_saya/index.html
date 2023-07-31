@@ -73,7 +73,10 @@
                                 </li>
                                 <li class="list-group-item text-center">
                                     {% qr_from_text data.kode size="S" %}
-                                    <br><b>QR Code Karyawan</b>
+                                    <br><b>QR Code Karyawan</b><br>
+                                    <a target="blank()" href="{% url 'karyawan:print-idcard-karyawan' data.id%}" class="btn btn-sm btn-secondary mt-2" type="button" id="print_qr_btn"><i
+                                            class="fas fa-print"></i> Print QR
+                                        Code</a>
                                 </li>
                             </ul>
                         </div>
@@ -108,7 +111,9 @@
                                     <strong><i class="fas fa-child mr-1"></i> Karir</strong>
                                     <ul class="pl-4">
                                         {% for row_karir in data_karir %}
-                                        <li>{{row_karir.tahun_menjabat}} {% if data.tahun_berhenti_menjabat is not None %} - {{row_karir.tahun_berhenti_menjabat}} {% endif %}<b>{{row_karir.jabatan}}</b> {{row_karir.unit}}</li>
+                                        <li>{{row_karir.tahun_menjabat}} {% if data.tahun_berhenti_menjabat is not None
+                                            %} - {{row_karir.tahun_berhenti_menjabat}} {% endif
+                                            %}<b>{{row_karir.jabatan}}</b> {{row_karir.unit}}</li>
                                         {% endfor %}
                                     </ul>
                                     <hr>
