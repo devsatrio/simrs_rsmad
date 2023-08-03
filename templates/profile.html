@@ -1,0 +1,69 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <h1 class="m-0">{{title}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="m-0">Detai Data</h5>
+                        </div>
+                        <div class="card-body">
+                            <a href="{% url 'dashboard' %}" class="btn btn-sm btn-danger">Back</a>
+                            <a href="{% url 'editprofile' %}" class="btn btn-sm btn-success">Edit Profile</a>
+                            <a href="{% url 'editprofilepass' %}" class="btn btn-sm btn-warning">Edit Password</a>
+                            <table class="table table-bordered mt-3">
+                                <tbody>
+                                    <tr>
+                                        <td width="20%">Id</td>
+                                        <td>{{data.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Username</td>
+                                        <td>{{data.username}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">First Name</td>
+                                        <td>{{data.first_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Last Name</td>
+                                        <td>{{data.last_name}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Email</td>
+                                        <td>{{data.email}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Is Staff</td>
+                                        <td>{{data.is_staff}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Group</td>
+                                        <td>
+                                            {% for group in data.groups.all %}
+                                            {{ group.name }}
+                                            {% endfor %}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

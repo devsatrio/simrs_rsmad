@@ -5,34 +5,59 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>AdminLTE 3 | Starter</title>
+    <title>SIMRS RSMAD</title>
     <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome-free/css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/plugins/select2/css/select2.min.css'%}">
     <link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css'%}">
     {% block customcss %}
-    {% endblock customcss %} 
+    {% endblock customcss %}
+    <style>
+        div.required>label::after {
+            content: " *";
+            color: red;
+        }
+    </style>
 </head>
 
-<body class="sidebar-mini sidebar-closed sidebar-collapse">
+<body class="sidebar-mini layout-navbar-fixed sidebar-closed sidebar-collapse">
     <div class="wrapper">
+        <div class="preloader flex-column justify-content-center align-items-center">
+            <img class="animation__shake" src="{% static 'static_img/logo.png' %}" alt="app logo" height="60"
+                width="60">
+            <br>
+            <h1>SIMR RSMAD</h1>
+            <span>By EDP 2023</span>
+        </div>
         {% include 'layout/nav.html' %}
         {% block content %}
         {% endblock content %}
-
-        <!-- Control Sidebar -->
         <aside class="control-sidebar control-sidebar-dark">
-            <!-- Control sidebar content goes here -->
             <div class="p-3">
                 <h5>Title</h5>
                 <p>Sidebar content</p>
             </div>
         </aside>
+        <footer class="main-footer">
+            <strong>Copyright © 2023 <span class="text-primary">EDP</span></strong>
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 0.0.1
+            </div>
+        </footer>
     </div>
     <script src="{% static 'assets/plugins/jquery/jquery.min.js'%}"></script>
     <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'assets/plugins/select2/js/select2.full.min.js'%}"></script>
     {% block customjs %}
     {% endblock customjs %}
     <script src="{% static 'assets/dist/js/adminlte.min.js'%}"></script>
-       
+    {% block customscripts %}
+    {% endblock customscripts %}
+    <script>
+        $(function () {
+          //Initialize Select2 Elements
+          $('select').select2();
+        });
+    </script>
 </body>
 
 </html>

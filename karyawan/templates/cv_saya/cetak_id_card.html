@@ -1,0 +1,43 @@
+{% load static %}
+{% load qr_code %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SIMRS RSMAD</title>
+    <link rel="stylesheet" href="{% static 'assets/plugins/fontawesome-free/css/all.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css'%}">
+    <link rel="stylesheet" href="{% static 'assets/dist/css/adminlte.min.css'%}">
+</head>
+
+<body>
+    <div class="card card-widget widget-user" style="width: 400px;">
+
+        <div class="widget-user-header bg-info">
+            <h3 class="widget-user-username">{{data.nama_lengkap}}</h3>
+            <h5 class="widget-user-desc">{{data.jabatan_karyawan}} {{data.unit}}</h5>
+        </div>
+        <div class="widget-user-image">
+            {% if data.foto %}
+            <img class="img-circle elevation-2" src="{{data.foto.url}}" alt="User profile picture">
+            {% endif %}
+        </div>
+        <div class="card-footer">
+            <div class="row">
+                <div class="col-sm-12 border-right">
+                    <div class="description-block">
+                        <h5 class="description-header mb-3">{{data.kode}}</h5>
+                        {% qr_from_text data.kode size="s" image_format="png" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{% static 'assets/plugins/jquery/jquery.min.js'%}"></script>
+    <script src="{% static 'assets/plugins/bootstrap/js/bootstrap.bundle.min.js'%}"></script>
+    <script src="{% static 'assets/dist/js/adminlte.min.js'%}"></script>
+</body>
+
+</html>

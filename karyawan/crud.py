@@ -1,5 +1,21 @@
 from crudbuilder.abstract import BaseCrudBuilder
-from .models import StatusKaryawan,GolonganKaryawan,JabatanKaryawan,KategoriBerkasKaryawan
+from .models import StatusKaryawan,GolonganKaryawan,JabatanKaryawan,KategoriBerkasKaryawan,JamKerja
+
+class JamKerjaCrud(BaseCrudBuilder):
+    model = JamKerja
+    tables2_css_class = "table table-bordered table-condensed"
+    login_required = True
+    permission_required = True
+    search_fields = ['nama']
+    tables2_fields = ('nama','jam_masuk','jam_pulang','lama_jam_kerja','gunakan_aturan_jam','keterangan')
+    custom_postfix_url = 'jam-kerja-karyawan'
+    permissions = {
+        'list'  : 'karyawan.view_jamkerja',
+        'create': 'karyawan.add_jamkerja',
+        'detail': 'karyawan.view_jamkerja',
+        'update': 'karyawan.change_jamkerja',
+        'delete': 'karyawan.delete_jamkerja',
+    }
 
 class StatusKaryawanCrud(BaseCrudBuilder):
     model = StatusKaryawan

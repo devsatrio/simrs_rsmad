@@ -1,0 +1,67 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <h1 class="m-0">{{title}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="m-0">Detai Data</h5>
+                        </div>
+                        <div class="card-body">
+                            <a href="{% url 'karyawan:karir-saya-index' %}" class="btn btn-sm btn-danger">Back</a>
+                            <a href="{% url 'karyawan:karir-saya-destroy' data.id %}" class="btn btn-sm btn-warning">Delete</a>
+                            <a href="{% url 'karyawan:karir-saya-edit' data.id %}" class="btn btn-sm btn-success">Edit</a>
+                            <table class="table table-bordered mt-3">
+                                <tbody>
+                                    <tr>
+                                        <td width="20%">Id</td>
+                                        <td>{{data.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Karyawan</td>
+                                        <td>{{data.karyawan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Unit</td>
+                                        <td>{{data.unit}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Jabatan</td>
+                                        <td>{{data.jabatan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Tahun Menjabat</td>
+                                        <td>{{data.tahun_menjabat}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Tahun Berhenti Menjabat</td>
+                                        <td>{{data.tahun_berhenti_menjabat}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Berkas</td>
+                                        <td>
+                                            <a href="{{data.berkas.berkas.url}}" target="blank">{{data.berkas}}</a>
+                                            </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

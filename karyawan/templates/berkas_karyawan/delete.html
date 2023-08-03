@@ -1,0 +1,31 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="jumbotron mt-3">
+                        <h1 class="display-4">Hapus Data ?</h1>
+                        <p class="lead">
+                            Hapus data Berkas <b>{{data.berkas.name|cut:'documents/'}}</b>
+                        </p>
+                        <hr class="my-4">
+                        <p>Data tidak dapat dipulihkan kembali setelah di hapus</p>
+                        <p class="lead">
+                            
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            <button type="button" onclick="history.go(-1)" class="btn btn-danger"
+                                role="button">Back</button>
+                                <button class="btn btn-success" type="submit">Delete</button>
+                        </form>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

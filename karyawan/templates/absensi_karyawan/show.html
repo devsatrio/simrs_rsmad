@@ -1,0 +1,65 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+{% block content %}
+<div class="content-wrapper">
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-12">
+                    <h1 class="m-0">{{title}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="m-0">Detai Data</h5>
+                        </div>
+                        <div class="card-body">
+                            <a href="{% url 'karyawan:absensi-karyawan' %}" class="btn btn-sm btn-danger">Back</a>
+                            <!-- <a href="#" class="btn btn-sm btn-warning">Delete</a>
+                            <a href="#" class="btn btn-sm btn-success">Edit</a> -->
+                            <table class="table table-bordered mt-3">
+                                <tbody>
+                                    <tr>
+                                        <td width="20%">Id</td>
+                                        <td>{{data.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Karyawan</td>
+                                        <td>{{data.karyawan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Jam Kerja</td>
+                                        <td>{{data.jam_kerja}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Tgl Absen</td>
+                                        <td>{{data.tgl_absen}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Jam Masuk</td>
+                                        <td>{{data.jam_masuk_karyawan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Jam Pulang</td>
+                                        <td>{{data.jam_pulang_karyawan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Lama Kerja (jam)</td>
+                                        <td>{{data.lama_jam_kerja_karyawan}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

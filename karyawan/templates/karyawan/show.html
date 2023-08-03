@@ -23,11 +23,29 @@
                             <a href="{% url 'karyawan:index' %}" class="btn btn-sm btn-danger">Back</a>
                             <a href="{% url 'karyawan:destroy' karyawan.id %}" class="btn btn-sm btn-warning">Delete</a>
                             <a href="{% url 'karyawan:edit' karyawan.id %}" class="btn btn-sm btn-success">Edit</a>
+                            <a href="{% url 'karyawan:cv_karyawan' karyawan.id %}" class="btn btn-sm btn-secondary">CV Karyawan</a><br>
                             <table class="table table-bordered mt-3">
                                 <tbody>
                                     <tr>
+                                        <td colspan="3">
+                                            <img src="{% get_media_prefix %}{{karyawan.foto}}" class="img-thumbnail" width="150px;">
+                                        </td>
+                                    </tr>
+                                    <tr>
                                         <td width="20%">Id</td>
                                         <td>{{karyawan.id}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">Kode</td>
+                                        <td>{{karyawan.kode}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td width="20%">NIK</td>
+                                        <td>{{karyawan.nik}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>No Karyawan Tetap</td>
+                                        <td>{{karyawan.no_karyawan_tetap}}</td>
                                     </tr>
                                     <tr>
                                         <td>Nama</td>
@@ -38,12 +56,20 @@
                                         <td>{{karyawan.nama_lengkap}}</td>
                                     </tr>
                                     <tr>
-                                        <td>User</td>
-                                        <td>{{karyawan.user}}</td>
+                                        <td>No Telfon</td>
+                                        <td>{{karyawan.no_telfon}}</td>
                                     </tr>
                                     <tr>
-                                        <td>Status Karyawan</td>
-                                        <td>{{karyawan.status_karyawan}}</td>
+                                        <td>TTL</td>
+                                        <td>{{karyawan.tempat_lahir}} {{karyawan.tgl_lahir}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>STR</td>
+                                        <td>{{karyawan.no_str}} Berlaku Sampai {{karyawan.tgl_berlaku_str}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>SIP</td>
+                                        <td>{{karyawan.no_sip}} Berlaku Sampai {{karyawan.tgl_berlaku_sip}}</td>
                                     </tr>
                                     <tr>
                                         <td>Agama</td>
@@ -60,6 +86,26 @@
                                     <tr>
                                         <td>Status Nikah</td>
                                         <td>{{karyawan.status_nikah}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>User</td>
+                                        <td>{{karyawan.user}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Status Karyawan</td>
+                                        <td>{{karyawan.status_karyawan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Golongan Karyawan</td>
+                                        <td>{{karyawan.golongan_karyawan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Golongan Karyawan</td>
+                                        <td>{{karyawan.jabatan_karyawan}}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Golongan Karyawan</td>
+                                        <td>{{karyawan.unit}}</td>
                                     </tr>
                                 </tbody>
                             </table>
