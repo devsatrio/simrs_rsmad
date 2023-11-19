@@ -1,5 +1,6 @@
 from django.db import models
 
+# -------------------------------------------------------------------------------------------------------------------------------
 class negara(models.Model):
     iso=models.CharField(max_length=50)
     name=models.CharField(max_length=80)
@@ -14,8 +15,10 @@ class negara(models.Model):
     def __str__(self):
         return self.name
 
+# -------------------------------------------------------------------------------------------------------------------------------
 class propinsi(models.Model):
     name=models.CharField(max_length=80)
+    kode=models.CharField(max_length=10,null=True,blank=True)
     negara = models.ForeignKey(negara,on_delete=models.RESTRICT,null=True)
     class Meta:
         verbose_name="Propinsi"
@@ -24,8 +27,11 @@ class propinsi(models.Model):
     def __str__(self):
         return self.name
 
+# -------------------------------------------------------------------------------------------------------------------------------
 class kota(models.Model):
     name=models.CharField(max_length=80)
+    kode=models.CharField(max_length=10,null=True,blank=True)
+    kode_provinsi=models.CharField(max_length=10,null=True,blank=True)
     propinsi = models.ForeignKey(propinsi,on_delete=models.RESTRICT,null=True)
     class Meta:
         verbose_name="Kota"
@@ -34,8 +40,12 @@ class kota(models.Model):
     def __str__(self):
         return self.name
     
+# -------------------------------------------------------------------------------------------------------------------------------
 class kecamatan(models.Model):
     name=models.CharField(max_length=80)
+    kode=models.CharField(max_length=10,null=True,blank=True)
+    kode_kota=models.CharField(max_length=10,null=True,blank=True)
+    kode_provinsi=models.CharField(max_length=10,null=True,blank=True)
     kota = models.ForeignKey(kota,on_delete=models.RESTRICT,null=True)
     class Meta:
         verbose_name="Kecamatan"
@@ -44,8 +54,13 @@ class kecamatan(models.Model):
     def __str__(self):
         return self.name
 
+# -------------------------------------------------------------------------------------------------------------------------------
 class kelurahan(models.Model):
     name=models.CharField(max_length=80)
+    kode=models.CharField(max_length=10,null=True,blank=True)
+    kode_kecamatan=models.CharField(max_length=10,null=True,blank=True)
+    kode_kota=models.CharField(max_length=10,null=True,blank=True)
+    kode_provinsi=models.CharField(max_length=10,null=True,blank=True)
     kecamatan = models.ForeignKey(kecamatan,on_delete=models.RESTRICT,null=True)
     class Meta:
         verbose_name="Kelurahan"

@@ -119,12 +119,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql', 
         'NAME': 'db_simrs_rsmad',
+<<<<<<< HEAD:simrs_rsmad/settings.py
+        'USER': 'root',
+        'PASSWORD': 'dj170815',
+        'HOST': 'localhost',   # Or an IP Address that your DB is hosted on
+=======
         'OPTIONS': {
             'sql_mode': 'traditional',
         },
         'USER': 'django_simrs_user',
         'PASSWORD': '1q2w3e4r5t',
         'HOST': '192.168.3.5',
+>>>>>>> 23412fa4ca97214f7161185854f121ddc9e65ea4:simrs_rsmad/settings_server.example
         'PORT': '3306',
     },
 }
