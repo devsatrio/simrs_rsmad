@@ -135,8 +135,15 @@ class kategori_perawatan(models.Model):
 class perawatan_rawat_jalan(models.Model):
       kode=models.CharField(max_length=30,unique=True)
       nama_perawatan=models.CharField(max_length=50)
-      kategori = models.ForeignKey(kategori_perawatan,on_delete=models.RESTRICT,null=True,blank=True)
-      status=models.BooleanField()
+      kategori = models.ForeignKey(kategori_perawatan,on_delete=models.RESTRICT,null=True,blank=True,help_text="Kategori perawatan dokter / perawat")
+      status=models.BooleanField(help_text="status aktif tindakan")
+      biaya_material = models.IntegerField(null=True,blank=True)
+      biaya_bhp = models.IntegerField(null=True,blank=True)
+      biaya_dokter = models.IntegerField(null=True,blank=True)
+      biaya_perawat = models.IntegerField(null=True,blank=True)
+      biaya_kso = models.IntegerField(null=True,blank=True)
+      biaya_manajemen = models.IntegerField(null=True,blank=True)
+      biaya_rawat = models.IntegerField(null=True,blank=True)
       class Meta:
             verbose_name="Perawatan Rawat Jalan"
             verbose_name_plural = "Perawatan Rawat Jalan"
