@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import perawatan_rawat_jalan,Agama,GolonganDarah,JenisKelamin,StatusNikah,JenisPekerjaan, StrataPendidikan, Asuransi, Poliklinik,Bangsal,kategori_perawatan,Unit,SatuanBarang,KategoriBarang,Perusahaan,Barang,Ruangan,RuanganUnit
+from .models import perawatan_rawat_jalan,Agama,GolonganDarah,JenisKelamin,StatusNikah,JenisPekerjaan, StrataPendidikan, Asuransi, Poliklinik,Bangsal,kategori_perawatan,Unit,SatuanBarang,KategoriBarang,Perusahaan,Barang,Ruangan,RuanganUnit,Penyakit,Prosedur
 # Register your models here.
 
 #===========================================================================================================================
@@ -12,6 +12,8 @@ admin.site.register(StrataPendidikan)
 admin.site.register(Asuransi)
 admin.site.register(kategori_perawatan)
 admin.site.register(perawatan_rawat_jalan)
+admin.site.register(Penyakit)
+admin.site.register(Prosedur)
 
 #===========================================================================================================================
 class RuanganUnitAdmin(admin.ModelAdmin):

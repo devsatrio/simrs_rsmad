@@ -5,6 +5,11 @@ class JenisBarang(models.TextChoices):
       logistik_rt = 'Logistik RT', 'Logistik RT'
       logistik_gizi = 'Logistik Gizi', 'Logistik Gizi'
 
+# =========================================================================================================
+class JenisPenyakit(models.TextChoices):
+      tidak_menular = 'Tidak Menular', 'Tidak Menular'
+      menular = 'Menular', 'Menular'
+
 #===========================================================================================================================
 class Agama(models.Model):
     name=models.CharField(max_length=30)
@@ -199,5 +204,29 @@ class Perusahaan(models.Model):
       class Meta:
             verbose_name="Perusahaan"
             verbose_name_plural = "Perusahaan"
+      def __str__(self):
+            return self.name
+
+#===========================================================================================================================
+class Penyakit(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      nama=models.CharField(max_length=50)
+      ciri_ciri = models.TextField(max_length=300,blank=True,null=True)
+      keterangan = models.TextField(max_length=300,blank=True,null=True)
+      status = models.CharField(max_length=50,choices=JenisPenyakit.choices,default=JenisPenyakit.tidak_menular)
+      class Meta:
+            verbose_name="Penyakit"
+            verbose_name_plural = "Penyakit"
+      def __str__(self):
+            return self.name
+
+#===========================================================================================================================
+class Prosedur(models.Model):
+      kode=models.CharField(max_length=30,unique=True)
+      nama=models.CharField(max_length=50)
+      keterangan = models.TextField(max_length=300,blank=True,null=True)
+      class Meta:
+            verbose_name="Prosedur"
+            verbose_name_plural = "Prosedur"
       def __str__(self):
             return self.name
