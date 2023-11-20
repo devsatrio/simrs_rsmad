@@ -1,6 +1,5 @@
 from django.contrib import admin
 from .models import perawatan_rawat_jalan,Agama,GolonganDarah,JenisKelamin,StatusNikah,JenisPekerjaan, StrataPendidikan, Asuransi, Poliklinik,Bangsal,kategori_perawatan,Unit,SatuanBarang,KategoriBarang,Perusahaan,Barang,Ruangan,RuanganUnit
-import locale
 # Register your models here.
 
 #===========================================================================================================================
@@ -29,14 +28,13 @@ admin.site.register(Ruangan,RuanganAdmin)
 #===========================================================================================================================
 class BarangAdmin(admin.ModelAdmin):
     list_display = ["kode","name","kategori_barang","stok","satuan_barang","harga_beli_rupiah","harga_beli_terakhir_rupiah","jenis_barang","status"]
+    
     def harga_beli_rupiah(self, obj):
-        locale.setlocale(locale.LC_NUMERIC, 'IND')
-        rupiah = locale.format("%.*f", (2, obj.harga_beli), True)
+        rupiah = "{:0,.0f}".format(float(obj.harga_beli))
         return "Rp. {}".format(rupiah)
     
     def harga_beli_terakhir_rupiah(self, obj):
-        locale.setlocale(locale.LC_NUMERIC, 'IND')
-        rupiah = locale.format("%.*f", (2, obj.harga_beli_terakhir), True)
+        rupiah = "{:0,.0f}".format(float(obj.harga_beli_terakhir))
         return "Rp. {}".format(rupiah)
 
 admin.site.register(Barang,BarangAdmin)
