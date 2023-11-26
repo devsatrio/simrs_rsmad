@@ -149,6 +149,7 @@ class perawatan_rawat_jalan(models.Model):
       biaya_kso = models.IntegerField(null=True,blank=True)
       biaya_manajemen = models.IntegerField(null=True,blank=True)
       biaya_rawat = models.IntegerField(null=True,blank=True)
+      total_biaya = models.IntegerField(null=True,blank=True)
       class Meta:
             verbose_name="Perawatan Rawat Jalan"
             verbose_name_plural = "Perawatan Rawat Jalan"
@@ -218,7 +219,7 @@ class Penyakit(models.Model):
             verbose_name="Penyakit"
             verbose_name_plural = "Penyakit"
       def __str__(self):
-            return self.name
+            return self.kode+' - '+self.nama
 
 #===========================================================================================================================
 class Prosedur(models.Model):
@@ -229,4 +230,4 @@ class Prosedur(models.Model):
             verbose_name="Prosedur"
             verbose_name_plural = "Prosedur"
       def __str__(self):
-            return self.name
+            return self.kode+' - '+self.nama

@@ -42,8 +42,7 @@ def GenerateNomorRawat():
 class registrasi(models.Model):
     no_rawat=models.CharField(max_length=50,blank=True,null=True,editable=True)
     no_registrasi=models.CharField(max_length = 10,blank=True,null=True,editable=True)
-    tgl_registrasi=models.DateField(null=True,default=datetime.now,blank=True)
-    jam_registrasi = models.TimeField(null=True,default=datetime.now,blank=True)
+    tgl_registrasi=models.DateTimeField(null=True,default=datetime.now,blank=True)
     dokter = models.ForeignKey(Karyawan,on_delete=models.RESTRICT)
     pasien = models.ForeignKey(pasien,on_delete=models.RESTRICT,to_field="no_rkm_medis")
     poliklinik = models.ForeignKey(Poliklinik,on_delete=models.RESTRICT)
