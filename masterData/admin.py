@@ -12,8 +12,13 @@ admin.site.register(StrataPendidikan)
 admin.site.register(Asuransi)
 admin.site.register(kategori_perawatan)
 admin.site.register(perawatan_rawat_jalan)
-admin.site.register(Penyakit)
 admin.site.register(Prosedur)
+
+#===========================================================================================================================
+class PenyakitAdmin(admin.ModelAdmin):
+    list_display = ["kode","nama","ciri_ciri","status"]
+
+admin.site.register(Penyakit,PenyakitAdmin)
 
 #===========================================================================================================================
 class RuanganUnitAdmin(admin.ModelAdmin):
